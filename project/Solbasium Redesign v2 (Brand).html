@@ -1,0 +1,1766 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Solbasium — Relentless Innovation</title>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700,800&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* —— Solbasium brand colors (per Brand Guidelines v1 · Sept 2023) */
+    --orange:#F04A20;       /* Primary */
+    --purple:#66379D;       /* Primary */
+    --ink:#363533;          /* Dark Gray — primary text */
+    --cream:#E5D3CE;        /* Dust Storm — primary background */
+    --gray:#EEEEEE;         /* Bright Gray — secondary background */
+    --teal:#2EBEB2;         /* Maximum Blue Green */
+    --infrared:#FF4776;     /* Infra Red */
+
+    /* derived */
+    --bone:#E5D3CE;
+    --bone-2:#DBC4BE;
+    --bone-3:#CFB6AF;
+    --ink-2:#5A5856;
+    --ink-3:#8A857F;
+    --white:#FAF6F2;
+    --line:#3635331a;
+    --line-2:#36353316;
+    --oxblood:#F04A20;      /* legacy var → brand orange */
+    --oxblood-deep:#B5391A;
+    --ember:#F04A20;
+    --glow:#F04A20;
+
+    --serif:"DM Serif Display", "Butler", "Times New Roman", serif;
+    --sans:"Switzer", "Neue Haas Grotesk", "Helvetica Neue", Arial, sans-serif;
+    --mono:"JetBrains Mono", ui-monospace, monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--cream);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  body{font-size:15px;line-height:1.5;font-weight:400;letter-spacing:.01em;overflow-x:hidden}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+  /* HEADLINE SYSTEM (per brand guidelines)
+     - Sans-serif primary, ALL CAPS, tracked at 25 (≈0.025em)
+     - .it = decorative serif italic accent (the "Butler" moments) */
+  h1,h2,h3,h4,h5,h6{
+    font-family:var(--sans);font-weight:700;text-transform:uppercase;
+    letter-spacing:.005em;line-height:.95;color:var(--ink)
+  }
+  h1{font-weight:800;letter-spacing:-.005em}
+  h2{font-weight:700}
+  .it{
+    font-family:var(--serif);font-style:italic;font-weight:400;
+    text-transform:none;letter-spacing:-.01em;color:var(--orange)
+  }
+
+  /* utility */
+  .wrap{max-width:1440px;margin:0 auto;padding:0 40px}
+  .wrap-wide{max-width:1640px;margin:0 auto;padding:0 40px}
+  .eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2);font-weight:500}
+  .rule{height:1px;background:var(--ink);opacity:.12;width:100%}
+  .serif{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;text-transform:none}
+  .num{font-family:var(--mono);font-weight:400;font-size:11px;letter-spacing:.08em;color:var(--ink-3)}
+
+  /* ─── top announcement strip ─── */
+  .announce{
+    background:var(--ink);color:var(--cream);font-family:var(--sans);font-size:11px;font-weight:500;
+    letter-spacing:.2em;text-transform:uppercase;padding:10px 40px;
+    display:flex;align-items:center;justify-content:space-between;gap:24px
+  }
+  .announce .marq{flex:1;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  .announce .marq-track{display:flex;gap:64px;white-space:nowrap;animation:marq 40s linear infinite;width:max-content}
+  .announce .marq-track span{opacity:.85}
+  .announce .marq-track .dot{opacity:.6;color:var(--orange)}
+  @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .announce .right{display:flex;gap:18px;align-items:center;opacity:.8}
+
+  /* ─── nav ─── */
+  nav.top{
+    position:sticky;top:0;z-index:50;background:var(--white);
+    border-bottom:1px solid var(--line-2)
+  }
+  nav.top .row{
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+    padding:18px 40px;gap:24px
+  }
+  nav.top .links{display:flex;gap:28px;font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;align-items:center;flex-wrap:nowrap}
+  nav.top .links a{position:relative;padding:6px 0;white-space:nowrap}
+  nav.top .links a:hover{color:var(--purple)}
+  nav.top .links a.has-caret::after{content:"";display:inline-block;width:5px;height:5px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px);margin-left:8px;opacity:.5}
+  nav.top .links a.talk{
+    display:inline-flex;align-items:center;gap:8px;color:var(--white);
+    background:var(--orange);padding:9px 14px;border-radius:99px;white-space:nowrap;
+    transition:background .2s ease
+  }
+  nav.top .links a.talk:hover{background:var(--ink);color:var(--white)}
+  nav.top .links a.talk .livedot{width:6px;height:6px;border-radius:50%;background:#fff;position:relative}
+  nav.top .links a.talk .livedot::after{content:"";position:absolute;inset:-3px;border-radius:50%;background:#fff;opacity:.4;animation:pulse 1.8s ease-out infinite}
+  @keyframes pulse{0%{transform:scale(.6);opacity:.4}100%{transform:scale(1.8);opacity:0}}
+  nav.top .logo{font-family:var(--sans);font-weight:800;font-size:22px;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;gap:10px}
+  nav.top .logo .mark{width:22px;height:22px;display:inline-block;position:relative}
+  nav.top .logo .mark::before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 35% 35%, #F04A20 0%, #66379D 80%, transparent 95%)}
+  nav.top .logo .mark::after{content:"";position:absolute;inset:2px;border-radius:50%;background:radial-gradient(circle at 60% 60%, #FFAA80 0%, transparent 55%);mix-blend-mode:screen}
+  nav.top .right{display:flex;gap:24px;justify-content:flex-end;font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;align-items:center}
+  nav.top .icon-btn{display:inline-flex;align-items:center;gap:8px}
+  .cart-badge{display:inline-grid;place-items:center;min-width:18px;height:18px;border-radius:99px;background:var(--orange);color:var(--white);font-size:10px;font-family:var(--mono);padding:0 5px}
+
+  /* ─── MEGA MENU ─── */
+  .mega{
+    position:absolute;left:0;right:0;top:100%;background:var(--white);
+    border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);
+    opacity:0;visibility:hidden;transform:translateY(-8px);
+    transition:opacity .2s ease,transform .2s ease,visibility 0s .2s;
+    box-shadow:0 24px 40px -20px rgba(0,0,0,.08);z-index:49
+  }
+  .mega.open{opacity:1;visibility:visible;transform:translateY(0);transition:opacity .25s ease,transform .25s ease,visibility 0s 0s}
+  .mega-inner{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;
+    padding:40px 56px 48px;max-width:1640px;margin:0 auto;align-items:start
+  }
+  .mega .col-lists{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+  .mega-h{font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);margin-bottom:18px}
+  .mega ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .mega ul a{font-family:var(--sans);font-size:15px;font-weight:500;letter-spacing:.005em;color:var(--ink);transition:color .2s ease;text-transform:none}
+  .mega ul a:hover{color:var(--orange)}
+  .mega .feat{display:flex;flex-direction:column;gap:12px;text-decoration:none;color:inherit}
+  .mega .feat-img{aspect-ratio:1/1;overflow:hidden;border-radius:2px;background:var(--gray);position:relative}
+  .mega .feat-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+  .mega .feat:hover .feat-img img{transform:scale(1.03)}
+  .mega .feat-name{font-family:var(--sans);font-size:14px;font-weight:600;letter-spacing:.005em;color:var(--ink);text-align:center;text-transform:none}
+
+  /* ─── HERO (full-bleed cinematic) ─── */
+  .hero{
+    position:relative;width:100%;height:calc(100vh - 110px);min-height:720px;max-height:880px;
+    overflow:hidden;background:#1A1018;color:#fff;
+    border-bottom:1px solid var(--line-2)
+  }
+  .hero .photo{position:absolute;inset:0;overflow:hidden}
+  .hero .photo img{width:100%;height:100%;object-fit:cover;object-position:center right;display:block}
+  .hero .photo .scrim{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(90deg, #0008 0%, #0004 30%, transparent 55%),
+      linear-gradient(180deg, transparent 75%, #0006 100%);
+    pointer-events:none
+  }
+  .hero .photo .grain{position:absolute;inset:0;background:#fff;filter:url(#grain);opacity:.08;mix-blend-mode:overlay;pointer-events:none}
+  .hero .overlay{
+    position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between;
+    padding:40px 56px
+  }
+  .hero .toprow{display:flex;justify-content:space-between;align-items:center;gap:24px;color:#FFFFFFBB}
+  .hero .toprow .crumb{display:flex;align-items:center;gap:14px}
+  .hero .toprow .crumb .dot{width:6px;height:6px;border-radius:50%;background:var(--orange);box-shadow:0 0 14px var(--orange)}
+  .hero .toprow .crumb .eyebrow{color:#FFFFFFCC}
+  .hero .toprow .right{display:flex;gap:20px;align-items:center;font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:#FFFFFFAA}
+  .hero .midblock{position:absolute;left:56px;bottom:170px;max-width:660px;z-index:2}
+  .hero h1{
+    font-family:var(--sans);font-weight:800;font-size:clamp(64px,8.4vw,128px);
+    line-height:.9;letter-spacing:-.02em;color:#fff;text-wrap:balance;
+    text-transform:uppercase;text-shadow:0 2px 24px rgba(0,0,0,.35)
+  }
+  .hero h1 .it{color:#fff;text-transform:none;font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.015em;opacity:.95}
+  .hero h1 .it.orange{color:var(--orange);opacity:1}
+  .hero .lede{
+    margin-top:24px;max-width:460px;font-size:17px;line-height:1.55;
+    color:#fff;letter-spacing:.005em;text-shadow:0 1px 14px rgba(0,0,0,.45)
+  }
+  .hero .lede strong{color:#fff;font-weight:500}
+  .hero .actions{display:flex;align-items:center;gap:14px;margin-top:32px}
+  .hero .actions .btn.primary{background:var(--orange);color:#fff}
+  .hero .actions .btn.primary:hover{background:var(--white);color:var(--ink)}
+  .hero .actions .btn.glass{background:transparent;border:1px solid #FFFFFF66;color:#fff}
+  .hero .actions .btn.glass:hover{background:#fff;color:var(--ink);border-color:#fff}
+  .hero .botrow{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;color:#F2ECE0aa;position:relative;z-index:2}
+  .hero .botrow .meta{display:flex;gap:48px}
+  .hero .botrow .meta .col{display:flex;flex-direction:column;gap:4px}
+  .hero .botrow .meta .col span{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#F2ECE066}
+  .hero .botrow .meta .col b{font-family:var(--serif);font-style:italic;font-weight:400;font-size:22px;color:#fff}
+  .hero .scrolltip{display:flex;flex-direction:column;align-items:center;gap:10px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase}
+  .hero .scrolltip .line{width:1px;height:36px;background:linear-gradient(180deg, transparent, #F2ECE0aa)}
+  .hero .controls{display:flex;gap:8px;align-items:center}
+  .hero .controls .arr{width:38px;height:38px;border:1px solid #F2ECE055;border-radius:99px;display:grid;place-items:center;color:#F2ECE0;cursor:pointer;transition:all .2s ease}
+  .hero .controls .arr:hover{background:#F2ECE0;color:#16110D;border-color:#F2ECE0}
+  .hero .controls .pip{width:24px;height:2px;background:#F2ECE055}
+  .hero .controls .pip.on{background:#F2ECE0}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;padding:16px 24px;border-radius:99px;
+    font-size:12px;letter-spacing:.14em;text-transform:uppercase;transition:all .25s ease;font-weight:600
+  }
+  .btn .arrow{width:14px;height:10px;position:relative}
+  .btn .arrow::before{content:"";position:absolute;top:50%;left:0;width:100%;height:1px;background:currentColor}
+  .btn .arrow::after{content:"";position:absolute;top:50%;right:0;width:6px;height:6px;border-right:1px solid currentColor;border-top:1px solid currentColor;transform:translateY(-50%) rotate(45deg)}
+  .btn.primary{background:var(--orange);color:var(--white)}
+  .btn.primary:hover{background:var(--purple)}
+  .btn.ghost{border:1px solid var(--ink);color:var(--ink)}
+  .btn.ghost:hover{background:var(--ink);color:var(--cream)}
+  .btn.light{background:var(--cream);color:var(--ink)}
+  .btn.dark{background:var(--ink);color:var(--cream)}
+  .btn.dark:hover{background:var(--orange)}
+
+  /* ─── BENEFITS ROW (under hero) ─── */
+  .benefits{
+    background:var(--ink);color:#fff;padding:0;
+    border-bottom:1px solid var(--line-2)
+  }
+  .benefits .row{
+    display:grid;grid-template-columns:repeat(6,1fr);gap:0;
+    border-left:1px solid #FFFFFF18
+  }
+  .benefits .cell{
+    padding:32px 24px;border-right:1px solid #FFFFFF18;
+    display:flex;flex-direction:column;gap:8px;
+    transition:background .25s ease;cursor:default
+  }
+  .benefits .cell:hover{background:#3F2A57}
+  .benefits .cell .k{font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--orange)}
+  .benefits .cell .v{font-family:var(--sans);font-weight:700;font-size:22px;line-height:1;letter-spacing:-.005em;text-transform:uppercase;color:#fff}
+  .benefits .cell .d{font-size:13px;color:#FFFFFFAA;line-height:1.45;margin-top:4px}
+
+  /* ─── press / In the Spotlight ─── */
+  .press{
+    border-bottom:1px solid var(--line-2);padding:72px 0 64px;background:var(--white)
+  }
+  .press .head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:48px}
+  .press .head .label{font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2)}
+  .press .head h3{font-family:var(--sans);font-weight:800;font-size:clamp(36px,4.4vw,64px);line-height:.95;letter-spacing:-.01em;text-transform:uppercase}
+  .press .head h3 .it{color:var(--purple)}
+  .press .marks{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2)}
+  .press .quote{padding:36px 28px 32px;border-right:1px solid var(--line-2);display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px;min-height:200px;justify-content:space-between}
+  .press .quote:last-child{border-right:0}
+  .press .quote .logo{font-family:var(--serif);font-weight:400;line-height:1;color:var(--ink);font-size:34px;letter-spacing:-.02em;display:flex;align-items:baseline;gap:4px}
+  .press .quote .logo.sans{font-family:var(--sans);font-weight:800;text-transform:uppercase;font-size:24px;letter-spacing:.02em}
+  .press .quote .logo.compressed{font-family:var(--sans);font-weight:800;text-transform:uppercase;font-size:21px;letter-spacing:.04em;font-stretch:condensed}
+  .press .quote .logo .it{color:var(--ink);font-style:italic;font-family:var(--serif);font-weight:400}
+  .press .quote .logo .reg{font-size:10px;vertical-align:super;font-family:var(--sans);font-weight:400;letter-spacing:0;color:var(--ink-3)}
+  .press .quote .q{font-family:var(--sans);font-size:12.5px;line-height:1.45;color:var(--ink-2);max-width:30ch;letter-spacing:.005em}
+  .press .quote .q::before{content:"“";color:var(--purple);font-family:var(--serif);font-size:18px;font-style:italic;line-height:0;vertical-align:-2px;margin-right:1px}
+  .press .quote .q::after{content:"”";color:var(--purple);font-family:var(--serif);font-size:18px;font-style:italic;line-height:0;vertical-align:-2px;margin-left:1px}
+  .press .quote .accolade{font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3)}
+
+  /* ─── HOW IT WORKS ─── */
+  .how{padding:140px 0 120px;border-bottom:1px solid var(--line-2);background:var(--ink);color:#fff;position:relative;overflow:hidden}
+  .how::before{content:"";position:absolute;inset:0;background:radial-gradient(45% 60% at 75% 50%, var(--purple) 0%, transparent 60%);opacity:.45;pointer-events:none}
+  .how .grid{display:grid;grid-template-columns:1fr 1.05fr;gap:80px;align-items:center;position:relative;z-index:2}
+  .how .eyebrow{color:#FFFFFFAA}
+  .how h2{font-family:var(--sans);font-weight:800;font-size:clamp(40px,5.4vw,80px);line-height:.95;letter-spacing:-.01em;text-transform:uppercase;color:#fff;margin-top:18px}
+  .how h2 .it{color:var(--orange);text-transform:none;font-family:var(--serif);font-style:italic;font-weight:400}
+  .how .lede{font-size:17px;line-height:1.55;color:#FFFFFFCC;max-width:48ch;margin-top:24px;letter-spacing:.005em}
+  .how .steps{display:flex;flex-direction:column;gap:0;margin-top:40px;border-top:1px solid #FFFFFF22}
+  .how .step{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:start;padding:22px 0;border-bottom:1px solid #FFFFFF22}
+  .how .step .n{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.18em;color:var(--orange);padding-top:4px;min-width:28px}
+  .how .step .body h4{font-family:var(--sans);font-weight:700;font-size:20px;line-height:1.1;text-transform:uppercase;letter-spacing:-.005em;color:#fff}
+  .how .step .body p{font-size:14px;line-height:1.55;color:#FFFFFFAA;margin-top:6px;max-width:46ch}
+  .how .step .wave{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#FFFFFF77;padding-top:6px;text-align:right;min-width:80px}
+
+  /* Anatomical illustration of light penetration */
+  .how .anatomy{
+    position:relative;aspect-ratio:1/1.05;border-radius:2px;overflow:hidden;
+    background:radial-gradient(80% 80% at 50% 50%, #1F1D1B 0%, #100E0D 100%);
+    border:1px solid #FFFFFF14
+  }
+  .how .anatomy .stack{position:absolute;inset:8% 8%;display:flex;flex-direction:column;gap:0;border-radius:4px;overflow:hidden}
+  .how .anatomy .layer{flex:1;position:relative;display:flex;align-items:center;padding:0 18px;color:#fff;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
+  .how .anatomy .layer.epi{background:linear-gradient(180deg,#F4D9C6,#E9B89A);color:#3a1f12}
+  .how .anatomy .layer.derm{background:linear-gradient(180deg,#D49580,#B36A52);color:#fff}
+  .how .anatomy .layer.sub{background:linear-gradient(180deg,#7A3D33,#4E1F19);color:#fff}
+  .how .anatomy .layer.muscle{background:linear-gradient(180deg,#3C1410,#1F0A08);color:#fff}
+  .how .anatomy .layer .nm{margin-left:auto;font-size:10px;letter-spacing:.1em;opacity:.7}
+  .how .anatomy .beam{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
+  .how .anatomy .beam::before{
+    content:"";position:absolute;left:50%;top:0;width:60%;height:100%;transform:translateX(-50%);
+    background:linear-gradient(180deg, #FF7050BB 0%, #FF3A18 25%, #B5141A 50%, #6B1A1F77 75%, transparent 95%);
+    mix-blend-mode:screen;filter:blur(1px);
+    clip-path:polygon(40% 0, 60% 0, 75% 100%, 25% 100%)
+  }
+  .how .anatomy .label{
+    position:absolute;left:18px;top:18px;font-family:var(--mono);font-size:10px;
+    font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:#FFFFFF99;z-index:3
+  }
+  .how .anatomy .arrow{position:absolute;right:18px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);writing-mode:vertical-rl;z-index:3}
+
+  /* ─── "ONE DEVICE, FOUR WAYS" (centered product, quadrant benefits) ─── */
+  .four{padding:140px 0;border-bottom:1px solid var(--line-2);background:var(--white)}
+  .four .head{text-align:center;max-width:780px;margin:0 auto 56px}
+  .four .head .eyebrow{display:inline-block}
+  .four .head h2{font-family:var(--sans);font-weight:800;font-size:clamp(40px,5.6vw,88px);line-height:.95;letter-spacing:-.01em;text-transform:uppercase;margin-top:18px}
+  .four .head h2 .it{color:var(--purple)}
+  .four .head p{margin-top:18px;color:var(--ink-2);font-size:17px;line-height:1.55;max-width:54ch;margin-left:auto;margin-right:auto}
+
+  .four .stage{
+    position:relative;display:grid;
+    grid-template-columns:1fr 420px 1fr;grid-template-rows:1fr 1fr;
+    gap:0;align-items:center;
+    max-width:1280px;margin:0 auto
+  }
+  .four .stage .center{
+    grid-column:2;grid-row:1 / span 2;
+    position:relative;aspect-ratio:1/1;
+    background:radial-gradient(60% 60% at 50% 50%, #F7F4F0 0%, #ECE5DC 100%);
+    border-radius:2px;overflow:hidden;display:grid;place-items:center
+  }
+  .four .stage .center img{width:78%;height:auto;object-fit:contain;filter:drop-shadow(0 30px 60px rgba(0,0,0,.18))}
+  .four .stage .center::after{content:"";position:absolute;inset:0;background:radial-gradient(80% 80% at 50% 100%, var(--purple) 0%, transparent 60%);opacity:.08;pointer-events:none}
+
+  .four .q{
+    padding:24px 36px;display:flex;flex-direction:column;gap:10px;
+    position:relative;align-self:stretch;justify-content:center
+  }
+  .four .q.tl{grid-column:1;grid-row:1;text-align:right;align-items:flex-end}
+  .four .q.tr{grid-column:3;grid-row:1;text-align:left;align-items:flex-start}
+  .four .q.bl{grid-column:1;grid-row:2;text-align:right;align-items:flex-end}
+  .four .q.br{grid-column:3;grid-row:2;text-align:left;align-items:flex-start}
+  .four .q .icon{width:36px;height:36px;display:grid;place-items:center;color:var(--purple)}
+  .four .q .icon svg{width:100%;height:100%;stroke-width:1.2}
+  .four .q h4{font-family:var(--sans);font-weight:700;font-size:24px;line-height:1.05;letter-spacing:-.005em;text-transform:uppercase;color:var(--ink)}
+  .four .q h4 .it{color:var(--purple);font-family:var(--serif);font-style:italic;font-weight:400;text-transform:none;letter-spacing:-.015em}
+  .four .q p{font-size:14px;line-height:1.55;color:var(--ink-2);max-width:28ch;letter-spacing:.005em}
+
+  /* connecting lines between quadrants and the center image */
+  .four .stage::before,.four .stage::after{content:"";position:absolute;background:var(--line-2);pointer-events:none;z-index:0}
+  .four .stage::before{left:25%;right:25%;top:50%;height:1px}
+  .four .stage::after{left:50%;top:14%;bottom:14%;width:1px}
+
+  /* ─── featured product (full-bleed cinematic) ─── */
+  .feature{
+    position:relative;width:100%;height:88vh;min-height:680px;max-height:920px;
+    overflow:hidden;background:#0F0608;color:#fff;
+    border-bottom:1px solid var(--line-2)
+  }
+  .feature img.full{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:1}
+  .feature .vignette{position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:
+      linear-gradient(180deg, #0F060888 0%, transparent 25%, transparent 55%, #0F0608 100%),
+      linear-gradient(90deg, transparent 0%, transparent 55%, #0F060899 100%)}
+  .feature .grain{position:absolute;inset:0;z-index:2;background:#fff;filter:url(#grain);opacity:.12;mix-blend-mode:overlay;pointer-events:none}
+  .feature .overlay{position:relative;z-index:3;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:40px 56px}
+  .feature .toprow{display:flex;justify-content:space-between;align-items:center;color:#FFFFFFAA;font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase}
+  .feature .toprow .crumb{display:flex;align-items:center;gap:14px}
+  .feature .toprow .crumb .dot{width:6px;height:6px;border-radius:50%;background:var(--orange)}
+  .feature .midblock{max-width:760px}
+  .feature .midblock h2{
+    font-family:var(--sans);font-weight:800;font-size:clamp(64px,8.4vw,140px);
+    line-height:.88;letter-spacing:-.02em;color:#fff;text-transform:uppercase;
+    text-shadow:0 2px 24px rgba(0,0,0,.35)
+  }
+  .feature .midblock h2 .it{color:var(--orange);text-transform:none;font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.015em}
+  .feature .midblock .tag{margin-top:18px;font-family:var(--serif);font-style:italic;font-size:22px;color:#fff;opacity:.92;text-shadow:0 1px 12px rgba(0,0,0,.4);max-width:50ch;line-height:1.3}
+  .feature .actions{display:flex;gap:14px;align-items:center;margin-top:32px}
+  .feature .actions .btn.primary{background:var(--orange);color:#fff}
+  .feature .actions .btn.primary:hover{background:#fff;color:var(--ink)}
+  .feature .actions .btn.glass{background:transparent;border:1px solid #FFFFFF66;color:#fff}
+  .feature .actions .btn.glass:hover{background:#fff;color:var(--ink);border-color:#fff}
+  .feature .stage .right-pane{
+    position:relative;background:#000;overflow:hidden;border-left:1px solid #F2ECE015
+  }
+  .feature .stage .right-pane img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .feature .stage .right-pane::after{content:"";position:absolute;inset:0;background:#fff;filter:url(#grain);opacity:.18;mix-blend-mode:overlay;pointer-events:none;z-index:6}
+  .feature .stage .right-pane::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 80% at 60% 50%, transparent 55%, #0000004d 100%);z-index:5;pointer-events:none}
+  .bed-product{
+    position:absolute;inset:0;
+    background:
+      radial-gradient(60% 50% at 70% 55%, #FF3220 0%, #8C1218 40%, #2A0608 70%, #060202 100%);
+  }
+  .bed-product::before{
+    content:"";position:absolute;inset:0;
+    background-image:repeating-linear-gradient(0deg, rgba(255,235,225,0) 0 9px, rgba(255,235,225,.55) 9px 10px);
+    mask-image:radial-gradient(50% 60% at 70% 55%, #000 0%, transparent 80%);
+    mix-blend-mode:screen
+  }
+  .bed-product::after{
+    content:"";position:absolute;left:20%;bottom:8%;width:60%;height:14%;
+    background:#080404;border-radius:6px 6px 2px 2px;
+    box-shadow:0 -2px 0 #1a0808, 0 -10px 20px #ff3220aa
+  }
+  .feature .stage .right-pane .pin{
+    position:absolute;border:1px solid #F2ECE0aa;border-radius:99px;width:10px;height:10px;
+    backdrop-filter:blur(2px)
+  }
+  .feature .stage .right-pane .pin.a{left:32%;top:38%}
+  .feature .stage .right-pane .pin.a::after{content:"01 — Tri-wavelength array";position:absolute;left:18px;top:-4px;white-space:nowrap;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#F2ECE0;background:#0a0606cc;padding:5px 10px;border-radius:99px;border:1px solid #F2ECE022}
+  .feature .stage .right-pane .pin.b{left:62%;top:62%}
+  .feature .stage .right-pane .pin.b::after{content:"02 — Aerospace alloy frame";position:absolute;left:18px;top:-4px;white-space:nowrap;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#F2ECE0;background:#0a0606cc;padding:5px 10px;border-radius:99px;border:1px solid #F2ECE022}
+  .feature .stage .corner{position:absolute;right:24px;top:24px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#F2ECE066;display:flex;gap:10px;align-items:center}
+  .feature .stage .corner .live{width:6px;height:6px;border-radius:50%;background:#E64A2E;box-shadow:0 0 10px #E64A2E}
+
+  /* ─── ticker ─── */
+  .ticker{
+    border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);
+    overflow:hidden;background:var(--white)
+  }
+  .ticker .track{
+    display:flex;gap:48px;white-space:nowrap;width:max-content;
+    animation:marq 60s linear infinite;padding:34px 0;align-items:center
+  }
+  .ticker .track span{font-family:var(--sans);font-weight:800;font-size:54px;line-height:1;letter-spacing:-.01em;color:var(--ink);text-transform:uppercase}
+  .ticker .track .it{font-family:var(--serif);font-style:italic;color:var(--purple);font-weight:400;text-transform:none;letter-spacing:-.015em}
+  .ticker .track .star{display:inline-block;width:14px;height:14px;background:var(--orange);border-radius:50%}
+
+  /* ─── trio: collection cards ─── */
+  .trio{padding:120px 0;border-bottom:1px solid var(--line-2);background:var(--gray)}
+  .trio .head{display:flex;align-items:end;justify-content:space-between;gap:40px;margin-bottom:48px}
+  .trio .head h3{font-family:var(--sans);font-weight:800;font-size:clamp(40px,5.2vw,72px);line-height:.95;letter-spacing:-.01em;text-transform:uppercase}
+  .trio .head h3 .it{color:var(--purple);text-transform:none;font-family:var(--serif);font-style:italic;font-weight:400}
+  .trio .head .right{max-width:36ch;color:var(--ink-2);font-size:15px;line-height:1.55;letter-spacing:.01em}
+  .trio .cards{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:24px}
+  .card{
+    position:relative;border-radius:2px;overflow:hidden;background:#1a0e0a;
+    color:var(--cream);min-height:560px;display:flex;flex-direction:column;justify-content:space-between;
+    padding:28px;transition:transform .4s ease
+  }
+  .card:hover{transform:translateY(-4px)}
+  .card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;position:relative;z-index:2}
+  .card .bottom{position:relative;z-index:2}
+  .card .name{font-family:var(--sans);font-weight:800;font-size:38px;line-height:.98;letter-spacing:-.01em;text-transform:uppercase}
+  .card .name .it{font-style:italic;color:#FFD9C2;text-transform:none;font-family:var(--serif);font-weight:400;letter-spacing:-.015em}
+  .card .sub{font-size:13px;color:#F2ECE0cc;margin-top:10px;max-width:30ch;line-height:1.5;letter-spacing:.01em}
+  .card .meta{display:flex;justify-content:space-between;align-items:center;margin-top:24px}
+  .card .meta .price{font-family:var(--sans);font-weight:700;font-size:18px;text-transform:uppercase;letter-spacing:.02em}
+  .card .meta .arr{width:42px;height:42px;border:1px solid #F2ECE044;border-radius:99px;display:grid;place-items:center;transition:all .25s ease}
+  .card:hover .meta .arr{background:var(--orange);color:#F2ECE0;border-color:var(--orange)}
+  .card .pill{font-family:var(--sans);font-weight:500;font-size:10px;letter-spacing:.18em;text-transform:uppercase;padding:6px 10px;border:1px solid #F2ECE044;border-radius:99px}
+  .card .pill.live::before{content:"";display:inline-block;width:5px;height:5px;background:var(--orange);border-radius:50%;margin-right:8px;vertical-align:middle;box-shadow:0 0 8px var(--orange)}
+
+  .card .scene{position:absolute;inset:0;z-index:1}
+  .card .scene img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .card .scene::after{content:"";position:absolute;inset:0;background:#fff;filter:url(#grain);opacity:.18;mix-blend-mode:overlay;pointer-events:none;z-index:6}
+  .card .scene::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg, #00000033 0%, transparent 28%, transparent 50%, #000000cc 100%);z-index:5;pointer-events:none}
+  /* Trio card scenes — solid dark background behind the product image */
+  .card.helios .scene{background:#1a0e0a}
+  .card.quantum .scene{background:#1a0e0a}
+  .card.optix .scene{background:#1a0e0a}
+
+  /* ─── science split ─── */
+  .science{padding:140px 0;border-bottom:1px solid var(--line-2);position:relative;background:var(--white)}
+  .science .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:start}
+  .science .lab{
+    position:relative;background:#0A0606;border-radius:2px;aspect-ratio:4/5;overflow:hidden
+  }
+  .science .lab img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .science .lab::after{content:"";position:absolute;inset:0;background:#fff;filter:url(#grain);opacity:.18;mix-blend-mode:overlay;pointer-events:none;z-index:6}
+  .science .lab::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg, transparent 60%, #00000066 100%);z-index:5;pointer-events:none}
+  .science .lab .glow{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:60%;aspect-ratio:1/2.4;
+    background:radial-gradient(50% 50% at 50% 50%, #FF6A4A 0%, #B5141A 35%, transparent 70%);
+    border-radius:99px;filter:blur(2px)
+  }
+  .science .lab .cyl{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:14%;aspect-ratio:1/3;
+    background:
+      repeating-linear-gradient(0deg,
+        rgba(255,235,225,0) 0 12px,
+        rgba(255,235,225,.6) 12px 16px),
+      linear-gradient(90deg, #1a0a0c, #2a1014, #1a0a0c);
+    border-radius:99px;border:1px solid #F2ECE022;
+    box-shadow:0 0 60px #ff3a2266
+  }
+  .science .lab .label{position:absolute;left:24px;bottom:20px;color:#F2ECE0aa;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;display:flex;gap:14px;align-items:center}
+  .science .lab .label .ln{width:24px;height:1px;background:#F2ECE055}
+  .science .lab .corner{position:absolute;right:20px;top:20px;color:#F2ECE066;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+
+  .science h3{font-family:var(--sans);font-weight:800;font-size:clamp(40px,5vw,72px);line-height:.95;letter-spacing:-.01em;margin-top:32px;text-transform:uppercase}
+  .science h3 .it{color:var(--orange);text-transform:none;font-family:var(--serif);font-style:italic;font-weight:400}
+  .science .lede{font-size:18px;color:var(--ink);line-height:1.55;margin-top:24px;max-width:48ch;letter-spacing:.01em}
+  .science .stats{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:48px;border-top:1px solid var(--line-2)}
+  .science .stat{padding:28px 0;border-bottom:1px solid var(--line-2);display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+  .science .stat:nth-child(odd){padding-right:28px;border-right:1px solid var(--line-2)}
+  .science .stat:nth-child(even){padding-left:28px}
+  .science .stat .v{font-family:var(--sans);font-weight:800;font-size:64px;line-height:1;letter-spacing:-.02em}
+  .science .stat .v .it{color:var(--orange);font-style:italic;font-family:var(--serif);font-weight:400;text-transform:none}
+  .science .stat .v sup{font-family:var(--mono);font-weight:400;font-size:12px;color:var(--ink-3);vertical-align:top;margin-left:4px}
+  .science .stat .k{font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2);max-width:18ch;text-align:right}
+  .science .cite{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:24px}
+
+  /* ─── editorial quote ─── */
+  .quote{padding:140px 0;border-bottom:1px solid var(--line-2);text-align:center;background:var(--white)}
+  .quote .q{
+    font-family:var(--serif);font-style:italic;font-size:clamp(36px,4.6vw,68px);line-height:1.1;letter-spacing:-.015em;
+    max-width:24ch;margin:0 auto;color:var(--ink)
+  }
+  .quote .q .hl{color:var(--orange)}
+  .quote .by{margin-top:36px;display:inline-flex;align-items:center;gap:14px;font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2)}
+  .quote .by .ln{width:30px;height:1px;background:var(--ink-3)}
+
+  /* ─── Loved By Experts ─── */
+  .loved{padding:140px 0;border-bottom:1px solid var(--line-2);background:var(--white)}
+  .loved .head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:56px}
+  .loved .head h3{font-family:var(--sans);font-weight:800;font-size:clamp(44px,5.6vw,84px);line-height:.95;letter-spacing:-.01em;text-transform:uppercase}
+  .loved .head h3 .it{color:var(--purple);text-transform:none;font-family:var(--serif);font-style:italic;font-weight:400}
+  .loved .head .nav{display:flex;gap:8px}
+  .loved .head .nav .arr{width:42px;height:42px;border:1px solid var(--ink);border-radius:99px;display:grid;place-items:center;color:var(--ink);cursor:pointer;transition:all .2s ease}
+  .loved .head .nav .arr:hover{background:var(--ink);color:var(--cream)}
+  .loved .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .exp{display:flex;flex-direction:column;gap:18px}
+  .exp .portrait{aspect-ratio:4/5;position:relative;overflow:hidden;background:var(--gray)}
+  .exp .portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%}
+  .exp .portrait::after{content:"";position:absolute;inset:0;background:#fff;filter:url(#grain);opacity:.18;mix-blend-mode:overlay;pointer-events:none;z-index:3}
+  .exp .portrait::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg, transparent 60%, #00000055 100%);z-index:2;pointer-events:none}
+  .exp .quote-mark{position:absolute;left:18px;top:14px;font-family:var(--serif);font-style:italic;font-size:64px;line-height:1;color:#FFF;opacity:.8;z-index:4}
+  .exp .role{font-family:var(--sans);font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
+  .exp .name{font-family:var(--sans);font-weight:700;font-size:22px;line-height:1.05;letter-spacing:-.005em;text-transform:uppercase}
+  .exp .name .it{color:var(--orange);text-transform:none;font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em}
+  .exp .q{font-family:var(--serif);font-style:italic;font-size:16px;line-height:1.45;color:var(--ink);max-width:34ch;letter-spacing:-.005em}
+
+  /* ─── contact / talk to expert ─── */
+  .contact{padding:140px 0;border-bottom:1px solid var(--line-2);position:relative;overflow:hidden;background:var(--purple);color:#fff}
+  .contact .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:start}
+  .contact .lhs .eyebrow{margin-bottom:18px;color:#FFFFFFAA}
+  .contact h3{font-family:var(--sans);font-weight:800;font-size:clamp(44px,5.6vw,84px);line-height:.95;letter-spacing:-.01em;text-transform:uppercase;color:#fff}
+  .contact h3 .it{color:var(--orange);text-transform:none;font-family:var(--serif);font-style:italic;font-weight:400}
+  .contact .lhs p{font-size:18px;color:#FFFFFFCC;line-height:1.55;margin-top:24px;max-width:46ch;letter-spacing:.005em}
+  .contact .lhs .channels{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px;border-top:1px solid #FFFFFF22;padding-top:32px}
+  .contact .ch{display:flex;flex-direction:column;gap:6px}
+  .contact .ch .lbl{font-family:var(--sans);font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#FFFFFF99}
+  .contact .ch .val{font-family:var(--sans);font-weight:700;font-size:20px;color:#fff;text-transform:uppercase;letter-spacing:-.005em}
+  .contact .ch .val.serif{font-family:var(--serif);font-style:italic;font-weight:400;text-transform:none;font-size:24px;letter-spacing:-.01em;color:#fff}
+  .contact .ch a{display:inline-flex;align-items:center;gap:8px;margin-top:6px;font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;opacity:.85}
+  .contact .ch a:hover{opacity:1;color:var(--orange)}
+
+  .contact .rhs{background:var(--ink);color:#fff;padding:48px;border-radius:2px;position:relative;overflow:hidden}
+  .contact .rhs::before{content:"";position:absolute;inset:auto -20% -30% -20%;height:60%;background:radial-gradient(60% 100% at 50% 100%, var(--orange) 0%, transparent 70%);opacity:.35;pointer-events:none}
+  .contact .rhs .eyebrow{color:#FFFFFF99;position:relative}
+  .contact .rhs h4{font-family:var(--sans);font-weight:800;font-size:38px;line-height:.98;letter-spacing:-.01em;margin-top:14px;position:relative;text-transform:uppercase;color:#fff}
+  .contact .rhs h4 .it{color:var(--orange);text-transform:none;font-family:var(--serif);font-style:italic;font-weight:400}
+  .contact form{margin-top:32px;display:flex;flex-direction:column;gap:14px;position:relative}
+  .contact form .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .contact form label{display:flex;flex-direction:column;gap:6px;font-family:var(--sans);font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:#FFFFFF99}
+  .contact form input,.contact form select,.contact form textarea{
+    background:transparent;border:0;border-bottom:1px solid #FFFFFF33;color:#fff;
+    font-family:var(--sans);font-size:15px;padding:10px 0;outline:none;width:100%;resize:none;letter-spacing:.01em
+  }
+  .contact form input:focus,.contact form select:focus,.contact form textarea:focus{border-bottom-color:var(--orange)}
+  .contact form input::placeholder,.contact form textarea::placeholder{color:#FFFFFF44}
+  .contact form select option{color:var(--ink);background:#fff}
+  .contact form .submit{margin-top:18px;display:flex;justify-content:space-between;align-items:center;gap:14px}
+  .contact form .submit .fine{font-family:var(--sans);font-size:10px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:#FFFFFF77;max-width:24ch;line-height:1.5}
+
+  /* ─── all products ─── */
+  .shop{padding:120px 0 80px;background:var(--gray)}
+  .shop .head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:48px;flex-wrap:wrap}
+  .shop .head .l{display:flex;flex-direction:column;gap:14px}
+  .shop .head h3{font-family:var(--sans);font-weight:800;font-size:clamp(48px,6vw,92px);line-height:.92;letter-spacing:-.015em;text-transform:uppercase}
+  .shop .head h3 .it{color:var(--purple);text-transform:none;font-family:var(--serif);font-style:italic;font-weight:400}
+  .shop .filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .chip{
+    font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+    padding:9px 14px;border-radius:99px;border:1px solid var(--ink);color:var(--ink);
+    background:transparent;transition:all .2s ease;cursor:pointer
+  }
+  .chip.on,.chip:hover{background:var(--ink);color:var(--cream)}
+  .shop .sort{font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);display:inline-flex;align-items:center;gap:8px}
+  .shop .sort::after{content:"";width:6px;height:6px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:rotate(45deg) translateY(-2px)}
+
+  .pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .pgrid.three{grid-template-columns:repeat(3,1fr)}
+  .pcard{position:relative;display:flex;flex-direction:column;gap:18px;text-decoration:none;color:inherit}
+  .pcard .img{
+    position:relative;aspect-ratio:4/5;background:var(--gray);overflow:hidden;border-radius:2px;
+    transition:transform .4s ease
+  }
+  .pcard .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+  .pcard:hover .img{transform:translateY(-4px)}
+  .pcard:hover .img img{transform:scale(1.04)}
+  .pcard .img .badge{position:absolute;left:14px;top:14px;font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:6px 10px;border-radius:99px;background:var(--ink);color:var(--cream);z-index:3}
+  .pcard .img .badge.alt{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+  .pcard .img .badge.sale{background:var(--orange);color:var(--white)}
+  .pcard .img .badge.purple{background:var(--purple);color:var(--white)}
+  .pcard .img .quick{position:absolute;right:14px;bottom:14px;font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:8px 12px;border-radius:99px;background:#FAF6F2e6;color:var(--ink);display:flex;align-items:center;gap:8px;opacity:0;transform:translateY(6px);transition:all .25s ease;z-index:3}
+  .pcard:hover .img .quick{opacity:1;transform:translateY(0)}
+  .pcard .meta{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .pcard .meta .name{font-family:var(--sans);font-weight:700;font-size:18px;letter-spacing:-.005em;text-transform:uppercase;line-height:1.15}
+  .pcard .meta .price{font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:.06em;color:var(--ink)}
+  .pcard .meta .price .was{color:var(--ink-3);text-decoration:line-through;margin-right:6px;font-weight:400}
+  .pcard .meta .price .sale{color:var(--orange);font-weight:700}
+  .pcard .desc{font-size:13px;color:var(--ink-3);line-height:1.5;max-width:34ch;letter-spacing:.01em}
+  .pcard .tags{display:flex;gap:6px;flex-wrap:wrap}
+  .pcard .tags span{font-family:var(--sans);font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);border:1px solid var(--line);padding:4px 8px;border-radius:99px}
+
+  /* product image scenes (photographic placeholders) */
+  .ps{position:absolute;inset:0;overflow:hidden}
+  /* grain + vignette overlays applied to each card via .pcard .img */
+  .pcard .img::after{content:"";position:absolute;inset:0;background:#fff;filter:url(#grain);opacity:.28;mix-blend-mode:overlay;pointer-events:none;z-index:5}
+  .pcard .img::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 80% at 50% 50%, transparent 55%, #00000033 100%);z-index:4;pointer-events:none}
+
+  .ps.nova{background:radial-gradient(120% 90% at 50% 25%, #f3e7d0 0%, #c9b48e 65%, #8c7551 100%)}
+  .ps.nova::after{content:"";position:absolute;left:10%;top:46%;width:80%;height:24%;background:linear-gradient(180deg,#1a1410 0%, #0c0907 100%);border-radius:4px;box-shadow:0 30px 60px -10px #16110066, inset 0 1px 0 #2a1814}
+  .ps.nova::before{content:"";position:absolute;left:14%;top:50%;width:72%;height:16%;background:radial-gradient(60% 100% at 50% 50%, #FF6A4A 0%, #B5141A 50%, transparent 80%);filter:blur(1px);z-index:1;border-radius:99px}
+
+  .ps.helios{background:radial-gradient(120% 90% at 50% 25%, #ead8b8 0%, #b0976b 65%, #6e5436 100%)}
+  .ps.helios::before{content:"";position:absolute;left:10%;top:34%;width:80%;height:40%;background:linear-gradient(180deg,#150806,#060201);border-radius:6px;box-shadow:0 40px 60px -10px #16110099}
+  .ps.helios::after{content:"";position:absolute;left:14%;top:40%;width:72%;height:28%;background:
+    radial-gradient(60% 70% at 50% 50%, #FF6A4A 0%, #8C1218 50%, #2A0608 90%);
+    box-shadow:inset 0 0 0 1px #ffeee533; border-radius:3px}
+
+  .ps.flex{background:radial-gradient(120% 90% at 50% 25%, #ecdcc1 0%, #ad9670 65%, #6a5638 100%)}
+  .ps.flex::after{content:"";position:absolute;left:18%;top:46%;width:64%;height:22%;background:linear-gradient(180deg,#1a1410 0%, #0a0604 100%);border-radius:4px;box-shadow:0 30px 50px -10px #16110099}
+  .ps.flex::before{content:"";position:absolute;left:42%;top:50%;width:16%;height:6%;background:#FF5A33;border-radius:3px;z-index:1;box-shadow:0 0 30px 8px #FF5A3399}
+
+  .ps.roller{background:radial-gradient(120% 90% at 50% 25%, #eedfc4 0%, #ad966c 65%, #685236 100%)}
+  .ps.roller::after{content:"";position:absolute;left:14%;top:40%;width:72%;height:20%;border-radius:99px;background:repeating-linear-gradient(90deg, #2a1c12 0 28px, #FF5A33 28px 38px, #2a1c12 38px 66px), linear-gradient(180deg, #2a1c12, #1a120a);box-shadow:0 20px 36px -10px #16110099, inset 0 0 0 1px #00000033}
+
+  .ps.pad{background:radial-gradient(120% 90% at 50% 25%, #ebdcc0 0%, #ad9670 65%, #6a5638 100%)}
+  .ps.pad::after{content:"";position:absolute;left:18%;top:42%;width:64%;height:24%;background:#140605;border-radius:16px;box-shadow:0 30px 50px -10px #16110099}
+  .ps.pad::before{content:"";position:absolute;left:24%;top:48%;width:52%;height:12%;background:
+    radial-gradient(circle at 10% 50%, #FF5A33 0 5px, transparent 6px),
+    radial-gradient(circle at 30% 50%, #FF5A33 0 5px, transparent 6px),
+    radial-gradient(circle at 50% 50%, #FF5A33 0 5px, transparent 6px),
+    radial-gradient(circle at 70% 50%, #FF5A33 0 5px, transparent 6px),
+    radial-gradient(circle at 90% 50%, #FF5A33 0 5px, transparent 6px);
+    z-index:1;filter:drop-shadow(0 0 8px #FF5A3388)}
+
+  .ps.panel{background:radial-gradient(120% 90% at 50% 22%, #ecdcc0 0%, #aa9268 65%, #645036 100%)}
+  .ps.panel::after{content:"";position:absolute;left:30%;top:14%;width:40%;height:72%;background:#100806;border-radius:4px;
+    box-shadow:0 0 80px #FF5A3344, 0 30px 60px -10px #16110099;
+    background-image:
+      radial-gradient(circle at 12% 8%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 50% 8%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 88% 8%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 12% 25%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 50% 25%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 88% 25%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 12% 42%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 50% 42%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 88% 42%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 12% 60%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 50% 60%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 88% 60%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 12% 78%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 50% 78%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 88% 78%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 12% 92%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 50% 92%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 88% 92%, #FF5A33 0 4px, transparent 5px),
+      linear-gradient(180deg,#180c08,#080302)
+  }
+
+  .ps.wand{background:radial-gradient(120% 90% at 50% 22%, #ebdcc0 0%, #aa9268 65%, #645036 100%)}
+  .ps.wand::after{content:"";position:absolute;left:46%;top:14%;width:8%;height:72%;background:linear-gradient(180deg,#1a1208,#0a0604);border-radius:99px;box-shadow:0 24px 40px -8px #16110099}
+  .ps.wand::before{content:"";position:absolute;left:48.4%;top:18%;width:3.2%;height:64%;background:#FF5A33;border-radius:99px;box-shadow:0 0 50px 10px #FF5A3399;z-index:1}
+
+  .ps.mask{background:radial-gradient(120% 90% at 50% 22%, #ebdcc0 0%, #aa9268 65%, #645036 100%)}
+  .ps.mask::after{content:"";position:absolute;left:20%;top:30%;width:60%;height:40%;background:linear-gradient(180deg,#140605, #0a0302);border-radius:50%/60% 60% 70% 70%;box-shadow:0 30px 50px -10px #16110099}
+  .ps.mask::before{content:"";position:absolute;left:26%;top:42%;width:48%;height:14%;background:
+    radial-gradient(circle at 16% 50%, #FF5A33 0 4px, transparent 5px),
+    radial-gradient(circle at 38% 50%, #FF5A33 0 4px, transparent 5px),
+    radial-gradient(circle at 60% 50%, #FF5A33 0 4px, transparent 5px),
+    radial-gradient(circle at 82% 50%, #FF5A33 0 4px, transparent 5px);z-index:1;filter:drop-shadow(0 0 8px #FF5A3388)}
+
+  /* ─── education / journal ─── */
+  .journal{padding:140px 0;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);background:var(--white)}
+  .journal .head{display:flex;justify-content:space-between;align-items:end;margin-bottom:48px}
+  .journal h3{font-family:var(--sans);font-weight:800;font-size:clamp(40px,5.2vw,72px);line-height:.95;letter-spacing:-.01em;text-transform:uppercase}
+  .journal h3 .it{color:var(--purple);text-transform:none;font-family:var(--serif);font-style:italic;font-weight:400}
+  .journal .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .article{display:flex;flex-direction:column;gap:18px;text-decoration:none;color:inherit}
+  .article .img{aspect-ratio:5/4;background:var(--gray);position:relative;overflow:hidden}
+  .article .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+  .article:hover .img img{transform:scale(1.05)}
+  .article .img::after{content:"";position:absolute;inset:0;background:#fff;filter:url(#grain);opacity:.18;mix-blend-mode:overlay;pointer-events:none;z-index:3}
+  .article .img .tag{position:absolute;left:14px;top:14px;font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--cream);background:#363533cc;padding:6px 10px;border-radius:99px;backdrop-filter:blur(4px);z-index:4}
+  .article .img .read{position:absolute;right:14px;bottom:14px;font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--cream);background:#363533cc;padding:6px 10px;border-radius:99px;z-index:4}
+  .article h4{font-family:var(--sans);font-weight:700;font-size:24px;line-height:1.15;letter-spacing:-.005em;text-transform:uppercase}
+  .article h4 .it{color:var(--orange);text-transform:none;font-family:var(--serif);font-style:italic;font-weight:400}
+  .article p{color:var(--ink-3);font-size:14px;line-height:1.55;max-width:38ch;letter-spacing:.01em}
+
+  /* ─── newsletter ─── */
+  .news{padding:140px 0;background:var(--ink);color:var(--cream);text-align:center;position:relative;overflow:hidden}
+  .news::before{
+    content:"";position:absolute;inset:-20% -20% auto -20%;height:60%;
+    background:radial-gradient(40% 80% at 50% 0%, var(--purple) 0%, transparent 70%);
+    opacity:.55;pointer-events:none
+  }
+  .news .eyebrow{color:#F2ECE099}
+  .news h3{font-family:var(--sans);font-weight:800;font-size:clamp(48px,6vw,96px);line-height:.92;letter-spacing:-.015em;margin-top:18px;position:relative;text-transform:uppercase}
+  .news h3 .it{color:var(--orange);text-transform:none;font-family:var(--serif);font-style:italic;font-weight:400}
+  .news .sub{margin-top:18px;color:#F2ECE0bb;font-size:16px;max-width:48ch;margin-left:auto;margin-right:auto;position:relative;letter-spacing:.01em}
+  .news form{margin-top:40px;display:flex;align-items:center;gap:0;max-width:540px;margin-left:auto;margin-right:auto;border-bottom:1px solid #F2ECE044;padding:6px 0;position:relative}
+  .news input{flex:1;background:transparent;border:0;color:#F2ECE0;font-family:var(--sans);font-size:16px;padding:14px 4px;outline:none;letter-spacing:.01em}
+  .news input::placeholder{color:#F2ECE055}
+  .news button{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#F2ECE0;padding:14px 18px;display:inline-flex;gap:10px;align-items:center}
+  .news button:hover{color:var(--orange)}
+
+  /* ─── footer ─── */
+  footer{background:var(--ink);color:var(--cream);padding:60px 0 30px}
+  footer .top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:60px;border-bottom:1px solid #F2ECE022}
+  footer .logo{font-family:var(--sans);font-weight:800;font-size:42px;letter-spacing:.02em;display:flex;align-items:center;gap:14px;text-transform:uppercase}
+  footer .logo .mark{width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 35% 35%, var(--orange) 0%, var(--purple) 80%, transparent 95%)}
+  footer .col h5{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#F2ECE099;margin-bottom:18px}
+  footer .col ul{list-style:none;display:flex;flex-direction:column;gap:10px;font-size:14px;color:#F2ECE0cc;letter-spacing:.01em}
+  footer .col ul a:hover{color:var(--orange)}
+  footer .tag{color:#F2ECE099;font-family:var(--serif);font-style:italic;font-size:22px;margin-top:14px;max-width:32ch;line-height:1.35}
+  footer .bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px;font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#F2ECE077;flex-wrap:wrap;gap:16px}
+
+  /* NPCF strip */
+  .npcf-strip{background:var(--ink);color:#fff;padding:18px 0;overflow:hidden}
+  .npcf-strip .track{display:flex;gap:48px;white-space:nowrap;width:max-content;animation:marq 50s linear infinite;align-items:center;font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase}
+  .npcf-strip .track .dot{opacity:.6;color:var(--orange)}
+
+  /* Big wordmark above footer */
+  .megaword{padding:80px 0 0;text-align:center;background:var(--ink);color:var(--cream);overflow:hidden;line-height:1}
+  .megaword .w{
+    font-family:var(--sans);font-weight:800;letter-spacing:-.035em;
+    font-size:clamp(120px,22vw,360px);line-height:.85;color:#F2E8DD;
+    display:block;text-transform:uppercase
+  }
+  .megaword .w .it{color:var(--orange);text-transform:none;font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.025em}
+  .megaword .sub{font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:#F2ECE066;margin-top:24px;display:block}
+
+  /* tweak panel mount */
+  #tweak-root{position:fixed;z-index:100;right:0;bottom:0}
+
+  @media (max-width:1100px){
+    .hero{height:auto;min-height:580px}
+    .hero .midblock{position:relative;left:auto;bottom:auto;padding:24px 0}
+    .hero .overlay{padding:32px 24px}
+    .manifesto .grid,.science .grid{grid-template-columns:1fr;gap:40px}
+    .feature .stage{grid-template-columns:1fr}
+    .trio .cards{grid-template-columns:1fr 1fr}
+    .pgrid{grid-template-columns:1fr 1fr}
+    footer .top{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- SVG filters for grain + glow (premium image feel) -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 1  0 0 0 0 0.95  0 0 0 0 0.85  0 0 0 0.18 0"/>
+      <feComposite in2="SourceGraphic" operator="in"/>
+    </filter>
+    <filter id="grain-dark" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.22 0"/>
+      <feComposite in2="SourceGraphic" operator="in"/>
+    </filter>
+  </defs>
+</svg>
+
+<!-- announcement -->
+<div class="announce">
+  <div class="marq">
+    <div class="marq-track">
+      <span>Relentless Innovation</span><span class="dot">◆</span>
+      <span>2% of every purchase → The National Pediatric Cancer Foundation</span><span class="dot">◆</span>
+      <span>Buy now, pay later · financing from $416 / mo</span><span class="dot">◆</span>
+      <span>Industry-leading warranty · white-glove delivery</span><span class="dot">◆</span>
+      <span>New: S2 Red Light Massage Gun — world's first</span><span class="dot">◆</span>
+      <span>Relentless Innovation</span><span class="dot">◆</span>
+      <span>2% of every purchase → The National Pediatric Cancer Foundation</span><span class="dot">◆</span>
+      <span>Buy now, pay later · financing from $416 / mo</span><span class="dot">◆</span>
+      <span>Industry-leading warranty · white-glove delivery</span><span class="dot">◆</span>
+      <span>New: S2 Red Light Massage Gun — world's first</span><span class="dot">◆</span>
+    </div>
+  </div>
+  <div class="right"><span>EN · USD $</span><span>⌄</span></div>
+</div>
+
+<!-- nav -->
+<nav class="top">
+  <div class="row">
+    <div class="links">
+      <a href="#" class="has-caret shop-trigger">Shop</a>
+      <a href="#">Recovery</a>
+      <a href="#">Learn</a>
+      <a href="#contact" class="talk"><span class="livedot"></span>Talk to an Expert</a>
+    </div>
+    <a href="#" class="logo"><span class="mark"></span><span>Solbasium</span></a>
+    <div class="right">
+      <a href="#" class="icon-btn">Search</a>
+      <a href="#" class="icon-btn">Account</a>
+      <a href="#" class="icon-btn">Bag <span class="cart-badge">1</span></a>
+    </div>
+  </div>
+  <!-- MEGA MENU -->
+  <div class="mega" id="mega-shop">
+    <div class="mega-inner">
+      <div class="col-lists">
+        <div>
+          <h6 class="mega-h">— Targeted Red Light</h6>
+          <ul>
+            <li><a href="#">Quantum Roller</a></li>
+            <li><a href="#">S2 Massage Gun</a></li>
+            <li><a href="#">Optix Body Pads</a></li>
+            <li><a href="#">Bright</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6 class="mega-h">— Full Body Solutions</h6>
+          <ul>
+            <li><a href="#">Nova Red Light Therapy Bed</a></li>
+            <li><a href="#">Flex Red Light Therapy Bed</a></li>
+            <li><a href="#">Helios Red Light Therapy Bed</a></li>
+            <li><a href="#">Clear PEMF Mat</a></li>
+            <li><a href="#">Polar Cold Plunge Tub</a></li>
+          </ul>
+        </div>
+      </div>
+      <a class="feat" href="#">
+        <div class="feat-img"><img src="images/hero-red-bed.webp" alt="Helios Red Light Bed" /></div>
+        <div class="feat-name">Helios Red Light Bed</div>
+      </a>
+      <a class="feat" href="#">
+        <div class="feat-img"><img src="images/helios-product.webp" alt="S2 Massage Gun" /></div>
+        <div class="feat-name">S2 Massage Gun</div>
+      </a>
+    </div>
+  </div>
+</nav>
+<script>
+(function(){
+  var trigger=document.querySelector('.shop-trigger');
+  var mega=document.getElementById('mega-shop');
+  var nav=document.querySelector('nav.top');
+  var hideT;
+  function show(){ clearTimeout(hideT); mega.classList.add('open'); }
+  function hide(){ hideT=setTimeout(function(){ mega.classList.remove('open'); },120); }
+  trigger.addEventListener('mouseenter',show);
+  trigger.addEventListener('focus',show);
+  nav.addEventListener('mouseleave',hide);
+  mega.addEventListener('mouseenter',show);
+  mega.addEventListener('mouseleave',hide);
+})();
+</script>
+
+<!-- HERO (full-bleed cinematic) -->
+<section class="hero">
+  <div class="photo">
+    <img src="images/hero-purple.webp" alt="Solbasium athletes with red light therapy and recovery products" />
+    <div class="scrim"></div>
+    <div class="grain"></div>
+  </div>
+  <div class="overlay">
+    <div class="toprow">
+      <div class="crumb">
+        <span class="dot"></span>
+        <span class="eyebrow">— Photobiomodulation</span>
+      </div>
+      <div class="right">
+        <span>Engineered in the USA</span>
+        <span>·</span>
+        <span>Patent-Pending</span>
+      </div>
+    </div>
+    <div class="botrow">
+      <div class="meta">
+        <div class="col"><span>Sleep</span><b>Deeper</b></div>
+        <div class="col"><span>Recovery</span><b>Faster</b></div>
+        <div class="col"><span>Skin</span><b>Brighter</b></div>
+        <div class="col"><span>Energy</span><b>Higher</b></div>
+      </div>
+      <div class="scrolltip"><span>Scroll</span><div class="line"></div></div>
+      <div class="controls">
+        <div class="arr">‹</div>
+        <div class="pip on"></div><div class="pip"></div><div class="pip"></div>
+        <div class="arr">›</div>
+      </div>
+    </div>
+  </div>
+  <div class="midblock">
+    <h1>The future of <span class="it">wellness.</span></h1>
+    <p class="lede">
+      <strong>Solbasium</strong> is the pinnacle choice for those wanting the most effective red light, PEMF and recovery devices on the market — engineered by world-class scientists, on a mission to relentlessly innovate health.
+    </p>
+    <div class="actions">
+      <a href="#" class="btn primary">Shop Helios <span class="arrow"></span></a>
+      <a href="#contact" class="btn glass">Talk to an expert</a>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS ROW -->
+<section class="benefits">
+  <div class="row">
+    <div class="cell">
+      <span class="k">— 01</span>
+      <span class="v">Sleep</span>
+      <span class="d">Deeper, faster onset within 8 weeks.</span>
+    </div>
+    <div class="cell">
+      <span class="k">— 02</span>
+      <span class="v">Recovery</span>
+      <span class="d">41% faster DOMS recovery, post-workout.</span>
+    </div>
+    <div class="cell">
+      <span class="k">— 03</span>
+      <span class="v">Skin</span>
+      <span class="d">3.1× collagen density vs. control.</span>
+    </div>
+    <div class="cell">
+      <span class="k">— 04</span>
+      <span class="v">Energy</span>
+      <span class="d">Mitochondrial support, ATP production.</span>
+    </div>
+    <div class="cell">
+      <span class="k">— 05</span>
+      <span class="v">Mood</span>
+      <span class="d">Circadian alignment, stress regulation.</span>
+    </div>
+    <div class="cell">
+      <span class="k">— 06</span>
+      <span class="v">Performance</span>
+      <span class="d">The choice of elite trainers + Olympians.</span>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS / IN THE SPOTLIGHT -->
+<div class="wrap">
+  <section class="press">
+    <div class="head">
+      <div>
+        <span class="label" style="display:block;margin-bottom:14px">— In the spotlight</span>
+        <h3>As seen <span class="it">in.</span></h3>
+      </div>
+      <span class="label">2024 / 2025</span>
+    </div>
+    <div class="marks">
+      <div class="quote">
+        <div class="logo">Vogue</div>
+        <p class="q">A genuinely calibrated device — the bed that finally takes red light seriously.</p>
+        <span class="accolade">Wellness Awards · 2025</span>
+      </div>
+      <div class="quote">
+        <div class="logo sans">Robb Report</div>
+        <p class="q">Object of the year for serious athletes and serious investors.</p>
+        <span class="accolade">Best of 2025</span>
+      </div>
+      <div class="quote">
+        <div class="logo sans">GOOP</div>
+        <p class="q">Engineering this rare in wellness is genuinely worth paying attention to.</p>
+        <span class="accolade">Wellness Essential</span>
+      </div>
+      <div class="quote">
+        <div class="logo compressed">Men's Health</div>
+        <p class="q">Best in recovery, full stop — from a brand built by actual engineers.</p>
+        <span class="accolade">Best in Recovery · 2024</span>
+      </div>
+      <div class="quote">
+        <div class="logo">A<span class="it">D</span><span class="reg">°</span></div>
+        <p class="q">A wellness instrument designed like a piece of furniture you'd actually keep.</p>
+        <span class="accolade">Design Honoree · 2024</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <div class="eyebrow">— How red light heals</div>
+        <h2>Light is medicine,<br/><span class="it">dosed properly.</span></h2>
+        <p class="lede">
+          Red and near-infrared light penetrate skin, energize mitochondria, and trigger your body's own repair systems. Calibrated at 660 nm and 850 nm — the same wavelengths cited in the peer-reviewed literature.
+        </p>
+        <div class="steps">
+          <div class="step">
+            <span class="n">— 01</span>
+            <div class="body">
+              <h4>Light enters</h4>
+              <p>Diodes emit at precisely 660 nm + 850 nm. Photons travel through skin, reaching dermis and muscle.</p>
+            </div>
+            <span class="wave">660 nm</span>
+          </div>
+          <div class="step">
+            <span class="n">— 02</span>
+            <div class="body">
+              <h4>Cells absorb</h4>
+              <p>Photons reach cytochrome c oxidase in your mitochondria — the engines that power every cell.</p>
+            </div>
+            <span class="wave">850 nm</span>
+          </div>
+          <div class="step">
+            <span class="n">— 03</span>
+            <div class="body">
+              <h4>ATP increases</h4>
+              <p>Mitochondria produce more ATP. Cellular energy spikes. Inflammation drops. Tissue starts to repair.</p>
+            </div>
+            <span class="wave">+ ATP</span>
+          </div>
+          <div class="step">
+            <span class="n">— 04</span>
+            <div class="body">
+              <h4>You recover</h4>
+              <p>Deeper sleep, faster muscle recovery, brighter skin, and more usable energy across the day.</p>
+            </div>
+            <span class="wave">∞</span>
+          </div>
+        </div>
+      </div>
+      <div class="anatomy">
+        <span class="label">— Tissue cross-section</span>
+        <div class="stack">
+          <div class="layer epi">Epidermis<span class="nm">~0.1 mm</span></div>
+          <div class="layer derm">Dermis<span class="nm">~2 mm</span></div>
+          <div class="layer sub">Subcutaneous<span class="nm">~5 mm</span></div>
+          <div class="layer muscle">Muscle &amp; bone<span class="nm">~10 mm+</span></div>
+        </div>
+        <div class="beam"></div>
+        <span class="arrow">Penetration ↓</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ONE DEVICE, FOUR WAYS -->
+<section class="four">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">— Built around a daily ritual</span>
+      <h2>One device,<br/><span class="it">four ways to feel better.</span></h2>
+      <p>Helios is engineered around the four outcomes that compound over months — not the dozens of claims that don't.</p>
+    </div>
+    <div class="stage">
+      <div class="q tl">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>Deeper <span class="it">sleep.</span></h4>
+        <p>Up to 94% improvement in sleep quality at 8 weeks of consistent practice.</p>
+      </div>
+      <div class="q tr">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>Faster <span class="it">recovery.</span></h4>
+        <p>41% faster muscle recovery from DOMS post-workout. Train more, hurt less.</p>
+      </div>
+      <div class="center">
+        <img src="images/helios-product.webp" alt="Helios Commercial bed open" />
+      </div>
+      <div class="q bl">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 21c0-3 1.85-5.36 5.08-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>Brighter <span class="it">skin.</span></h4>
+        <p>3.1× collagen density vs. control. Reduced fine lines. Skin you can feel.</p>
+      </div>
+      <div class="q br">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke-linecap="round"/></svg>
+        </div>
+        <h4>Higher <span class="it">energy.</span></h4>
+        <p>Mitochondrial support drives daytime energy without the caffeine crash.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCT (full-bleed cinematic) -->
+<section class="feature">
+  <img class="full" src="images/hero-red-bed.webp" alt="Helios Commercial red light therapy bed" />
+  <div class="vignette"></div>
+  <div class="grain"></div>
+  <div class="overlay">
+    <div class="toprow">
+      <div class="crumb">
+        <span class="dot"></span>
+        <span>— Chapter 01 · Full Body</span>
+      </div>
+      <span>— Patent-pending · Engineered in the USA</span>
+    </div>
+    <div class="midblock">
+      <h2>Helios<br/><span class="it">Commercial.</span></h2>
+      <p class="tag">The full-body instrument. Built to outlast every category around it.</p>
+      <div class="actions">
+        <a href="#" class="btn primary">Shop Helios <span class="arrow"></span></a>
+        <a href="#contact" class="btn glass">Talk to an expert</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="track">
+    <span>Relentless</span><span class="it">Innovation.</span><span class="star"></span>
+    <span>Relentless</span><span class="it">Innovation.</span><span class="star"></span>
+    <span>Relentless</span><span class="it">Innovation.</span><span class="star"></span>
+    <span>Relentless</span><span class="it">Innovation.</span><span class="star"></span>
+    <span>Relentless</span><span class="it">Innovation.</span><span class="star"></span>
+  </div>
+</div>
+
+<!-- TRIO COLLECTIONS -->
+<section class="trio">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow" style="margin-bottom:16px">— The Collection</div>
+        <h3>Three families. <span class="it">One mission.</span></h3>
+      </div>
+      <div class="right">
+        Full body, targeted, hand-held. Every Solbasium device is engineered for
+        the same standard — medical-grade light, dosed properly, built to last.
+      </div>
+    </div>
+    <div class="cards">
+      <a class="card helios" href="#">
+        <div class="scene"><img src="https://solbasium.com/cdn/shop/files/JCM-11020.jpg?v=1771155677&width=2048" alt="Helios Commercial bed in studio" /></div>
+        <div class="top">
+          <span class="pill live">Flagship</span>
+          <span class="num">01 / 03</span>
+        </div>
+        <div class="bottom">
+          <div class="name">Helios <span class="it">Commercial.</span></div>
+          <div class="meta">
+            <div class="price">From $24,990</div>
+            <div class="arr">→</div>
+          </div>
+        </div>
+      </a>
+      <a class="card quantum" href="#">
+        <div class="scene"><img src="https://solbasium.com/cdn/shop/files/Roller_Mainimage.png?v=1730281464&width=1080" alt="Quantum Red Light Therapy Roller" /></div>
+        <div class="top">
+          <span class="pill">Preorder · 33% off</span>
+          <span class="num">02 / 03</span>
+        </div>
+        <div class="bottom">
+          <div class="name">Quantum <span class="it">Roller.</span></div>
+          <div class="meta">
+            <div class="price">$399.99</div>
+            <div class="arr">→</div>
+          </div>
+        </div>
+      </a>
+      <a class="card optix" href="#">
+        <div class="scene"><img src="https://solbasium.com/cdn/shop/files/s2redlight.png?v=1764146806&width=1080" alt="S2 Red Light Massage Gun" /></div>
+        <div class="top">
+          <span class="pill">New</span>
+          <span class="num">03 / 03</span>
+        </div>
+        <div class="bottom">
+          <div class="name">S2 <span class="it">Massage Gun.</span></div>
+          <div class="meta">
+            <div class="price">$299.99</div>
+            <div class="arr">→</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SCIENCE -->
+<section class="science">
+  <div class="wrap">
+    <div class="grid">
+      <div class="lab">
+        <img src="https://solbasium.com/cdn/shop/files/Website_Banner_Background.png?v=1708823899&width=1700" alt="Solbasium red light therapy bed in studio" />
+        <div class="corner">REF · 0042 / LAB&nbsp;A</div>
+        <div class="label"><span class="ln"></span>Spectrometer-validated · USA</div>
+      </div>
+      <div>
+        <div class="eyebrow">— Patent-pending innovations</div>
+        <h3>Built by <span class="it">engineers.</span></h3>
+        <p class="lede">
+          Solbasium is engineered by world-class scientists on a mission to relentlessly
+          innovate health and wellness. Spectrometer-validated. Industry-leading warranty.
+          A portion of every purchase supports the National Pediatric Cancer Foundation.
+        </p>
+        <div class="stats">
+          <div class="stat"><div class="v">94<sup>%</sup></div><div class="k">Sleep quality improvement at 8&nbsp;weeks</div></div>
+          <div class="stat"><div class="v">3.1<span class="it">×</span></div><div class="k">Collagen density vs. control</div></div>
+          <div class="stat"><div class="v">41<sup>%</sup></div><div class="k">Faster muscle recovery, DOMS protocol</div></div>
+          <div class="stat"><div class="v">2<sup>%</sup></div><div class="k">Of every purchase → NPCF</div></div>
+        </div>
+        <div class="cite">Cohort n=312 · 8-week double-blind · internal validation</div>
+        <div class="actions" style="margin-top:32px">
+          <a href="#" class="btn primary">Read the white paper <span class="arrow"></span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote">
+  <div class="wrap">
+    <div class="eyebrow">— Shaping what's next</div>
+    <p class="q" style="margin-top:32px">
+      “We've joined forces with Solbasium to bring <span class="hl">professional-grade recovery</span>
+      into the spaces real training happens.”
+    </p>
+    <div class="by"><span class="ln"></span>Gunnar Peterson · Strength Coach<span class="ln"></span></div>
+  </div>
+</section>
+
+<!-- LOVED BY EXPERTS -->
+<section class="loved">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px">— From our partners</div>
+        <h3>The choice of <span class="it">people who know.</span></h3>
+      </div>
+      <div class="nav">
+        <div class="arr">‹</div>
+        <div class="arr">›</div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="exp p1">
+        <div class="portrait">
+          <img src="https://solbasium.com/cdn/shop/files/Gunnar-Photo.png?v=1764412019&width=1080" alt="Gunnar Peterson" />
+          <span class="quote-mark">“</span>
+        </div>
+        <div class="role">— Strength coach</div>
+        <div class="name">Gunnar <span class="it">Peterson.</span></div>
+        <p class="q">We've joined forces with Solbasium to bring professional-grade recovery into real training environments.</p>
+      </div>
+      <div class="exp p2">
+        <div class="portrait">
+          <img src="https://solbasium.com/cdn/shop/files/Snapinsta.app_427588680_309753268775231_2269416400002560760_n_1080.jpg?v=1708654758&width=1080" alt="Peak Performance Gym client" />
+          <span class="quote-mark">“</span>
+        </div>
+        <div class="role">— Peak Performance Gym</div>
+        <div class="name">A noticeable <span class="it">difference.</span></div>
+        <p class="q">We've seen a noticeable difference in client satisfaction since introducing the Helios bed.</p>
+      </div>
+      <div class="exp p3">
+        <div class="portrait">
+          <img src="https://solbasium.com/cdn/shop/files/Snapinsta.app_422003449_2084556015212469_1074310822819935461_n_1080.jpg?v=1708825149&width=1080" alt="Vitality Wellness Hub" />
+          <span class="quote-mark">“</span>
+        </div>
+        <div class="role">— Vitality Wellness Hub</div>
+        <div class="name">Stress-free <span class="it">setup.</span></div>
+        <p class="q">The results speak for themselves — and the Solbasium team made the entire setup process stress-free.</p>
+      </div>
+      <div class="exp p4">
+        <div class="portrait">
+          <img src="https://solbasium.com/cdn/shop/files/Website_Banner_Girl_Attachment.png?v=1765188715&width=1387" alt="Recovery client" />
+          <span class="quote-mark">“</span>
+        </div>
+        <div class="role">— Recovery client</div>
+        <div class="name">Your path to <span class="it">recovery.</span></div>
+        <p class="q">Discover the transformative power of Solbasium's wellness solutions — for personal and professional needs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / TALK TO AN EXPERT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="grid">
+      <div class="lhs">
+        <div class="eyebrow">— Concierge</div>
+        <h3>Talk to an <span class="it">expert.</span></h3>
+        <p>
+          Choosing a Solbasium device is a long decision. Our team — engineers,
+          coaches, and clinicians — answers the questions a product page can't.
+        </p>
+        <div class="channels">
+          <div class="ch">
+            <span class="lbl">— By phone</span>
+            <span class="val">(866) 640-0835</span>
+            <a href="tel:+18666400835">Mon – Fri · 8a – 8p PT →</a>
+          </div>
+          <div class="ch">
+            <span class="lbl">— By email</span>
+            <span class="val serif">support@solbasium.com</span>
+            <a href="mailto:support@solbasium.com">Reply within 4 hours →</a>
+          </div>
+          <div class="ch">
+            <span class="lbl">— Financing</span>
+            <span class="val">From $416 / mo</span>
+            <a href="#">Buy now, pay later →</a>
+          </div>
+          <div class="ch">
+            <span class="lbl">— For business</span>
+            <span class="val">Wholesale &amp; Clinics</span>
+            <a href="#">Apply for trade pricing →</a>
+          </div>
+        </div>
+      </div>
+      <div class="rhs">
+        <div class="eyebrow">— Schedule a private call</div>
+        <h4>Twenty minutes, <span class="it">no pressure.</span></h4>
+        <form onsubmit="event.preventDefault();this.querySelector('button').textContent='Sent ✓';this.querySelector('button').disabled=true">
+          <div class="row2">
+            <label>First name<input type="text" placeholder="Naomi" required /></label>
+            <label>Last name<input type="text" placeholder="Chen" required /></label>
+          </div>
+          <label>Email<input type="email" placeholder="naomi@studio.com" required /></label>
+          <label>Phone<input type="tel" placeholder="(866) 640-0835" /></label>
+          <label>Interested in
+            <select>
+              <option>Helios Commercial™ — Flagship</option>
+              <option>Nova Bed — Home</option>
+              <option>Flex Bed — Convertible</option>
+              <option>Quantum Roller</option>
+              <option>S2 Massage Gun</option>
+              <option>Optix Pads — Targeted</option>
+              <option>Clear PEMF Mat</option>
+              <option>Wholesale / Clinics</option>
+              <option>Not sure — please advise</option>
+            </select>
+          </label>
+          <label>Tell us a little<textarea rows="3" placeholder="What you're hoping to solve, what room it'll live in, any timing…"></textarea></label>
+          <div class="submit">
+            <span class="fine">We reply within 4 business hours. Your details stay with us.</span>
+            <button type="submit" class="btn primary">Request a call <span class="arrow"></span></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ALL PRODUCTS -->
+<section class="shop">
+  <div class="wrap">
+    <div class="head">
+      <div class="l">
+        <div class="eyebrow">— All objects · 11</div>
+        <h3>Shop the <span class="it">collection.</span></h3>
+      </div>
+      <div class="filters">
+        <button class="chip on">Everything</button>
+        <button class="chip">Beds</button>
+        <button class="chip">Targeted</button>
+        <button class="chip">Wearables</button>
+        <button class="chip">Recovery</button>
+        <button class="chip">New</button>
+        <span class="sort" style="margin-left:24px">Sort: Featured</span>
+      </div>
+    </div>
+
+    <div class="pgrid">
+      <a class="pcard" href="#">
+        <div class="img">
+          <img src="https://solbasium.com/cdn/shop/files/JCM-11076.jpg?v=1771155695&width=1934" alt="Helios Commercial bed" />
+          <span class="badge">Flagship</span>
+          <span class="quick">Quick view →</span>
+        </div>
+        <div class="meta">
+          <div>
+            <div class="name">Helios Commercial™</div>
+            <div class="tags"><span>660 nm</span><span>850 nm</span><span>Full Body</span></div>
+          </div>
+          <div class="price">$24,990</div>
+        </div>
+        <p class="desc">The flagship. Built for commercial studios and serious athletes.</p>
+      </a>
+
+      <a class="pcard" href="#">
+        <div class="img">
+          <img src="https://solbasium.com/cdn/shop/files/Nova_Real.png?v=1770903161&width=1525" alt="Nova Red Light Therapy Bed" />
+          <span class="badge purple">Pre-order</span>
+          <span class="quick">Quick view →</span>
+        </div>
+        <div class="meta">
+          <div>
+            <div class="name">Nova Bed</div>
+            <div class="tags"><span>660 nm</span><span>Home</span></div>
+          </div>
+          <div class="price">$19,990</div>
+        </div>
+        <p class="desc">The home instrument. Streamlined chassis, the same diode array.</p>
+      </a>
+
+      <a class="pcard" href="#">
+        <div class="img">
+          <img src="https://solbasium.com/cdn/shop/files/IMG_1483.jpg?v=1774593653&width=3140" alt="Flex Red Light Therapy Bed" />
+          <span class="badge alt">Available</span>
+          <span class="quick">Quick view →</span>
+        </div>
+        <div class="meta">
+          <div>
+            <div class="name">Flex Bed</div>
+            <div class="tags"><span>Convertible</span><span>Full Body</span></div>
+          </div>
+          <div class="price">$24,990</div>
+        </div>
+        <p class="desc">Convertible chassis. The same medical-grade performance, fewer feet of floor.</p>
+      </a>
+
+      <a class="pcard" href="#">
+        <div class="img">
+          <img src="https://solbasium.com/cdn/shop/files/Roller_Mainimage.png?v=1730281464&width=1080" alt="Quantum Red Light Therapy Roller" />
+          <span class="badge sale">−33%</span>
+          <span class="quick">Quick view →</span>
+        </div>
+        <div class="meta">
+          <div>
+            <div class="name">Quantum Roller</div>
+            <div class="tags"><span>Vibration</span><span>Cordless</span></div>
+          </div>
+          <div class="price"><span class="was">$600</span><span class="sale">$399.99</span></div>
+        </div>
+        <p class="desc">Vibration + red light, palm-sized. Preorder — limited release.</p>
+      </a>
+
+      <a class="pcard" href="#">
+        <div class="img">
+          <img src="https://solbasium.com/cdn/shop/files/s2redlight.png?v=1764146806&width=1080" alt="S2 Red Light Massage Gun" />
+          <span class="badge">New</span>
+          <span class="quick">Quick view →</span>
+        </div>
+        <div class="meta">
+          <div>
+            <div class="name">S2 Massage Gun</div>
+            <div class="tags"><span>World's First</span><span>Red Light</span></div>
+          </div>
+          <div class="price">$299.99</div>
+        </div>
+        <p class="desc">The world's first red-light massage gun. Deep relief, in minutes.</p>
+      </a>
+
+      <a class="pcard" href="#">
+        <div class="img">
+          <img src="https://solbasium.com/cdn/shop/files/PEMF_mat_unfolded.jpg?v=1725596641&width=2000" alt="Clear PEMF Mat" />
+          <span class="badge purple">Patent Pending</span>
+          <span class="quick">Quick view →</span>
+        </div>
+        <div class="meta">
+          <div>
+            <div class="name">Clear PEMF Mat</div>
+            <div class="tags"><span>PEMF</span><span>Full Body</span></div>
+          </div>
+          <div class="price">$5,999.99</div>
+        </div>
+        <p class="desc">Pulsed electromagnetic field therapy at home. Patent-pending.</p>
+      </a>
+
+      <a class="pcard" href="#">
+        <div class="img">
+          <img src="https://solbasium.com/cdn/shop/files/BACKBACK.png?v=1730614908&width=1080" alt="Optix Back Pad" />
+          <span class="badge alt">Wearable</span>
+          <span class="quick">Quick view →</span>
+        </div>
+        <div class="meta">
+          <div>
+            <div class="name">Optix Back Pad</div>
+            <div class="tags"><span>Targeted</span><span>660 + 850</span></div>
+          </div>
+          <div class="price">$299.99</div>
+        </div>
+        <p class="desc">Targeted red + infrared for back relief. The largest pad in the line.</p>
+      </a>
+
+      <a class="pcard" href="#">
+        <div class="img">
+          <img src="https://solbasium.com/cdn/shop/files/6_e3e2e15c-0a2a-4ff2-a9a4-85bc4023c43c.png?v=1714297941&width=1080" alt="Optix Knee Pad" />
+          <span class="badge alt">Wearable</span>
+          <span class="quick">Quick view →</span>
+        </div>
+        <div class="meta">
+          <div>
+            <div class="name">Optix Knee Pad</div>
+            <div class="tags"><span>Targeted</span><span>Knee</span></div>
+          </div>
+          <div class="price">$199.99</div>
+        </div>
+        <p class="desc">Wrap-around recovery for knees — strap and go.</p>
+      </a>
+
+      <a class="pcard" href="#">
+        <div class="img">
+          <img src="https://solbasium.com/cdn/shop/files/anklepad_3daf6e10-b1c1-4560-b4ce-61bfba63f084.png?v=1714994001&width=1080" alt="Optix Ankle Pad" />
+          <span class="badge alt">Wearable</span>
+          <span class="quick">Quick view →</span>
+        </div>
+        <div class="meta">
+          <div>
+            <div class="name">Optix Ankle Pad</div>
+            <div class="tags"><span>Targeted</span><span>Ankle</span></div>
+          </div>
+          <div class="price">$199.99</div>
+        </div>
+        <p class="desc">Recovery for ankles, achilles, wrists. Cordless and quick.</p>
+      </a>
+
+      <a class="pcard" href="#">
+        <div class="img">
+          <img src="https://solbasium.com/cdn/shop/files/universalimage.png?v=1715592118&width=1080" alt="Optix Universal Pad" />
+          <span class="badge alt">Wearable</span>
+          <span class="quick">Quick view →</span>
+        </div>
+        <div class="meta">
+          <div>
+            <div class="name">Optix Universal Pad</div>
+            <div class="tags"><span>Targeted</span><span>Anywhere</span></div>
+          </div>
+          <div class="price">$199.99</div>
+        </div>
+        <p class="desc">For thighs, shoulders, lower back — the take-anywhere pad.</p>
+      </a>
+
+      <a class="pcard" href="#">
+        <div class="img">
+          <img src="https://solbasium.com/cdn/shop/products/5.jpg?v=1678445876&width=1000" alt="Solbasium Bright" />
+          <span class="badge alt">Hand-held</span>
+          <span class="quick">Quick view →</span>
+        </div>
+        <div class="meta">
+          <div>
+            <div class="name">Solbasium Bright</div>
+            <div class="tags"><span>Hand-held</span><span>Travel</span></div>
+          </div>
+          <div class="price">$400</div>
+        </div>
+        <p class="desc">The hand-held panel. For spot work, faces, and travel.</p>
+      </a>
+
+      <a class="pcard" href="#">
+        <div class="img">
+          <img src="https://solbasium.com/cdn/shop/files/Untitled_design_6c9d0878-de8c-43b9-95e7-6a2762a710d1.png?crop=center&height=1200&v=1725171053&width=1200" alt="Cryothrive Elite" />
+          <span class="badge">New · Recovery</span>
+          <span class="quick">Quick view →</span>
+        </div>
+        <div class="meta">
+          <div>
+            <div class="name">Cryothrive Elite</div>
+            <div class="tags"><span>Cold</span><span>Cryotherapy</span></div>
+          </div>
+          <div class="price">Inquire</div>
+        </div>
+        <p class="desc">Electric cryotherapy for the home or studio. Pair with Helios for full-spectrum recovery.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNAL -->
+<section class="journal">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px">— Learn</div>
+        <h3>Read, before you <span class="it">buy.</span></h3>
+      </div>
+      <a href="#" class="btn ghost">All essays <span class="arrow"></span></a>
+    </div>
+    <div class="grid">
+      <a class="article" href="#">
+        <div class="img">
+          <img src="https://solbasium.com/cdn/shop/files/Website_Banner_Background.png?v=1708823899&width=1700" alt="Buying a red light bed" />
+          <span class="tag">Guide · 8 min</span>
+          <span class="read">Read →</span>
+        </div>
+        <h4>How to buy <span class="it">a red light bed.</span></h4>
+        <p>What to ask, what to ignore, and the specs that actually move the needle.</p>
+      </a>
+      <a class="article" href="#">
+        <div class="img">
+          <img src="https://solbasium.com/cdn/shop/files/Gunnar-Photo.png?v=1764412019&width=1080" alt="Gunnar Peterson" />
+          <span class="tag">Profile · 12 min</span>
+          <span class="read">Read →</span>
+        </div>
+        <h4>A morning with <span class="it">Gunnar Peterson.</span></h4>
+        <p>The strength coach behind a generation of athletes on the rituals that survive.</p>
+      </a>
+      <a class="article" href="#">
+        <div class="img">
+          <img src="https://solbasium.com/cdn/shop/files/BACKBACK.png?v=1730614908&width=1080" alt="Muscle recovery" />
+          <span class="tag">Manual · 6 min</span>
+          <span class="read">Read →</span>
+        </div>
+        <h4>Red light for <span class="it">muscle recovery.</span></h4>
+        <p>The dose, the protocol, and what the literature actually says about photobiomodulation.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="news">
+  <div class="wrap">
+    <div class="eyebrow">— The Dispatch · Monthly</div>
+    <h3>New drops, <span class="it">in your inbox.</span></h3>
+    <p class="sub">Sign up for exclusive offers and new product drops. No marketing detritus — just the work.</p>
+    <form onsubmit="event.preventDefault();this.querySelector('button').textContent='Subscribed ✓'">
+      <input type="email" placeholder="your@address.com" />
+      <button type="submit">Subscribe <span class="arrow" style="display:inline-block"></span></button>
+    </form>
+  </div>
+</section>
+
+<!-- MEGA WORDMARK -->
+<div class="megaword">
+  <span class="w">Solbasium<span class="it">.</span></span>
+  <span class="sub">Relentless Innovation · Engineered in the USA</span>
+</div>
+
+<!-- NPCF strip -->
+<div class="npcf-strip">
+  <div class="track">
+    <span>2% of every purchase → The National Pediatric Cancer Foundation</span><span class="dot">◆</span>
+    <span>2% of every purchase → The National Pediatric Cancer Foundation</span><span class="dot">◆</span>
+    <span>2% of every purchase → The National Pediatric Cancer Foundation</span><span class="dot">◆</span>
+    <span>2% of every purchase → The National Pediatric Cancer Foundation</span><span class="dot">◆</span>
+    <span>2% of every purchase → The National Pediatric Cancer Foundation</span><span class="dot">◆</span>
+    <span>2% of every purchase → The National Pediatric Cancer Foundation</span><span class="dot">◆</span>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <div class="logo"><span class="mark"></span><span>Solbasium</span></div>
+        <p class="tag">Relentless Innovation. Engineered for the people who refuse to settle.</p>
+      </div>
+      <div class="col">
+        <h5>Shop</h5>
+        <ul>
+          <li><a href="#">Helios Commercial™</a></li>
+          <li><a href="#">Nova Bed</a></li>
+          <li><a href="#">Flex Bed</a></li>
+          <li><a href="#">Quantum Roller</a></li>
+          <li><a href="#">S2 Massage Gun</a></li>
+          <li><a href="#">Optix Pads</a></li>
+          <li><a href="#">Clear PEMF Mat</a></li>
+          <li><a href="#">Solbasium Bright</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h5>Customer Care</h5>
+        <ul>
+          <li><a href="#">Financing Calculator</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+          <li><a href="#">Shipping &amp; Returns</a></li>
+          <li><a href="#">Warranty Policy</a></li>
+          <li><a href="#">NPCF Donations</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h5>Work With Us</h5>
+        <ul>
+          <li><a href="#">Partnerships</a></li>
+          <li><a href="#">Wholesale</a></li>
+          <li><a href="#">Innovators Program</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom">
+      <span>© Solbasium 2026 · (866) 640-0835 · Engineered in the USA</span>
+      <span>Privacy · Terms · Warranty · Accessibility</span>
+    </div>
+  </div>
+</footer>
+
+<div id="tweak-root"></div>
+
+<!-- React for tweaks panel -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.js"></script>
+<script type="text/babel" data-presets="env,react">
+// ── Inline tweak app (palette + typography) ───────────────────────────
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "palette": "gray-purple",
+  "showWordmark": true,
+  "showTicker": true,
+  "showNPCF": true
+}/*EDITMODE-END*/;
+
+// Brand palettes — variations on the Solbasium Brand Guidelines (Sept 2023)
+// {gray = body bg, white = section bg, ink = text, orange = CTAs, purple = brand}
+const PALETTES = {
+  "gray-purple":   { gray: "#EEEEEE", white: "#FFFFFF", ink: "#363533", orange: "#F04A20", purple: "#66379D" }, // default
+  "cream-purple":  { gray: "#E5D3CE", white: "#FFFFFF", ink: "#363533", orange: "#F04A20", purple: "#66379D" }, // warm cream base
+  "white-bold":    { gray: "#FFFFFF", white: "#F4F4F3", ink: "#1A1A1A", orange: "#F04A20", purple: "#66379D" }, // bright white base
+  "obsidian":      { gray: "#222020", white: "#363533", ink: "#F2EBE6", orange: "#F04A20", purple: "#8C66B5" }, // dark
+  "gray-orange":   { gray: "#EEEEEE", white: "#FFFFFF", ink: "#363533", orange: "#F04A20", purple: "#363533" }  // orange-dominant (purple→dark)
+};
+const PALETTE_KEYS = Object.keys(PALETTES);
+
+function applyPalette(name) {
+  const p = PALETTES[name] || PALETTES["gray-purple"];
+  const root = document.documentElement;
+  root.style.setProperty('--gray', p.gray);
+  root.style.setProperty('--bone', p.gray);
+  root.style.setProperty('--cream', p.gray);
+  root.style.setProperty('--white', p.white);
+  root.style.setProperty('--ink', p.ink);
+  root.style.setProperty('--orange', p.orange);
+  root.style.setProperty('--oxblood', p.orange);
+  root.style.setProperty('--ember', p.orange);
+  root.style.setProperty('--purple', p.purple);
+  root.style.setProperty('--glow', p.purple);
+  if (name === 'obsidian') {
+    root.style.setProperty('--bone-2', '#2C2A2A');
+    root.style.setProperty('--ink-2', '#C8C0BA');
+    root.style.setProperty('--ink-3', '#8E867F');
+    root.style.setProperty('--line-2', 'rgba(242,235,230,.13)');
+  } else {
+    root.style.setProperty('--bone-2', '#E2E1DE');
+    root.style.setProperty('--ink-2', '#5A5856');
+    root.style.setProperty('--ink-3', '#8A857F');
+    root.style.setProperty('--line-2', 'rgba(54,53,51,.08)');
+  }
+}
+function applyVisibility(showWordmark, showTicker, showNPCF) {
+  const wm = document.querySelector('.megaword'); if (wm) wm.style.display = showWordmark ? '' : 'none';
+  const tk = document.querySelector('.ticker');   if (tk) tk.style.display = showTicker ? '' : 'none';
+  const np = document.querySelector('.npcf-strip'); if (np) np.style.display = showNPCF ? '' : 'none';
+}
+
+const PALETTE_LABEL = {
+  "gray-purple":"Gray · Purple (default)",
+  "cream-purple":"Cream · Purple (warm)",
+  "white-bold":"White · Bold",
+  "obsidian":"Obsidian · Ember (dark)",
+  "gray-orange":"Gray · Orange-dominant"
+};
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const paletteIdx = Math.max(0, PALETTE_KEYS.indexOf(t.palette));
+  const paletteSwatches = PALETTE_KEYS.map(k => {
+    const p = PALETTES[k];
+    return [p.gray, p.ink, p.purple, p.orange];
+  });
+
+  React.useEffect(() => { applyPalette(t.palette); }, [t.palette]);
+  React.useEffect(() => { applyVisibility(t.showWordmark, t.showTicker, t.showNPCF); }, [t.showWordmark, t.showTicker, t.showNPCF]);
+
+  return (
+    <TweaksPanel title="Tweaks">
+      <TweakSection label="Brand palette">
+        <TweakColor
+          label="Color story"
+          value={paletteSwatches[paletteIdx]}
+          onChange={(arr) => {
+            const i = paletteSwatches.findIndex(s => JSON.stringify(s) === JSON.stringify(arr));
+            if (i >= 0) setTweak('palette', PALETTE_KEYS[i]);
+          }}
+          options={paletteSwatches}
+        />
+        <div style={{fontFamily:'JetBrains Mono, monospace',fontSize:10,letterSpacing:'.14em',textTransform:'uppercase',opacity:.55,marginTop:6}}>
+          {PALETTE_LABEL[t.palette]}
+        </div>
+      </TweakSection>
+
+      <TweakSection label="Sections">
+        <TweakToggle label="Show ticker" value={t.showTicker} onChange={v => setTweak('showTicker', v)} />
+        <TweakToggle label="Show NPCF strip" value={t.showNPCF} onChange={v => setTweak('showNPCF', v)} />
+        <TweakToggle label="Show mega wordmark" value={t.showWordmark} onChange={v => setTweak('showWordmark', v)} />
+      </TweakSection>
+    </TweaksPanel>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('tweak-root')).render(<App />);
+</script>
+</body>
+</html>

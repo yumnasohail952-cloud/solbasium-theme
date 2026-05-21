@@ -1,0 +1,1452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Solbasium — Redesign</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#F2ECE0;
+    --bone-2:#EAE2D2;
+    --bone-3:#DED3BE;
+    --ink:#16110D;
+    --ink-2:#3A302A;
+    --ink-3:#6E6258;
+    --line:#1610100f;
+    --line-2:#16111014;
+    --oxblood:#6B1A1F;
+    --oxblood-deep:#3D0F11;
+    --ember:#C25A2C;
+    --glow:#E64A2E;
+    --white:#FFFDF8;
+
+    --serif:"Instrument Serif", "Cormorant", "Times New Roman", serif;
+    --sans:"Geist", "Helvetica Neue", Arial, sans-serif;
+    --mono:"JetBrains Mono", ui-monospace, monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bone);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  body{font-size:15px;line-height:1.5;font-weight:400;overflow-x:hidden}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+  /* utility */
+  .wrap{max-width:1440px;margin:0 auto;padding:0 40px}
+  .wrap-wide{max-width:1640px;margin:0 auto;padding:0 40px}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);font-weight:500}
+  .rule{height:1px;background:var(--ink);opacity:.12;width:100%}
+  .serif{font-family:var(--serif);font-weight:400;letter-spacing:-.01em}
+  .it{font-style:italic}
+  .num{font-family:var(--mono);font-weight:400;font-size:11px;letter-spacing:.08em;color:var(--ink-3)}
+
+  /* ─── top announcement strip ─── */
+  .announce{
+    background:var(--ink);color:var(--bone);font-family:var(--mono);font-size:11px;
+    letter-spacing:.18em;text-transform:uppercase;padding:10px 40px;
+    display:flex;align-items:center;justify-content:space-between;gap:24px
+  }
+  .announce .marq{flex:1;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  .announce .marq-track{display:flex;gap:64px;white-space:nowrap;animation:marq 40s linear infinite;width:max-content}
+  .announce .marq-track span{opacity:.85}
+  .announce .marq-track .dot{opacity:.35}
+  @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .announce .right{display:flex;gap:18px;align-items:center;opacity:.8}
+
+  /* ─── nav ─── */
+  nav.top{
+    position:sticky;top:0;z-index:50;background:var(--bone);
+    border-bottom:1px solid var(--line-2)
+  }
+  nav.top .row{
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+    padding:22px 40px;gap:24px
+  }
+  nav.top .links{display:flex;gap:36px;font-size:13px;letter-spacing:.02em}
+  nav.top .links a{position:relative;padding:6px 0}
+  nav.top .links a:hover{color:var(--oxblood)}
+  nav.top .links a.has-caret::after{content:"";display:inline-block;width:6px;height:6px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:rotate(45deg) translateY(-2px);margin-left:8px;opacity:.5}
+  nav.top .links a.talk{display:inline-flex;align-items:center;gap:8px;color:var(--oxblood)}
+  nav.top .links a.talk .livedot{width:7px;height:7px;border-radius:50%;background:var(--oxblood);box-shadow:0 0 10px var(--oxblood);position:relative}
+  nav.top .links a.talk .livedot::after{content:"";position:absolute;inset:-4px;border-radius:50%;background:var(--oxblood);opacity:.25;animation:pulse 1.8s ease-out infinite}
+  @keyframes pulse{0%{transform:scale(.6);opacity:.4}100%{transform:scale(1.8);opacity:0}}
+  nav.top .logo{font-family:var(--serif);font-size:26px;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+  nav.top .logo .mark{width:18px;height:18px;display:inline-block;position:relative}
+  nav.top .logo .mark::before,
+  nav.top .logo .mark::after{content:"";position:absolute;inset:0;border-radius:50%}
+  nav.top .logo .mark::before{background:radial-gradient(circle at 35% 35%, #E64A2E 0%, #6B1A1F 60%, transparent 75%)}
+  nav.top .logo .mark::after{background:radial-gradient(circle at 60% 65%, #C25A2C66 0%, transparent 60%)}
+  nav.top .right{display:flex;gap:24px;justify-content:flex-end;font-size:13px;align-items:center}
+  nav.top .icon-btn{display:inline-flex;align-items:center;gap:8px}
+  .cart-badge{display:inline-grid;place-items:center;min-width:18px;height:18px;border-radius:99px;background:var(--oxblood);color:var(--bone);font-size:10px;font-family:var(--mono);padding:0 5px}
+
+  /* ─── HERO (full-bleed cinematic) ─── */
+  .hero{
+    position:relative;width:100%;height:calc(100vh - 110px);min-height:680px;max-height:920px;
+    overflow:hidden;background:#0A0606;color:var(--bone);
+    border-bottom:1px solid var(--line-2)
+  }
+  .hero .photo{position:absolute;inset:0;overflow:hidden}
+  /* Premium cinematic placeholder: layered warm red interior, figure silhouette, atmospheric haze */
+  .hero .photo .layer-bg{
+    position:absolute;inset:-2%;
+    background:
+      radial-gradient(60% 50% at 70% 40%, #FF7A4E 0%, #C8341E 18%, #6B1318 38%, #2A0808 65%, #0A0303 92%),
+      radial-gradient(80% 90% at 20% 90%, #2a0d08 0%, #0a0303 70%),
+      #060202;
+    filter:saturate(1.05) contrast(1.05)
+  }
+  .hero .photo .figure{
+    position:absolute;left:48%;bottom:-4%;width:54%;height:96%;
+    background:
+      radial-gradient(38% 22% at 50% 12%, #1a0807 30%, transparent 60%),
+      radial-gradient(60% 70% at 50% 70%, #120505 35%, transparent 70%);
+    filter:blur(6px)
+  }
+  .hero .photo .bed{
+    position:absolute;left:8%;right:8%;bottom:14%;height:8%;
+    background:linear-gradient(180deg, #1a0807 0%, #060201 100%);
+    border-radius:4px;
+    box-shadow:0 -2px 0 #2a0d0a, 0 40px 80px -10px #000
+  }
+  .hero .photo .leds{
+    position:absolute;left:12%;right:12%;bottom:18%;height:36%;
+    background-image:repeating-linear-gradient(0deg,
+      rgba(255,235,210,0) 0 11px,
+      rgba(255,235,210,.5) 11px 13px);
+    mask-image:radial-gradient(60% 60% at 50% 100%, #000 0%, transparent 90%);
+    mix-blend-mode:screen;opacity:.7
+  }
+  .hero .photo .haze{
+    position:absolute;inset:0;
+    background:
+      radial-gradient(80% 50% at 50% 65%, transparent 0%, #0A030388 100%),
+      radial-gradient(40% 40% at 50% 30%, #FF6A4A33 0%, transparent 70%);
+    mix-blend-mode:screen
+  }
+  .hero .photo .grain{position:absolute;inset:0;background:#fff;filter:url(#grain);opacity:.5;mix-blend-mode:overlay;pointer-events:none}
+  .hero .photo .vignette{
+    position:absolute;inset:0;
+    background:
+      radial-gradient(110% 90% at 50% 60%, transparent 40%, #060202cc 95%),
+      linear-gradient(180deg, #06020255 0%, transparent 30%, transparent 65%, #060202 100%);
+    pointer-events:none
+  }
+  .hero .overlay{
+    position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between;
+    padding:48px 56px 48px
+  }
+  .hero .toprow{display:flex;justify-content:space-between;align-items:center;gap:24px;color:#F2ECE0bb}
+  .hero .toprow .crumb{display:flex;align-items:center;gap:14px}
+  .hero .toprow .crumb .dot{width:6px;height:6px;border-radius:50%;background:var(--glow);box-shadow:0 0 14px var(--glow)}
+  .hero .toprow .crumb .eyebrow{color:#F2ECE0cc}
+  .hero .toprow .right{display:flex;gap:24px;align-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#F2ECE0aa}
+  .hero .midblock{position:absolute;left:56px;bottom:120px;max-width:760px;z-index:2}
+  .hero h1{
+    font-family:var(--serif);font-weight:400;font-size:clamp(72px,10.5vw,168px);
+    line-height:.9;letter-spacing:-.025em;color:#F5EDDF;text-wrap:balance
+  }
+  .hero h1 .it{color:#F2ECE0;font-style:italic;opacity:.92}
+  .hero .actions{display:flex;align-items:center;gap:14px;margin-top:36px}
+  .hero .actions .btn.primary{background:#F2ECE0;color:#16110D}
+  .hero .actions .btn.primary:hover{background:#fff}
+  .hero .actions .btn.glass{background:#16110030;border:1px solid #F2ECE055;color:#F2ECE0;backdrop-filter:blur(6px)}
+  .hero .actions .btn.glass:hover{background:#16110066}
+  .hero .botrow{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;color:#F2ECE0aa;position:relative;z-index:2}
+  .hero .botrow .meta{display:flex;gap:48px}
+  .hero .botrow .meta .col{display:flex;flex-direction:column;gap:4px}
+  .hero .botrow .meta .col span{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#F2ECE066}
+  .hero .botrow .meta .col b{font-family:var(--serif);font-style:italic;font-weight:400;font-size:24px;color:#F2ECE0}
+  .hero .scrolltip{display:flex;flex-direction:column;align-items:center;gap:10px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase}
+  .hero .scrolltip .line{width:1px;height:36px;background:linear-gradient(180deg, transparent, #F2ECE0aa)}
+  .hero .controls{display:flex;gap:8px;align-items:center}
+  .hero .controls .arr{width:38px;height:38px;border:1px solid #F2ECE055;border-radius:99px;display:grid;place-items:center;color:#F2ECE0;cursor:pointer;transition:all .2s ease}
+  .hero .controls .arr:hover{background:#F2ECE0;color:#16110D;border-color:#F2ECE0}
+  .hero .controls .pip{width:24px;height:2px;background:#F2ECE055}
+  .hero .controls .pip.on{background:#F2ECE0}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;padding:16px 24px;border-radius:99px;
+    font-size:13px;letter-spacing:.04em;transition:all .25s ease;font-weight:500
+  }
+  .btn .arrow{width:14px;height:10px;position:relative}
+  .btn .arrow::before{content:"";position:absolute;top:50%;left:0;width:100%;height:1px;background:currentColor}
+  .btn .arrow::after{content:"";position:absolute;top:50%;right:0;width:6px;height:6px;border-right:1px solid currentColor;border-top:1px solid currentColor;transform:translateY(-50%) rotate(45deg)}
+  .btn.primary{background:var(--ink);color:var(--bone)}
+  .btn.primary:hover{background:var(--oxblood)}
+  .btn.ghost{border:1px solid var(--ink);color:var(--ink)}
+  .btn.ghost:hover{background:var(--ink);color:var(--bone)}
+  .btn.light{background:var(--bone);color:var(--ink)}
+
+  /* ─── press / In the Spotlight ─── */
+  .press{
+    border-bottom:1px solid var(--line-2);padding:48px 0;
+    display:flex;flex-direction:column;gap:36px
+  }
+  .press .head{display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .press .head .label{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+  .press .head .swirl{font-family:var(--serif);font-style:italic;font-size:26px;letter-spacing:-.01em;color:var(--ink)}
+  .press .marks{display:flex;align-items:center;gap:24px;justify-content:space-between;flex-wrap:wrap}
+  .press .marks .m{display:flex;align-items:center;gap:18px;color:var(--ink-2);font-family:var(--serif);font-size:30px;letter-spacing:.04em;line-height:1}
+  .press .marks .m.sm{font-family:var(--mono);font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2)}
+  .press .marks .m.it{font-style:italic}
+  .press .awards{display:grid;grid-template-columns:repeat(5,1fr);gap:24px;border-top:1px solid var(--line-2);padding-top:36px}
+  .press .aw{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+  .press .aw .badge{
+    width:74px;height:74px;border-radius:50%;border:1px solid var(--ink);display:grid;place-items:center;
+    font-family:var(--serif);font-style:italic;font-size:22px;color:var(--ink);
+    position:relative;background:var(--bone)
+  }
+  .press .aw .badge::before{content:"";position:absolute;inset:5px;border:1px dashed var(--ink-3);border-radius:50%;opacity:.5}
+  .press .aw .year{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+  .press .aw .title{font-family:var(--serif);font-size:16px;line-height:1.2;color:var(--ink);max-width:18ch}
+  .press .aw .title .it{font-style:italic;color:var(--oxblood)}
+
+  /* ─── manifesto ─── */
+  .manifesto{padding:140px 0 120px;border-bottom:1px solid var(--line-2)}
+  .manifesto .grid{display:grid;grid-template-columns:1fr 2.2fr;gap:80px;align-items:start}
+  .manifesto h2{
+    font-family:var(--serif);font-weight:400;font-size:clamp(40px,5.4vw,80px);
+    line-height:1;letter-spacing:-.02em
+  }
+  .manifesto h2 .it{color:var(--oxblood)}
+  .manifesto p{font-size:20px;line-height:1.5;color:var(--ink-2);max-width:62ch}
+  .manifesto p + p{margin-top:24px}
+  .manifesto .sigblock{display:flex;align-items:center;gap:14px;margin-top:40px;font-family:var(--serif);font-style:italic;font-size:22px}
+  .manifesto .sigblock .sig{font-family:"Instrument Serif";font-style:italic;font-size:34px;transform:rotate(-3deg);color:var(--oxblood)}
+
+  /* ─── featured product ─── */
+  .feature{padding:0 0 120px;border-bottom:1px solid var(--line-2)}
+  .feature .head{
+    display:grid;grid-template-columns:1fr auto 1fr;gap:40px;align-items:end;
+    padding:64px 0 48px
+  }
+  .feature .head .meta{display:flex;gap:24px;align-items:center;color:var(--ink-3);font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+  .feature .head .title{font-family:var(--serif);font-size:clamp(56px,7vw,108px);line-height:.95;letter-spacing:-.02em;text-align:center;white-space:nowrap}
+  .feature .head .title .it{color:var(--oxblood)}
+  .feature .head .right{justify-self:end;color:var(--ink-3);font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+
+  .feature .stage{
+    display:grid;grid-template-columns:1fr 1fr;gap:0;
+    background:#0E0807;color:var(--bone);min-height:640px;position:relative;overflow:hidden;
+    border-radius:0
+  }
+  .feature .stage .left-pane{padding:48px 56px;display:flex;flex-direction:column;justify-content:space-between;gap:48px;position:relative;z-index:2}
+  .feature .stage .left-pane .name{font-family:var(--serif);font-size:80px;line-height:.95;letter-spacing:-.02em}
+  .feature .stage .left-pane .name .it{color:#E64A2E;font-style:italic}
+  .feature .stage .left-pane .sub{color:#F2ECE0bb;font-size:15px;max-width:38ch;line-height:1.55;margin-top:18px}
+  .feature .stage .specs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;border-top:1px solid #F2ECE022;padding-top:24px}
+  .feature .stage .specs .s{display:flex;flex-direction:column;gap:6px}
+  .feature .stage .specs .s .k{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#F2ECE066}
+  .feature .stage .specs .s .v{font-family:var(--serif);font-style:italic;font-size:26px;color:#F2ECE0}
+  .feature .stage .specs .s .v small{font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:#F2ECE099;margin-left:6px}
+  .feature .stage .actions{display:flex;gap:14px;align-items:center}
+  .feature .stage .actions .price{font-family:var(--serif);font-style:italic;font-size:28px;color:#F2ECE0;margin-left:auto}
+  .feature .stage .actions .price small{font-family:var(--mono);font-style:normal;font-size:10px;letter-spacing:.16em;color:#F2ECE066;display:block;margin-top:2px;text-transform:uppercase}
+  .feature .stage .right-pane{
+    position:relative;background:#000;overflow:hidden;border-left:1px solid #F2ECE015
+  }
+  .feature .stage .right-pane::after{content:"";position:absolute;inset:0;background:#fff;filter:url(#grain);opacity:.18;mix-blend-mode:overlay;pointer-events:none;z-index:6}
+  .feature .stage .right-pane::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 80% at 60% 50%, transparent 55%, #0000004d 100%);z-index:5;pointer-events:none}
+  .bed-product{
+    position:absolute;inset:0;
+    background:
+      radial-gradient(60% 50% at 70% 55%, #FF3220 0%, #8C1218 40%, #2A0608 70%, #060202 100%);
+  }
+  .bed-product::before{
+    content:"";position:absolute;inset:0;
+    background-image:repeating-linear-gradient(0deg, rgba(255,235,225,0) 0 9px, rgba(255,235,225,.55) 9px 10px);
+    mask-image:radial-gradient(50% 60% at 70% 55%, #000 0%, transparent 80%);
+    mix-blend-mode:screen
+  }
+  .bed-product::after{
+    content:"";position:absolute;left:20%;bottom:8%;width:60%;height:14%;
+    background:#080404;border-radius:6px 6px 2px 2px;
+    box-shadow:0 -2px 0 #1a0808, 0 -10px 20px #ff3220aa
+  }
+  .feature .stage .right-pane .pin{
+    position:absolute;border:1px solid #F2ECE0aa;border-radius:99px;width:10px;height:10px;
+    backdrop-filter:blur(2px)
+  }
+  .feature .stage .right-pane .pin.a{left:32%;top:38%}
+  .feature .stage .right-pane .pin.a::after{content:"01 — Tri-wavelength array";position:absolute;left:18px;top:-4px;white-space:nowrap;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#F2ECE0;background:#0a0606cc;padding:5px 10px;border-radius:99px;border:1px solid #F2ECE022}
+  .feature .stage .right-pane .pin.b{left:62%;top:62%}
+  .feature .stage .right-pane .pin.b::after{content:"02 — Aerospace alloy frame";position:absolute;left:18px;top:-4px;white-space:nowrap;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#F2ECE0;background:#0a0606cc;padding:5px 10px;border-radius:99px;border:1px solid #F2ECE022}
+  .feature .stage .corner{position:absolute;right:24px;top:24px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#F2ECE066;display:flex;gap:10px;align-items:center}
+  .feature .stage .corner .live{width:6px;height:6px;border-radius:50%;background:#E64A2E;box-shadow:0 0 10px #E64A2E}
+
+  /* ─── ticker ─── */
+  .ticker{
+    border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);
+    overflow:hidden;background:var(--bone)
+  }
+  .ticker .track{
+    display:flex;gap:64px;white-space:nowrap;width:max-content;
+    animation:marq 60s linear infinite;padding:34px 0;align-items:center
+  }
+  .ticker .track span{font-family:var(--serif);font-size:54px;line-height:1;letter-spacing:-.02em;color:var(--ink)}
+  .ticker .track .it{font-style:italic;color:var(--oxblood)}
+  .ticker .track .star{display:inline-block;width:18px;height:18px;background:var(--oxblood);border-radius:50%;box-shadow:0 0 14px #6B1A1F88}
+
+  /* ─── trio: collection cards ─── */
+  .trio{padding:120px 0;border-bottom:1px solid var(--line-2)}
+  .trio .head{display:flex;align-items:end;justify-content:space-between;gap:40px;margin-bottom:48px}
+  .trio .head h3{font-family:var(--serif);font-size:clamp(40px,5.2vw,72px);line-height:1;letter-spacing:-.02em}
+  .trio .head h3 .it{color:var(--oxblood)}
+  .trio .head .right{max-width:36ch;color:var(--ink-2);font-size:15px;line-height:1.5}
+  .trio .cards{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:24px}
+  .card{
+    position:relative;border-radius:2px;overflow:hidden;background:#1a0e0a;
+    color:var(--bone);min-height:560px;display:flex;flex-direction:column;justify-content:space-between;
+    padding:28px;transition:transform .4s ease
+  }
+  .card:hover{transform:translateY(-4px)}
+  .card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;position:relative;z-index:2}
+  .card .bottom{position:relative;z-index:2}
+  .card .name{font-family:var(--serif);font-size:36px;line-height:1;letter-spacing:-.01em}
+  .card .name .it{font-style:italic;color:#E8C9B6}
+  .card .sub{font-size:13px;color:#F2ECE0bb;margin-top:10px;max-width:30ch;line-height:1.5}
+  .card .meta{display:flex;justify-content:space-between;align-items:center;margin-top:24px}
+  .card .meta .price{font-family:var(--serif);font-style:italic;font-size:22px}
+  .card .meta .arr{width:42px;height:42px;border:1px solid #F2ECE044;border-radius:99px;display:grid;place-items:center;transition:all .25s ease}
+  .card:hover .meta .arr{background:#F2ECE0;color:#16110D}
+  .card .pill{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:6px 10px;border:1px solid #F2ECE044;border-radius:99px}
+  .card .pill.live::before{content:"";display:inline-block;width:5px;height:5px;background:#E64A2E;border-radius:50%;margin-right:8px;vertical-align:middle;box-shadow:0 0 8px #E64A2E}
+
+  .card .scene{position:absolute;inset:0;z-index:1}
+  .card .scene::after{content:"";position:absolute;inset:0;background:#fff;filter:url(#grain);opacity:.25;mix-blend-mode:overlay;pointer-events:none;z-index:6}
+  .card .scene::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 80% at 50% 60%, transparent 50%, #0000004d 100%);z-index:5;pointer-events:none}
+  .card.helios .scene{
+    background:
+      radial-gradient(80% 60% at 50% 65%, #FF3A22 0%, #8C1218 30%, #2A0608 65%, #050202 100%);
+  }
+  .card.helios .scene::before{
+    content:"";position:absolute;inset:0;
+    background-image:repeating-linear-gradient(0deg, rgba(255,235,225,0) 0 10px, rgba(255,235,225,.5) 10px 11px);
+    mask-image:radial-gradient(55% 55% at 50% 65%, #000 0%, transparent 80%);
+    mix-blend-mode:screen
+  }
+  .card.quantum .scene{
+    background:radial-gradient(60% 60% at 60% 50%, #5e2a30 0%, #1f0d10 60%, #0a0405 100%)
+  }
+  .card.quantum .scene::after{
+    content:"";position:absolute;left:24%;top:32%;width:50%;height:18%;border-radius:99px;
+    background:radial-gradient(50% 100% at 50% 50%, #FF6A4A 0%, #B5141A 45%, transparent 75%);
+    filter:blur(2px)
+  }
+  .card.optix .scene{
+    background:radial-gradient(70% 60% at 50% 60%, #4a2024 0%, #1a0a0c 60%, #060202 100%)
+  }
+  .card.optix .scene::after{
+    content:"";position:absolute;left:30%;top:35%;width:40%;height:30%;border-radius:18px;
+    background:
+      radial-gradient(circle at 20% 30%, #FF3A22 0 4px, transparent 5px),
+      radial-gradient(circle at 50% 30%, #FF3A22 0 4px, transparent 5px),
+      radial-gradient(circle at 80% 30%, #FF3A22 0 4px, transparent 5px),
+      radial-gradient(circle at 20% 70%, #FF3A22 0 4px, transparent 5px),
+      radial-gradient(circle at 50% 70%, #FF3A22 0 4px, transparent 5px),
+      radial-gradient(circle at 80% 70%, #FF3A22 0 4px, transparent 5px),
+      #2a1014;
+    box-shadow:0 0 60px #ff3a2244
+  }
+
+  /* ─── science split ─── */
+  .science{padding:140px 0;border-bottom:1px solid var(--line-2);position:relative}
+  .science .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:start}
+  .science .lab{
+    position:relative;background:#0A0606;border-radius:2px;aspect-ratio:4/5;overflow:hidden
+  }
+  .science .lab::after{content:"";position:absolute;inset:0;background:#fff;filter:url(#grain);opacity:.22;mix-blend-mode:overlay;pointer-events:none;z-index:6}
+  .science .lab::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 80% at 50% 50%, transparent 50%, #00000066 100%);z-index:5;pointer-events:none}
+  .science .lab .glow{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:60%;aspect-ratio:1/2.4;
+    background:radial-gradient(50% 50% at 50% 50%, #FF6A4A 0%, #B5141A 35%, transparent 70%);
+    border-radius:99px;filter:blur(2px)
+  }
+  .science .lab .cyl{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:14%;aspect-ratio:1/3;
+    background:
+      repeating-linear-gradient(0deg,
+        rgba(255,235,225,0) 0 12px,
+        rgba(255,235,225,.6) 12px 16px),
+      linear-gradient(90deg, #1a0a0c, #2a1014, #1a0a0c);
+    border-radius:99px;border:1px solid #F2ECE022;
+    box-shadow:0 0 60px #ff3a2266
+  }
+  .science .lab .label{position:absolute;left:24px;bottom:20px;color:#F2ECE0aa;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;display:flex;gap:14px;align-items:center}
+  .science .lab .label .ln{width:24px;height:1px;background:#F2ECE055}
+  .science .lab .corner{position:absolute;right:20px;top:20px;color:#F2ECE066;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+
+  .science h3{font-family:var(--serif);font-size:clamp(40px,5vw,72px);line-height:1;letter-spacing:-.02em;margin-top:32px}
+  .science h3 .it{color:var(--oxblood)}
+  .science .lede{font-size:18px;color:var(--ink-2);line-height:1.55;margin-top:24px;max-width:48ch}
+  .science .stats{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:48px;border-top:1px solid var(--line-2)}
+  .science .stat{padding:28px 0;border-bottom:1px solid var(--line-2);display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+  .science .stat:nth-child(odd){padding-right:28px;border-right:1px solid var(--line-2)}
+  .science .stat:nth-child(even){padding-left:28px}
+  .science .stat .v{font-family:var(--serif);font-size:64px;line-height:1;letter-spacing:-.02em}
+  .science .stat .v .it{color:var(--oxblood);font-style:italic}
+  .science .stat .v sup{font-family:var(--mono);font-size:12px;color:var(--ink-3);vertical-align:top;margin-left:4px}
+  .science .stat .k{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);max-width:18ch;text-align:right}
+  .science .cite{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:24px}
+
+  /* ─── editorial quote ─── */
+  .quote{padding:140px 0;border-bottom:1px solid var(--line-2);text-align:center}
+  .quote .q{
+    font-family:var(--serif);font-size:clamp(36px,4.6vw,68px);line-height:1.05;letter-spacing:-.015em;
+    max-width:22ch;margin:0 auto
+  }
+  .quote .q .it{color:var(--oxblood)}
+  .quote .by{margin-top:36px;display:inline-flex;align-items:center;gap:14px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+  .quote .by .ln{width:30px;height:1px;background:var(--ink-3)}
+
+  /* ─── Loved By Experts ─── */
+  .loved{padding:140px 0;border-bottom:1px solid var(--line-2);background:var(--bone-2)}
+  .loved .head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:56px}
+  .loved .head h3{font-family:var(--serif);font-size:clamp(44px,5.6vw,84px);line-height:.95;letter-spacing:-.02em}
+  .loved .head h3 .it{color:var(--oxblood)}
+  .loved .head .nav{display:flex;gap:8px}
+  .loved .head .nav .arr{width:42px;height:42px;border:1px solid var(--ink);border-radius:99px;display:grid;place-items:center;color:var(--ink);cursor:pointer;transition:all .2s ease}
+  .loved .head .nav .arr:hover{background:var(--ink);color:var(--bone)}
+  .loved .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .exp{display:flex;flex-direction:column;gap:18px}
+  .exp .portrait{aspect-ratio:4/5;position:relative;overflow:hidden;background:var(--bone)}
+  .exp .portrait::after{content:"";position:absolute;inset:0;background:#fff;filter:url(#grain);opacity:.22;mix-blend-mode:overlay;pointer-events:none;z-index:3}
+  .exp.p1 .portrait{background:radial-gradient(60% 60% at 50% 35%, #d8a98a 0%, #8c4f35 45%, #2a1108 100%)}
+  .exp.p1 .portrait::before{content:"";position:absolute;left:32%;top:18%;width:36%;height:32%;background:radial-gradient(50% 50% at 50% 50%, #f0c9ab 0%, #b87a52 60%, transparent 80%);border-radius:50%;filter:blur(2px)}
+  .exp.p2 .portrait{background:radial-gradient(60% 60% at 50% 30%, #b2a896 0%, #5c5142 50%, #1a1410 100%)}
+  .exp.p2 .portrait::before{content:"";position:absolute;left:30%;top:14%;width:40%;height:36%;background:radial-gradient(50% 50% at 50% 50%, #dccfb6 0%, #8a7d62 60%, transparent 80%);border-radius:50%;filter:blur(2px)}
+  .exp.p3 .portrait{background:radial-gradient(70% 70% at 50% 35%, #6b1818 0%, #2a0608 60%, #0a0202 100%)}
+  .exp.p3 .portrait::before{content:"";position:absolute;left:30%;top:16%;width:40%;height:36%;background:radial-gradient(50% 50% at 50% 50%, #f0baa0 0%, #8a4528 60%, transparent 80%);border-radius:50%;filter:blur(2px)}
+  .exp.p4 .portrait{background:radial-gradient(60% 60% at 50% 30%, #c9b89a 0%, #6a5d44 50%, #1c1812 100%)}
+  .exp.p4 .portrait::before{content:"";position:absolute;left:32%;top:16%;width:36%;height:32%;background:radial-gradient(50% 50% at 50% 50%, #e8d4b5 0%, #9a8160 60%, transparent 80%);border-radius:50%;filter:blur(2px)}
+  .exp .quote-mark{position:absolute;left:18px;top:14px;font-family:var(--serif);font-style:italic;font-size:64px;line-height:1;color:#F2ECE0;opacity:.7;z-index:4}
+  .exp .role{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  .exp .name{font-family:var(--serif);font-size:22px;line-height:1.1;letter-spacing:-.01em}
+  .exp .name .it{color:var(--oxblood)}
+  .exp .q{font-size:14px;line-height:1.55;color:var(--ink-2);max-width:34ch}
+
+  /* ─── contact / talk to expert ─── */
+  .contact{padding:140px 0;border-bottom:1px solid var(--line-2);position:relative;overflow:hidden}
+  .contact .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:start}
+  .contact .lhs .eyebrow{margin-bottom:18px}
+  .contact h3{font-family:var(--serif);font-size:clamp(44px,5.6vw,84px);line-height:.95;letter-spacing:-.02em}
+  .contact h3 .it{color:var(--oxblood)}
+  .contact .lhs p{font-size:18px;color:var(--ink-2);line-height:1.55;margin-top:24px;max-width:46ch}
+  .contact .lhs .channels{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px;border-top:1px solid var(--line-2);padding-top:32px}
+  .contact .ch{display:flex;flex-direction:column;gap:6px}
+  .contact .ch .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  .contact .ch .val{font-family:var(--serif);font-style:italic;font-size:26px;color:var(--ink)}
+  .contact .ch a{display:inline-flex;align-items:center;gap:8px;margin-top:6px;font-size:13px;color:var(--oxblood);font-weight:500}
+
+  .contact .rhs{background:var(--ink);color:var(--bone);padding:48px;border-radius:2px;position:relative;overflow:hidden}
+  .contact .rhs::before{content:"";position:absolute;inset:auto -20% -30% -20%;height:60%;background:radial-gradient(60% 100% at 50% 100%, #6B1A1F 0%, transparent 70%);opacity:.5;pointer-events:none}
+  .contact .rhs .eyebrow{color:#F2ECE099;position:relative}
+  .contact .rhs h4{font-family:var(--serif);font-size:36px;line-height:1.05;letter-spacing:-.01em;margin-top:14px;position:relative}
+  .contact .rhs h4 .it{color:#E64A2E}
+  .contact form{margin-top:32px;display:flex;flex-direction:column;gap:14px;position:relative}
+  .contact form .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .contact form label{display:flex;flex-direction:column;gap:6px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#F2ECE099}
+  .contact form input,.contact form select,.contact form textarea{
+    background:transparent;border:0;border-bottom:1px solid #F2ECE033;color:#F2ECE0;
+    font-family:var(--sans);font-size:15px;padding:10px 0;outline:none;width:100%;resize:none
+  }
+  .contact form input:focus,.contact form select:focus,.contact form textarea:focus{border-bottom-color:#E64A2E}
+  .contact form input::placeholder,.contact form textarea::placeholder{color:#F2ECE044}
+  .contact form select option{color:#16110D;background:#F2ECE0}
+  .contact form .submit{margin-top:18px;display:flex;justify-content:space-between;align-items:center;gap:14px}
+  .contact form .submit .fine{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#F2ECE077;max-width:24ch;line-height:1.5}
+
+  /* ─── all products ─── */
+  .shop{padding:120px 0 80px}
+  .shop .head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:48px;flex-wrap:wrap}
+  .shop .head .l{display:flex;flex-direction:column;gap:14px}
+  .shop .head h3{font-family:var(--serif);font-size:clamp(48px,6vw,92px);line-height:.95;letter-spacing:-.02em}
+  .shop .head h3 .it{color:var(--oxblood)}
+  .shop .filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .chip{
+    font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+    padding:9px 14px;border-radius:99px;border:1px solid var(--ink);color:var(--ink);
+    background:transparent;transition:all .2s ease
+  }
+  .chip.on,.chip:hover{background:var(--ink);color:var(--bone)}
+  .shop .sort{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);display:inline-flex;align-items:center;gap:8px}
+  .shop .sort::after{content:"";width:6px;height:6px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:rotate(45deg) translateY(-2px)}
+
+  .pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .pgrid.three{grid-template-columns:repeat(3,1fr)}
+  .pcard{position:relative;display:flex;flex-direction:column;gap:18px}
+  .pcard .img{
+    position:relative;aspect-ratio:4/5;background:var(--bone-2);overflow:hidden;border-radius:2px;
+    transition:transform .4s ease
+  }
+  .pcard:hover .img{transform:translateY(-4px)}
+  .pcard .img .badge{position:absolute;left:14px;top:14px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:6px 10px;border-radius:99px;background:var(--ink);color:var(--bone)}
+  .pcard .img .badge.alt{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+  .pcard .img .badge.sale{background:var(--oxblood);color:var(--bone)}
+  .pcard .img .quick{position:absolute;right:14px;bottom:14px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:8px 12px;border-radius:99px;background:#fffdf8e6;color:var(--ink);display:flex;align-items:center;gap:8px;opacity:0;transform:translateY(6px);transition:all .25s ease}
+  .pcard:hover .img .quick{opacity:1;transform:translateY(0)}
+  .pcard .meta{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .pcard .meta .name{font-family:var(--serif);font-size:22px;letter-spacing:-.01em}
+  .pcard .meta .price{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--ink-2)}
+  .pcard .meta .price .was{color:var(--ink-3);text-decoration:line-through;margin-right:6px}
+  .pcard .meta .price .sale{color:var(--oxblood)}
+  .pcard .desc{font-size:13px;color:var(--ink-3);line-height:1.5;max-width:34ch}
+  .pcard .tags{display:flex;gap:6px;flex-wrap:wrap}
+  .pcard .tags span{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);border:1px solid var(--line-2);padding:4px 8px;border-radius:99px}
+
+  /* product image scenes (photographic placeholders) */
+  .ps{position:absolute;inset:0;overflow:hidden}
+  /* grain + vignette overlays applied to each card via .pcard .img */
+  .pcard .img::after{content:"";position:absolute;inset:0;background:#fff;filter:url(#grain);opacity:.28;mix-blend-mode:overlay;pointer-events:none;z-index:5}
+  .pcard .img::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 80% at 50% 50%, transparent 55%, #00000033 100%);z-index:4;pointer-events:none}
+
+  .ps.nova{background:radial-gradient(120% 90% at 50% 25%, #f3e7d0 0%, #c9b48e 65%, #8c7551 100%)}
+  .ps.nova::after{content:"";position:absolute;left:10%;top:46%;width:80%;height:24%;background:linear-gradient(180deg,#1a1410 0%, #0c0907 100%);border-radius:4px;box-shadow:0 30px 60px -10px #16110066, inset 0 1px 0 #2a1814}
+  .ps.nova::before{content:"";position:absolute;left:14%;top:50%;width:72%;height:16%;background:radial-gradient(60% 100% at 50% 50%, #FF6A4A 0%, #B5141A 50%, transparent 80%);filter:blur(1px);z-index:1;border-radius:99px}
+
+  .ps.helios{background:radial-gradient(120% 90% at 50% 25%, #ead8b8 0%, #b0976b 65%, #6e5436 100%)}
+  .ps.helios::before{content:"";position:absolute;left:10%;top:34%;width:80%;height:40%;background:linear-gradient(180deg,#150806,#060201);border-radius:6px;box-shadow:0 40px 60px -10px #16110099}
+  .ps.helios::after{content:"";position:absolute;left:14%;top:40%;width:72%;height:28%;background:
+    radial-gradient(60% 70% at 50% 50%, #FF6A4A 0%, #8C1218 50%, #2A0608 90%);
+    box-shadow:inset 0 0 0 1px #ffeee533; border-radius:3px}
+
+  .ps.flex{background:radial-gradient(120% 90% at 50% 25%, #ecdcc1 0%, #ad9670 65%, #6a5638 100%)}
+  .ps.flex::after{content:"";position:absolute;left:18%;top:46%;width:64%;height:22%;background:linear-gradient(180deg,#1a1410 0%, #0a0604 100%);border-radius:4px;box-shadow:0 30px 50px -10px #16110099}
+  .ps.flex::before{content:"";position:absolute;left:42%;top:50%;width:16%;height:6%;background:#FF5A33;border-radius:3px;z-index:1;box-shadow:0 0 30px 8px #FF5A3399}
+
+  .ps.roller{background:radial-gradient(120% 90% at 50% 25%, #eedfc4 0%, #ad966c 65%, #685236 100%)}
+  .ps.roller::after{content:"";position:absolute;left:14%;top:40%;width:72%;height:20%;border-radius:99px;background:repeating-linear-gradient(90deg, #2a1c12 0 28px, #FF5A33 28px 38px, #2a1c12 38px 66px), linear-gradient(180deg, #2a1c12, #1a120a);box-shadow:0 20px 36px -10px #16110099, inset 0 0 0 1px #00000033}
+
+  .ps.pad{background:radial-gradient(120% 90% at 50% 25%, #ebdcc0 0%, #ad9670 65%, #6a5638 100%)}
+  .ps.pad::after{content:"";position:absolute;left:18%;top:42%;width:64%;height:24%;background:#140605;border-radius:16px;box-shadow:0 30px 50px -10px #16110099}
+  .ps.pad::before{content:"";position:absolute;left:24%;top:48%;width:52%;height:12%;background:
+    radial-gradient(circle at 10% 50%, #FF5A33 0 5px, transparent 6px),
+    radial-gradient(circle at 30% 50%, #FF5A33 0 5px, transparent 6px),
+    radial-gradient(circle at 50% 50%, #FF5A33 0 5px, transparent 6px),
+    radial-gradient(circle at 70% 50%, #FF5A33 0 5px, transparent 6px),
+    radial-gradient(circle at 90% 50%, #FF5A33 0 5px, transparent 6px);
+    z-index:1;filter:drop-shadow(0 0 8px #FF5A3388)}
+
+  .ps.panel{background:radial-gradient(120% 90% at 50% 22%, #ecdcc0 0%, #aa9268 65%, #645036 100%)}
+  .ps.panel::after{content:"";position:absolute;left:30%;top:14%;width:40%;height:72%;background:#100806;border-radius:4px;
+    box-shadow:0 0 80px #FF5A3344, 0 30px 60px -10px #16110099;
+    background-image:
+      radial-gradient(circle at 12% 8%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 50% 8%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 88% 8%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 12% 25%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 50% 25%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 88% 25%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 12% 42%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 50% 42%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 88% 42%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 12% 60%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 50% 60%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 88% 60%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 12% 78%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 50% 78%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 88% 78%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 12% 92%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 50% 92%, #FF5A33 0 4px, transparent 5px),
+      radial-gradient(circle at 88% 92%, #FF5A33 0 4px, transparent 5px),
+      linear-gradient(180deg,#180c08,#080302)
+  }
+
+  .ps.wand{background:radial-gradient(120% 90% at 50% 22%, #ebdcc0 0%, #aa9268 65%, #645036 100%)}
+  .ps.wand::after{content:"";position:absolute;left:46%;top:14%;width:8%;height:72%;background:linear-gradient(180deg,#1a1208,#0a0604);border-radius:99px;box-shadow:0 24px 40px -8px #16110099}
+  .ps.wand::before{content:"";position:absolute;left:48.4%;top:18%;width:3.2%;height:64%;background:#FF5A33;border-radius:99px;box-shadow:0 0 50px 10px #FF5A3399;z-index:1}
+
+  .ps.mask{background:radial-gradient(120% 90% at 50% 22%, #ebdcc0 0%, #aa9268 65%, #645036 100%)}
+  .ps.mask::after{content:"";position:absolute;left:20%;top:30%;width:60%;height:40%;background:linear-gradient(180deg,#140605, #0a0302);border-radius:50%/60% 60% 70% 70%;box-shadow:0 30px 50px -10px #16110099}
+  .ps.mask::before{content:"";position:absolute;left:26%;top:42%;width:48%;height:14%;background:
+    radial-gradient(circle at 16% 50%, #FF5A33 0 4px, transparent 5px),
+    radial-gradient(circle at 38% 50%, #FF5A33 0 4px, transparent 5px),
+    radial-gradient(circle at 60% 50%, #FF5A33 0 4px, transparent 5px),
+    radial-gradient(circle at 82% 50%, #FF5A33 0 4px, transparent 5px);z-index:1;filter:drop-shadow(0 0 8px #FF5A3388)}
+
+  /* ─── education / journal ─── */
+  .journal{padding:140px 0;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2)}
+  .journal .head{display:flex;justify-content:space-between;align-items:end;margin-bottom:48px}
+  .journal h3{font-family:var(--serif);font-size:clamp(40px,5.2vw,72px);line-height:1;letter-spacing:-.02em}
+  .journal h3 .it{color:var(--oxblood)}
+  .journal .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .article{display:flex;flex-direction:column;gap:18px}
+  .article .img{aspect-ratio:5/4;background:var(--bone-2);position:relative;overflow:hidden}
+  .article .img::after{content:"";position:absolute;inset:0;background:#fff;filter:url(#grain);opacity:.22;mix-blend-mode:overlay;pointer-events:none;z-index:3}
+  .article .img.a{background:radial-gradient(80% 80% at 30% 30%, #FF6A4A 0%, #6B1A1F 60%, #2A0608 100%)}
+  .article .img.b{background:linear-gradient(180deg, #e9dfca 0%, #aa9d7e 100%)}
+  .article .img.b::after{content:"";position:absolute;inset:14% 14% 14% 14%;background:radial-gradient(circle at center, #1a1410 30%, transparent 70%);filter:blur(8px)}
+  .article .img.c{background:linear-gradient(135deg, #2a1014 0%, #6B1A1F 50%, #C25A2C 100%)}
+  .article .img .tag{position:absolute;left:14px;top:14px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--bone);background:#16110099;padding:6px 10px;border-radius:99px;backdrop-filter:blur(4px)}
+  .article .img .read{position:absolute;right:14px;bottom:14px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--bone);background:#16110099;padding:6px 10px;border-radius:99px}
+  .article h4{font-family:var(--serif);font-size:26px;line-height:1.1;letter-spacing:-.01em}
+  .article h4 .it{color:var(--oxblood)}
+  .article p{color:var(--ink-3);font-size:14px;line-height:1.55;max-width:38ch}
+
+  /* ─── newsletter ─── */
+  .news{padding:140px 0;background:var(--ink);color:var(--bone);text-align:center;position:relative;overflow:hidden}
+  .news::before{
+    content:"";position:absolute;inset:-20% -20% auto -20%;height:60%;
+    background:radial-gradient(40% 80% at 50% 0%, #6B1A1F 0%, transparent 70%);
+    opacity:.5;pointer-events:none
+  }
+  .news .eyebrow{color:#F2ECE099}
+  .news h3{font-family:var(--serif);font-size:clamp(48px,6vw,96px);line-height:.95;letter-spacing:-.02em;margin-top:18px;position:relative}
+  .news h3 .it{color:#E64A2E}
+  .news .sub{margin-top:18px;color:#F2ECE0bb;font-size:16px;max-width:48ch;margin-left:auto;margin-right:auto;position:relative}
+  .news form{margin-top:40px;display:flex;align-items:center;gap:0;max-width:540px;margin-left:auto;margin-right:auto;border-bottom:1px solid #F2ECE044;padding:6px 0;position:relative}
+  .news input{flex:1;background:transparent;border:0;color:#F2ECE0;font-family:var(--sans);font-size:16px;padding:14px 4px;outline:none}
+  .news input::placeholder{color:#F2ECE066}
+  .news button{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#F2ECE0;padding:14px 18px;display:inline-flex;gap:10px;align-items:center}
+
+  /* ─── footer ─── */
+  footer{background:var(--ink);color:var(--bone);padding:60px 0 30px}
+  footer .top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:60px;border-bottom:1px solid #F2ECE022}
+  footer .logo{font-family:var(--serif);font-size:42px;letter-spacing:.02em;display:flex;align-items:center;gap:14px}
+  footer .logo .mark{width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 35% 35%, #E64A2E 0%, #6B1A1F 60%, transparent 75%)}
+  footer .col h5{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#F2ECE099;margin-bottom:18px}
+  footer .col ul{list-style:none;display:flex;flex-direction:column;gap:10px;font-size:14px;color:#F2ECE0cc}
+  footer .col ul a:hover{color:#E64A2E}
+  footer .tag{color:#F2ECE099;font-family:var(--serif);font-style:italic;font-size:22px;margin-top:14px;max-width:32ch;line-height:1.3}
+  footer .bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#F2ECE077;flex-wrap:wrap;gap:16px}
+
+  /* Big wordmark above footer */
+  .megaword{padding:80px 0 0;text-align:center;background:var(--ink);color:var(--bone);overflow:hidden;line-height:1}
+  .megaword .w{
+    font-family:var(--serif);font-weight:400;letter-spacing:-.04em;
+    font-size:clamp(120px,22vw,360px);line-height:.85;color:#F2ECE0;
+    display:block
+  }
+  .megaword .w .it{color:#6B1A1F}
+  .megaword .sub{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#F2ECE066;margin-top:24px;display:block}
+
+  /* tweak panel mount */
+  #tweak-root{position:fixed;z-index:100;right:0;bottom:0}
+
+  @media (max-width:1100px){
+    .hero{height:auto;min-height:580px}
+    .hero .midblock{position:relative;left:auto;bottom:auto;padding:24px 0}
+    .hero .overlay{padding:32px 24px}
+    .manifesto .grid,.science .grid{grid-template-columns:1fr;gap:40px}
+    .feature .stage{grid-template-columns:1fr}
+    .trio .cards{grid-template-columns:1fr 1fr}
+    .pgrid{grid-template-columns:1fr 1fr}
+    footer .top{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- SVG filters for grain + glow (premium image feel) -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 1  0 0 0 0 0.95  0 0 0 0 0.85  0 0 0 0.18 0"/>
+      <feComposite in2="SourceGraphic" operator="in"/>
+    </filter>
+    <filter id="grain-dark" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.22 0"/>
+      <feComposite in2="SourceGraphic" operator="in"/>
+    </filter>
+  </defs>
+</svg>
+
+<!-- announcement -->
+<div class="announce">
+  <div class="marq">
+    <div class="marq-track">
+      <span>Complimentary white-glove delivery on every Helios &amp; Nova</span>
+      <span class="dot">✦</span>
+      <span>2% of every purchase funds The National Pediatric Cancer Foundation</span>
+      <span class="dot">✦</span>
+      <span>Studio appointments now booking — Beverly Hills · Dallas · Miami</span>
+      <span class="dot">✦</span>
+      <span>New: Quantum Roller — limited preorder</span>
+      <span class="dot">✦</span>
+      <span>Complimentary white-glove delivery on every Helios &amp; Nova</span>
+      <span class="dot">✦</span>
+      <span>2% of every purchase funds The National Pediatric Cancer Foundation</span>
+      <span class="dot">✦</span>
+      <span>Studio appointments now booking — Beverly Hills · Dallas · Miami</span>
+      <span class="dot">✦</span>
+      <span>New: Quantum Roller — limited preorder</span>
+      <span class="dot">✦</span>
+    </div>
+  </div>
+  <div class="right"><span>EN · USD $</span><span>⌄</span></div>
+</div>
+
+<!-- nav -->
+<nav class="top">
+  <div class="row">
+    <div class="links">
+      <a href="#" class="has-caret">Beds</a>
+      <a href="#" class="has-caret">Devices</a>
+      <a href="#" class="has-caret">Science</a>
+      <a href="#">Journal</a>
+      <a href="#contact" class="talk"><span class="livedot"></span>Talk to an Expert</a>
+    </div>
+    <a href="#" class="logo"><span class="mark"></span><span>Solbasium</span></a>
+    <div class="right">
+      <a href="#" class="icon-btn">Search</a>
+      <a href="#" class="icon-btn">Account</a>
+      <a href="#" class="icon-btn">Bag <span class="cart-badge">1</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO (full-bleed cinematic) -->
+<section class="hero">
+  <div class="photo">
+    <div class="layer-bg"></div>
+    <div class="bed"></div>
+    <div class="leds"></div>
+    <div class="figure"></div>
+    <div class="haze"></div>
+    <div class="grain"></div>
+    <div class="vignette"></div>
+  </div>
+  <div class="overlay">
+    <div class="toprow">
+      <div class="crumb">
+        <span class="dot"></span>
+        <span class="eyebrow">Volume 04 — The Helios Bed</span>
+      </div>
+      <div class="right">
+        <span>660 nm · 850 nm</span>
+        <span>·</span>
+        <span>1,440 diodes</span>
+      </div>
+    </div>
+    <div class="botrow">
+      <div class="meta">
+        <div class="col"><span>Est.</span><b>MMXIX</b></div>
+        <div class="col"><span>Made in</span><b>California</b></div>
+        <div class="col"><span>Warranty</span><b>Lifetime</b></div>
+      </div>
+      <div class="scrolltip"><span>Scroll</span><div class="line"></div></div>
+      <div class="controls">
+        <div class="arr">‹</div>
+        <div class="pip on"></div><div class="pip"></div><div class="pip"></div>
+        <div class="arr">›</div>
+      </div>
+    </div>
+  </div>
+  <div class="midblock">
+    <h1>Light, <span class="it">remembered.</span></h1>
+    <div class="actions">
+      <a href="#" class="btn primary">Discover Helios <span class="arrow"></span></a>
+      <a href="#contact" class="btn glass">Talk to an expert</a>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS / IN THE SPOTLIGHT -->
+<div class="wrap">
+  <section class="press">
+    <div class="head">
+      <span class="label">— In the spotlight</span>
+      <span class="swirl">As seen in.</span>
+      <span class="label">2024 / 2025</span>
+    </div>
+    <div class="marks">
+      <span class="m it">Vogue</span>
+      <span class="m sm">Men's Health</span>
+      <span class="m">GOOP</span>
+      <span class="m sm">Esquire</span>
+      <span class="m it">Robb Report</span>
+      <span class="m sm">Architectural Digest</span>
+      <span class="m">WSJ.</span>
+    </div>
+    <div class="awards">
+      <div class="aw">
+        <div class="badge">★</div>
+        <div class="year">Vogue · 2025</div>
+        <div class="title">Best <span class="it">red-light bed</span></div>
+      </div>
+      <div class="aw">
+        <div class="badge">◆</div>
+        <div class="year">Robb Report · 2025</div>
+        <div class="title">Object of <span class="it">the year</span></div>
+      </div>
+      <div class="aw">
+        <div class="badge">✦</div>
+        <div class="year">GOOP · 2025</div>
+        <div class="title">Wellness <span class="it">essential</span></div>
+      </div>
+      <div class="aw">
+        <div class="badge">◉</div>
+        <div class="year">Men's Health · 2024</div>
+        <div class="title">Best in <span class="it">recovery</span></div>
+      </div>
+      <div class="aw">
+        <div class="badge">✺</div>
+        <div class="year">AD · 2024</div>
+        <div class="title">Design <span class="it">honoree</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <div class="eyebrow" style="margin-bottom:24px">A note from the studio</div>
+        <h2>The future is <span class="it">unhurried.</span></h2>
+        <div class="sigblock">
+          <span class="sig">— Sol &amp; Co.</span>
+        </div>
+      </div>
+      <div>
+        <p>
+          <span style="font-family:var(--serif);font-size:64px;line-height:.6;float:left;margin:14px 14px 0 0;color:var(--oxblood)">W</span>
+          ellness is patience. The discipline of returning, every day, to the slow rituals
+          that tune a body across decades.
+        </p>
+        <p>
+          We build for the people who plan to be here in twenty years. <span class="serif it" style="color:var(--oxblood);font-size:1.05em">Light is medicine, dosed properly.</span>
+          Everything we make is engineered with clinicians, validated against the
+          literature, and finished by hand.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCT -->
+<section class="feature">
+  <div class="wrap-wide">
+    <div class="head">
+      <div class="meta"><span>Chapter 01</span><span>·</span><span>The Bed</span></div>
+      <div class="title">The <span class="it">Helios</span></div>
+      <div class="right">Shipping Q3 2026</div>
+    </div>
+    <div class="stage">
+      <div class="left-pane">
+        <div>
+          <div class="eyebrow" style="color:#F2ECE099;margin-bottom:18px">Flagship</div>
+          <div class="name">Made of <span class="it">light.</span><br/>Built for <span class="it">life.</span></div>
+        </div>
+        <div>
+          <div class="specs">
+            <div class="s"><span class="k">Diodes</span><span class="v">1,440</span></div>
+            <div class="s"><span class="k">Irradiance</span><span class="v">220<small>mW/cm²</small></span></div>
+            <div class="s"><span class="k">Session</span><span class="v">12<small>min</small></span></div>
+            <div class="s"><span class="k">Wavelengths</span><span class="v">660 · 850</span></div>
+            <div class="s"><span class="k">Warranty</span><span class="v">Lifetime</span></div>
+            <div class="s"><span class="k">Built in</span><span class="v">CA · USA</span></div>
+          </div>
+          <div class="actions" style="margin-top:32px;border-top:1px solid #F2ECE022;padding-top:24px">
+            <a href="#" class="btn light">Configure yours <span class="arrow"></span></a>
+            <a href="#" class="btn ghost" style="border-color:#F2ECE055;color:#F2ECE0">Download spec sheet</a>
+            <div class="price">$24,990<small>or financed from $416/mo</small></div>
+          </div>
+        </div>
+      </div>
+      <div class="right-pane">
+        <div class="bed-product"></div>
+        <div class="corner"><span class="live"></span>Live in 12 studios</div>
+        <div class="pin a"></div>
+        <div class="pin b"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="track">
+    <span>Calibrated</span><span class="it">stillness.</span><span class="star"></span>
+    <span>Calibrated</span><span class="it">stillness.</span><span class="star"></span>
+    <span>Calibrated</span><span class="it">stillness.</span><span class="star"></span>
+    <span>Calibrated</span><span class="it">stillness.</span><span class="star"></span>
+    <span>Calibrated</span><span class="it">stillness.</span><span class="star"></span>
+  </div>
+</div>
+
+<!-- TRIO COLLECTIONS -->
+<section class="trio">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow" style="margin-bottom:16px">The Collection</div>
+        <h3>Objects for the <span class="it">long arc</span> of a life.</h3>
+      </div>
+      <div class="right">
+        Three product families — one philosophy. Built around the wavelengths the body
+        recognizes. Made to live with you for decades, not seasons.
+      </div>
+    </div>
+    <div class="cards">
+      <a class="card helios" href="#">
+        <div class="scene"></div>
+        <div class="top">
+          <span class="pill live">Flagship</span>
+          <span class="num">01 / 03</span>
+        </div>
+        <div class="bottom">
+          <div class="name">Helios <span class="it">Bed</span></div>
+          <div class="meta">
+            <div class="price">from $24,990</div>
+            <div class="arr">→</div>
+          </div>
+        </div>
+      </a>
+      <a class="card quantum" href="#">
+        <div class="scene"></div>
+        <div class="top">
+          <span class="pill">Preorder</span>
+          <span class="num">02 / 03</span>
+        </div>
+        <div class="bottom">
+          <div class="name">Quantum <span class="it">Roller</span></div>
+          <div class="meta">
+            <div class="price">$399</div>
+            <div class="arr">→</div>
+          </div>
+        </div>
+      </a>
+      <a class="card optix" href="#">
+        <div class="scene"></div>
+        <div class="top">
+          <span class="pill">Available</span>
+          <span class="num">03 / 03</span>
+        </div>
+        <div class="bottom">
+          <div class="name">Optix <span class="it">Pads</span></div>
+          <div class="meta">
+            <div class="price">from $599</div>
+            <div class="arr">→</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SCIENCE -->
+<section class="science">
+  <div class="wrap">
+    <div class="grid">
+      <div class="lab">
+        <div class="glow"></div>
+        <div class="cyl"></div>
+        <div class="corner">REF · 0042 / LAB&nbsp;A</div>
+        <div class="label"><span class="ln"></span>Spectrometer · Pasadena, CA</div>
+      </div>
+      <div>
+        <div class="eyebrow">14 peer-reviewed papers</div>
+        <h3>Built on <span class="it">evidence.</span></h3>
+        <p class="lede">
+          Every wavelength and dose grounded in clinical literature, re-validated
+          against our own spectrometer. We publish the data.
+        </p>
+        <div class="stats">
+          <div class="stat"><div class="v">94<sup>%</sup></div><div class="k">Sleep quality improvement at 8&nbsp;weeks</div></div>
+          <div class="stat"><div class="v">3.1<span class="it">×</span></div><div class="k">Collagen density vs. control</div></div>
+          <div class="stat"><div class="v">41<sup>%</sup></div><div class="k">Faster muscle recovery, DOMS protocol</div></div>
+          <div class="stat"><div class="v">14</div><div class="k">Peer-reviewed citations</div></div>
+        </div>
+        <div class="cite">Cohort n=312 · 8-week double-blind · 2024 internal validation</div>
+        <div class="actions" style="margin-top:32px">
+          <a href="#" class="btn primary">Read the white paper <span class="arrow"></span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote">
+  <div class="wrap">
+    <div class="eyebrow">A word from our partners</div>
+    <p class="q" style="margin-top:32px">
+      "I've trained twelve Olympians. The Helios is the <span class="it">first object</span>
+      I've put into every one of their homes."
+    </p>
+    <div class="by"><span class="ln"></span>Gunnar Peterson · Strength Coach<span class="ln"></span></div>
+  </div>
+</section>
+
+<!-- LOVED BY EXPERTS -->
+<section class="loved">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px">— Loved by experts &amp; icons</div>
+        <h3>The instruments of <span class="it">people who know.</span></h3>
+      </div>
+      <div class="nav">
+        <div class="arr">‹</div>
+        <div class="arr">›</div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="exp p1">
+        <div class="portrait"><span class="quote-mark">"</span></div>
+        <div class="role">Strength coach</div>
+        <div class="name">Gunnar <span class="it">Peterson</span></div>
+        <p class="q">The Helios is the first object I've put in every Olympian's home. Sleep, soreness, skin — it changes everything.</p>
+      </div>
+      <div class="exp p2">
+        <div class="portrait"><span class="quote-mark">"</span></div>
+        <div class="role">Functional medicine, MD</div>
+        <div class="name">Dr. Jill <span class="it">Carnahan</span></div>
+        <p class="q">I recommend Solbasium daily — for inflammation, sleep, mitochondrial health. The dosing is honest and the engineering is rare.</p>
+      </div>
+      <div class="exp p3">
+        <div class="portrait"><span class="quote-mark">"</span></div>
+        <div class="role">Dermatologist</div>
+        <div class="name">Dr. Whitney <span class="it">Bowe</span></div>
+        <p class="q">In a category of marketing, this is one of the only beds I'd put my own name on. Clinically meaningful, beautifully built.</p>
+      </div>
+      <div class="exp p4">
+        <div class="portrait"><span class="quote-mark">"</span></div>
+        <div class="role">Longevity researcher</div>
+        <div class="name">Dr. Andrew <span class="it">Salas</span></div>
+        <p class="q">A genuinely calibrated device. Solbasium publishes the data, which is the only place I'd start a conversation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / TALK TO AN EXPERT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="grid">
+      <div class="lhs">
+        <div class="eyebrow">— Concierge</div>
+        <h3>Talk to an <span class="it">expert.</span></h3>
+        <p>
+          Choosing a bed is a long decision. Our concierge team — clinicians, athletes,
+          and the people who built Helios — answers the questions a buyer's guide can't.
+        </p>
+        <div class="channels">
+          <div class="ch">
+            <span class="lbl">By phone</span>
+            <span class="val">+1 (323) 555 — 0144</span>
+            <a href="tel:+13235550144">Mon – Fri · 8a – 8p PT →</a>
+          </div>
+          <div class="ch">
+            <span class="lbl">By email</span>
+            <span class="val">concierge@solbasium.com</span>
+            <a href="mailto:concierge@solbasium.com">Reply within 4 hours →</a>
+          </div>
+          <div class="ch">
+            <span class="lbl">Studio visits</span>
+            <span class="val">Beverly Hills · Dallas · Miami</span>
+            <a href="#">Book an appointment →</a>
+          </div>
+          <div class="ch">
+            <span class="lbl">For clinics</span>
+            <span class="val">Wholesale &amp; trade</span>
+            <a href="#">Apply for trade pricing →</a>
+          </div>
+        </div>
+      </div>
+      <div class="rhs">
+        <div class="eyebrow">— Schedule a private call</div>
+        <h4>Twenty minutes, <span class="it">no pressure.</span></h4>
+        <form onsubmit="event.preventDefault();this.querySelector('button').textContent='Sent ✓';this.querySelector('button').disabled=true">
+          <div class="row2">
+            <label>First name<input type="text" placeholder="Naomi" required /></label>
+            <label>Last name<input type="text" placeholder="Chen" required /></label>
+          </div>
+          <label>Email<input type="email" placeholder="naomi@studio.com" required /></label>
+          <label>Phone<input type="tel" placeholder="+1 (323) 555 — 0144" /></label>
+          <label>Interested in
+            <select>
+              <option>Helios Bed — Flagship</option>
+              <option>Nova Bed — Home</option>
+              <option>Flex Bed — Compact</option>
+              <option>Optix Pads — Targeted</option>
+              <option>Aurora Mask</option>
+              <option>Studios &amp; trade</option>
+              <option>I'm not sure — please advise</option>
+            </select>
+          </label>
+          <label>Tell us a little<textarea rows="3" placeholder="What you're hoping to solve, what room it'll live in, any timing…"></textarea></label>
+          <div class="submit">
+            <span class="fine">We reply within 4 business hours. Your details stay with us.</span>
+            <button type="submit" class="btn primary" style="background:#F2ECE0;color:#16110D">Request a call <span class="arrow"></span></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ALL PRODUCTS -->
+<section class="shop">
+  <div class="wrap">
+    <div class="head">
+      <div class="l">
+        <div class="eyebrow">All objects · 11</div>
+        <h3>Shop the <span class="it">collection.</span></h3>
+      </div>
+      <div class="filters">
+        <button class="chip on">Everything</button>
+        <button class="chip">Beds</button>
+        <button class="chip">Wearables</button>
+        <button class="chip">Hand-held</button>
+        <button class="chip">Accessories</button>
+        <button class="chip">New</button>
+        <span class="sort" style="margin-left:24px">Sort: Featured</span>
+      </div>
+    </div>
+
+    <div class="pgrid">
+      <a class="pcard" href="#">
+        <div class="img"><div class="ps nova"></div>
+          <span class="badge">Flagship</span>
+          <span class="quick">Quick view →</span>
+        </div>
+        <div class="meta">
+          <div>
+            <div class="name">Nova Bed</div>
+            <div class="tags"><span>660 nm</span><span>850 nm</span><span>Home</span></div>
+          </div>
+          <div class="price">$19,990</div>
+        </div>
+        <p class="desc">The home instrument. Streamlined chassis, the same diode array.</p>
+      </a>
+      <a class="pcard" href="#">
+        <div class="img"><div class="ps helios"></div>
+          <span class="badge">Commercial</span>
+          <span class="quick">Quick view →</span>
+        </div>
+        <div class="meta">
+          <div>
+            <div class="name">Helios Commercial</div>
+            <div class="tags"><span>1440 diodes</span><span>Studio</span></div>
+          </div>
+          <div class="price">$24,990</div>
+        </div>
+        <p class="desc">Engineered for clinics, studios, and serious athletes.</p>
+      </a>
+      <a class="pcard" href="#">
+        <div class="img"><div class="ps flex"></div>
+          <span class="badge alt">Available</span>
+          <span class="quick">Quick view →</span>
+        </div>
+        <div class="meta">
+          <div>
+            <div class="name">Flex Bed</div>
+            <div class="tags"><span>Convertible</span><span>660 nm</span></div>
+          </div>
+          <div class="price">$14,990</div>
+        </div>
+        <p class="desc">Folds into a console. For smaller rooms with no compromises.</p>
+      </a>
+      <a class="pcard" href="#">
+        <div class="img"><div class="ps roller"></div>
+          <span class="badge sale">−33%</span>
+          <span class="quick">Quick view →</span>
+        </div>
+        <div class="meta">
+          <div>
+            <div class="name">Quantum Roller</div>
+            <div class="tags"><span>Vibration</span><span>Cordless</span></div>
+          </div>
+          <div class="price"><span class="was">$600</span><span class="sale">$399</span></div>
+        </div>
+        <p class="desc">Recovery, ritualized. Pre-order; ships February.</p>
+      </a>
+
+      <a class="pcard" href="#">
+        <div class="img"><div class="ps pad"></div>
+          <span class="badge alt">Wearable</span>
+          <span class="quick">Quick view →</span>
+        </div>
+        <div class="meta">
+          <div>
+            <div class="name">Optix Pads</div>
+            <div class="tags"><span>Set of 4</span><span>Wireless</span></div>
+          </div>
+          <div class="price">$599</div>
+        </div>
+        <p class="desc">Targeted, wearable, wireless. Knees, shoulders, hips.</p>
+      </a>
+      <a class="pcard" href="#">
+        <div class="img"><div class="ps panel"></div>
+          <span class="badge alt">Available</span>
+          <span class="quick">Quick view →</span>
+        </div>
+        <div class="meta">
+          <div>
+            <div class="name">Tower Panel</div>
+            <div class="tags"><span>Wall-mount</span><span>900 diodes</span></div>
+          </div>
+          <div class="price">$3,490</div>
+        </div>
+        <p class="desc">Vertical-format panel for daily standing protocols.</p>
+      </a>
+      <a class="pcard" href="#">
+        <div class="img"><div class="ps wand"></div>
+          <span class="badge alt">Available</span>
+          <span class="quick">Quick view →</span>
+        </div>
+        <div class="meta">
+          <div>
+            <div class="name">Wand</div>
+            <div class="tags"><span>Hand-held</span><span>Travel</span></div>
+          </div>
+          <div class="price">$249</div>
+        </div>
+        <p class="desc">Targeted hand-held. For spot work and travel.</p>
+      </a>
+      <a class="pcard" href="#">
+        <div class="img"><div class="ps mask"></div>
+          <span class="badge">New</span>
+          <span class="quick">Quick view →</span>
+        </div>
+        <div class="meta">
+          <div>
+            <div class="name">Aurora Mask</div>
+            <div class="tags"><span>Face</span><span>Wireless</span></div>
+          </div>
+          <div class="price">$449</div>
+        </div>
+        <p class="desc">A 10-minute ritual. The most studied wavelengths for skin.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNAL -->
+<section class="journal">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px">The Journal</div>
+        <h3>Read, before you <span class="it">begin.</span></h3>
+      </div>
+      <a href="#" class="btn ghost">All essays <span class="arrow"></span></a>
+    </div>
+    <div class="grid">
+      <a class="article" href="#">
+        <div class="img a">
+          <span class="tag">Field Notes · 8 min</span>
+          <span class="read">Read →</span>
+        </div>
+        <h4>What we mean when we say <span class="it">photobiomodulation.</span></h4>
+        <p>A working guide to the wavelengths, the literature, and the limits of the science.</p>
+      </a>
+      <a class="article" href="#">
+        <div class="img b">
+          <span class="tag">Profiles · 12 min</span>
+          <span class="read">Read →</span>
+        </div>
+        <h4>A morning with <span class="it">Gunnar Peterson.</span></h4>
+        <p>The strength coach behind a generation of athletes on the rituals that survive.</p>
+      </a>
+      <a class="article" href="#">
+        <div class="img c">
+          <span class="tag">Manual · 6 min</span>
+          <span class="read">Read →</span>
+        </div>
+        <h4>A primer on dosage, <span class="it">honestly written.</span></h4>
+        <p>How much light, how often, and the answer you'll never see in a marketing video.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="news">
+  <div class="wrap">
+    <div class="eyebrow">The Dispatch · Monthly</div>
+    <h3>Letters about <span class="it">light, sleep,</span><br/>and the long arc.</h3>
+    <p class="sub">A short letter, once a month. New essays, studio openings, occasional product previews — no marketing detritus.</p>
+    <form onsubmit="event.preventDefault();this.querySelector('button').textContent='Subscribed ✓'">
+      <input type="email" placeholder="your@address.com" />
+      <button type="submit">Subscribe <span class="arrow" style="display:inline-block"></span></button>
+    </form>
+  </div>
+</section>
+
+<!-- MEGA WORDMARK -->
+<div class="megaword">
+  <span class="w">Solb<span class="it">a</span>sium<span class="it">.</span></span>
+  <span class="sub">Made of light · Established MMXIX · Pasadena, California</span>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <div class="logo"><span class="mark"></span><span>Solbasium</span></div>
+        <p class="tag">Instruments for the long arc of a life. Made by hand in California.</p>
+      </div>
+      <div class="col">
+        <h5>Shop</h5>
+        <ul>
+          <li><a href="#">Helios Bed</a></li>
+          <li><a href="#">Nova Bed</a></li>
+          <li><a href="#">Flex Bed</a></li>
+          <li><a href="#">Quantum Roller</a></li>
+          <li><a href="#">Optix Pads</a></li>
+          <li><a href="#">Aurora Mask</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h5>Learn</h5>
+        <ul>
+          <li><a href="#">The Science</a></li>
+          <li><a href="#">Journal</a></li>
+          <li><a href="#">White papers</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Studios</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h5>House</h5>
+        <ul>
+          <li><a href="#">Our story</a></li>
+          <li><a href="#">Pediatric Cancer Foundation</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom">
+      <span>© Solbasium MMXXVI · All instruments designed in Pasadena, CA</span>
+      <span>Privacy · Terms · Accessibility · Do not sell my data</span>
+    </div>
+  </div>
+</footer>
+
+<div id="tweak-root"></div>
+
+<!-- React for tweaks panel -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.js"></script>
+<script type="text/babel" data-presets="env,react">
+// ── Inline tweak app (palette + typography) ───────────────────────────
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "palette": "bone-oxblood",
+  "headlineTreatment": "italic-accent",
+  "showWordmark": true,
+  "showTicker": true
+}/*EDITMODE-END*/;
+
+const PALETTES = {
+  "bone-oxblood": { bone: "#F2ECE0", ink: "#16110D", oxblood: "#6B1A1F", ember: "#C25A2C" },
+  "ivory-rose":   { bone: "#F5EFE6", ink: "#1A1410", oxblood: "#8C2A2E", ember: "#D77654" },
+  "obsidian":     { bone: "#161210", ink: "#F2ECE0", oxblood: "#E64A2E", ember: "#FFB48A" },
+  "stone-merlot": { bone: "#E9E4D9", ink: "#1F1A18", oxblood: "#4D1014", ember: "#A04A2A" },
+  "linen-coral":  { bone: "#F7F0E2", ink: "#221A14", oxblood: "#B8351E", ember: "#E58A4E" }
+};
+const PALETTE_KEYS = Object.keys(PALETTES);
+
+function shade(hex, amt){
+  const c=hex.replace('#','');
+  const r=Math.max(0,Math.min(255,parseInt(c.slice(0,2),16)+amt));
+  const g=Math.max(0,Math.min(255,parseInt(c.slice(2,4),16)+amt));
+  const b=Math.max(0,Math.min(255,parseInt(c.slice(4,6),16)+amt));
+  return '#'+[r,g,b].map(v=>v.toString(16).padStart(2,'0')).join('');
+}
+function applyPalette(name) {
+  const p = PALETTES[name] || PALETTES["bone-oxblood"];
+  const root = document.documentElement;
+  root.style.setProperty('--bone', p.bone);
+  root.style.setProperty('--ink', p.ink);
+  root.style.setProperty('--oxblood', p.oxblood);
+  root.style.setProperty('--ember', p.ember);
+  if (name === 'obsidian') {
+    root.style.setProperty('--bone-2', '#1F1916');
+    root.style.setProperty('--ink-2', '#D7CEBF');
+    root.style.setProperty('--ink-3', '#928677');
+    root.style.setProperty('--line-2', 'rgba(242,236,224,.13)');
+  } else {
+    root.style.setProperty('--bone-2', shade(p.bone, -6));
+    root.style.setProperty('--ink-2', shade(p.ink, 38));
+    root.style.setProperty('--ink-3', shade(p.ink, 88));
+    root.style.setProperty('--line-2', 'rgba(22,17,16,.08)');
+  }
+}
+function applyHeadlineTreatment(v) {
+  document.querySelectorAll('.it').forEach(el => {
+    if (v === 'italic-accent')   { el.style.fontStyle = 'italic'; el.style.color = ''; }
+    else if (v === 'italic-mono'){ el.style.fontStyle = 'italic'; el.style.color = 'var(--ink)'; }
+    else if (v === 'upright')    { el.style.fontStyle = 'normal'; }
+  });
+}
+function applyVisibility(showWordmark, showTicker) {
+  const wm = document.querySelector('.megaword'); if (wm) wm.style.display = showWordmark ? '' : 'none';
+  const tk = document.querySelector('.ticker');   if (tk) tk.style.display = showTicker ? '' : 'none';
+}
+
+const PALETTE_LABEL = {
+  "bone-oxblood":"Bone · Oxblood (default)",
+  "ivory-rose":"Ivory · Rose",
+  "obsidian":"Obsidian · Ember (dark)",
+  "stone-merlot":"Stone · Merlot",
+  "linen-coral":"Linen · Coral"
+};
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const paletteIdx = Math.max(0, PALETTE_KEYS.indexOf(t.palette));
+  const paletteSwatches = PALETTE_KEYS.map(k => {
+    const p = PALETTES[k];
+    return [p.bone, p.ink, p.oxblood, p.ember];
+  });
+
+  React.useEffect(() => { applyPalette(t.palette); }, [t.palette]);
+  React.useEffect(() => { applyHeadlineTreatment(t.headlineTreatment); }, [t.headlineTreatment]);
+  React.useEffect(() => { applyVisibility(t.showWordmark, t.showTicker); }, [t.showWordmark, t.showTicker]);
+
+  return (
+    <TweaksPanel title="Tweaks">
+      <TweakSection label="Palette">
+        <TweakColor
+          label="Color story"
+          value={paletteSwatches[paletteIdx]}
+          onChange={(arr) => {
+            const i = paletteSwatches.findIndex(s => JSON.stringify(s) === JSON.stringify(arr));
+            if (i >= 0) setTweak('palette', PALETTE_KEYS[i]);
+          }}
+          options={paletteSwatches}
+        />
+        <div style={{fontFamily:'JetBrains Mono, monospace',fontSize:10,letterSpacing:'.14em',textTransform:'uppercase',opacity:.55,marginTop:6}}>
+          {PALETTE_LABEL[t.palette]}
+        </div>
+      </TweakSection>
+
+      <TweakSection label="Typography">
+        <TweakRadio
+          label="Headline italics"
+          value={t.headlineTreatment}
+          onChange={v => setTweak('headlineTreatment', v)}
+          options={[
+            {value:'italic-accent', label:'Accent'},
+            {value:'italic-mono', label:'Mono'},
+            {value:'upright', label:'Upright'}
+          ]}
+        />
+      </TweakSection>
+
+      <TweakSection label="Sections">
+        <TweakToggle label="Show ticker" value={t.showTicker} onChange={v => setTweak('showTicker', v)} />
+        <TweakToggle label="Show mega wordmark" value={t.showWordmark} onChange={v => setTweak('showWordmark', v)} />
+      </TweakSection>
+    </TweaksPanel>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('tweak-root')).render(<App />);
+</script>
+</body>
+</html>
