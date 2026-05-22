@@ -1,0 +1,91 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Solbasium",
+    "theme_version": "1.0.0",
+    "theme_author": "Solbasium",
+    "theme_documentation_url": "https://solbasium.com",
+    "theme_support_url": "https://solbasium.com/pages/contact"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_orange",
+        "label": "Brand orange (CTAs)",
+        "default": "#F04A20"
+      },
+      {
+        "type": "color",
+        "id": "color_purple",
+        "label": "Brand purple",
+        "default": "#66379D"
+      },
+      {
+        "type": "color",
+        "id": "color_ink",
+        "label": "Ink (primary text / dark backgrounds)",
+        "default": "#363533"
+      },
+      {
+        "type": "color",
+        "id": "color_cream",
+        "label": "Cream (body background)",
+        "default": "#EEEEEE"
+      },
+      {
+        "type": "color",
+        "id": "color_white",
+        "label": "White (section background)",
+        "default": "#FAF6F2"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "select",
+        "id": "type_sans",
+        "label": "Sans-serif stack",
+        "options": [
+          { "value": "switzer", "label": "Switzer (default)" },
+          { "value": "neue-haas", "label": "Neue Haas Grotesk" },
+          { "value": "helvetica", "label": "Helvetica Neue" }
+        ],
+        "default": "switzer"
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook URL"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "YouTube URL"
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image"
+      }
+    ]
+  }
+]

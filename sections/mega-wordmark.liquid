@@ -1,0 +1,32 @@
+<div class="megaword">
+  <span class="w">{{ section.settings.word }}<span class="it">{{ section.settings.punctuation }}</span></span>
+  <span class="sub">{{ section.settings.tagline }}</span>
+</div>
+
+{% schema %}
+{
+  "name": "Mega Wordmark",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "word",
+      "label": "Wordmark",
+      "default": "Solbasium"
+    },
+    {
+      "type": "text",
+      "id": "punctuation",
+      "label": "Punctuation (italic serif)",
+      "default": "."
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Relentless Innovation · Engineered in the USA"
+    }
+  ],
+  "presets": [{ "name": "Mega Wordmark" }]
+}
+{% endschema %}

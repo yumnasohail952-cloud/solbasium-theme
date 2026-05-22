@@ -1,0 +1,113 @@
+<section class="how">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <div class="eyebrow">— {{ section.settings.eyebrow }}</div>
+        <h2>{{ section.settings.heading_line1 }}<br/><span class="it">{{ section.settings.heading_line2 }}</span></h2>
+        <p class="lede">{{ section.settings.lede }}</p>
+        <div class="steps">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'step' -%}
+              <div class="step" {{ block.shopify_attributes }}>
+                <span class="n">— {{ block.settings.number }}</span>
+                <div class="body">
+                  <h4>{{ block.settings.title }}</h4>
+                  <p>{{ block.settings.description }}</p>
+                </div>
+                <span class="wave">{{ block.settings.wavelength }}</span>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <div class="anatomy">
+        <span class="label">— Tissue cross-section</span>
+        <div class="stack">
+          <div class="layer epi">Epidermis<span class="nm">~0.1 mm</span></div>
+          <div class="layer derm">Dermis<span class="nm">~2 mm</span></div>
+          <div class="layer sub">Subcutaneous<span class="nm">~5 mm</span></div>
+          <div class="layer muscle">Muscle &amp; bone<span class="nm">~10 mm+</span></div>
+        </div>
+        <div class="beam"></div>
+        <span class="arrow">Penetration ↓</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "How It Works",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "How red light heals"
+    },
+    {
+      "type": "text",
+      "id": "heading_line1",
+      "label": "Heading line 1",
+      "default": "Light is medicine,"
+    },
+    {
+      "type": "text",
+      "id": "heading_line2",
+      "label": "Heading line 2 (italic serif)",
+      "default": "dosed properly."
+    },
+    {
+      "type": "textarea",
+      "id": "lede",
+      "label": "Body text",
+      "default": "Red and near-infrared light penetrate skin, energize mitochondria, and trigger your body's own repair systems. Calibrated at 660 nm and 850 nm — the same wavelengths cited in the peer-reviewed literature."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Step number",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Light enters"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Diodes emit at precisely 660 nm + 850 nm. Photons travel through skin, reaching dermis and muscle."
+        },
+        {
+          "type": "text",
+          "id": "wavelength",
+          "label": "Wavelength label",
+          "default": "660 nm"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "How It Works",
+      "blocks": [
+        { "type": "step", "settings": { "number": "01", "title": "Light enters", "description": "Diodes emit at precisely 660 nm + 850 nm. Photons travel through skin, reaching dermis and muscle.", "wavelength": "660 nm" } },
+        { "type": "step", "settings": { "number": "02", "title": "Cells absorb", "description": "Photons reach cytochrome c oxidase in your mitochondria — the engines that power every cell.", "wavelength": "850 nm" } },
+        { "type": "step", "settings": { "number": "03", "title": "ATP increases", "description": "Mitochondria produce more ATP. Cellular energy spikes. Inflammation drops. Tissue starts to repair.", "wavelength": "+ ATP" } },
+        { "type": "step", "settings": { "number": "04", "title": "You recover", "description": "Deeper sleep, faster muscle recovery, brighter skin, and more usable energy across the day.", "wavelength": "∞" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,19 @@
+<div class="wrap" style="padding:80px 40px">
+  <div class="eyebrow" style="margin-bottom:16px">— All Collections</div>
+  <h1 style="font-size:clamp(48px,6vw,92px);margin-bottom:48px">Shop the <span class="it">collection.</span></h1>
+  <div class="pgrid">
+    {%- for collection in collections -%}
+      <a class="pcard" href="{{ collection.url }}">
+        <div class="img">
+          {%- if collection.image -%}
+            <img src="{{ collection.image | image_url: width: 800 }}" alt="{{ collection.title | escape }}" width="800" height="1000" loading="lazy">
+          {%- endif -%}
+        </div>
+        <div class="meta">
+          <div class="name">{{ collection.title }}</div>
+          <div class="price">{{ collection.products_count }} products</div>
+        </div>
+      </a>
+    {%- endfor -%}
+  </div>
+</div>

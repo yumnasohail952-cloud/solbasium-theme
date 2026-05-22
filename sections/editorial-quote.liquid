@@ -1,0 +1,53 @@
+<section class="quote-section">
+  <div class="wrap">
+    <div class="eyebrow">— {{ section.settings.eyebrow }}</div>
+    <p class="q" style="margin-top:32px">
+      "{{ section.settings.quote_prefix }} <span class="hl">{{ section.settings.quote_highlight }}</span> {{ section.settings.quote_suffix }}"
+    </p>
+    <div class="by">
+      <span class="ln"></span>
+      {{ section.settings.attribution }}
+      <span class="ln"></span>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Editorial Quote",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Shaping what's next"
+    },
+    {
+      "type": "textarea",
+      "id": "quote_prefix",
+      "label": "Quote (before highlight)",
+      "default": "We've joined forces with Solbasium to bring"
+    },
+    {
+      "type": "text",
+      "id": "quote_highlight",
+      "label": "Highlighted text (orange)",
+      "default": "professional-grade recovery"
+    },
+    {
+      "type": "textarea",
+      "id": "quote_suffix",
+      "label": "Quote (after highlight)",
+      "default": "into the spaces real training happens."
+    },
+    {
+      "type": "text",
+      "id": "attribution",
+      "label": "Attribution",
+      "default": "Gunnar Peterson · Strength Coach"
+    }
+  ],
+  "presets": [{ "name": "Editorial Quote" }]
+}
+{% endschema %}

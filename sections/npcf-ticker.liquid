@@ -1,0 +1,23 @@
+<div class="npcf-strip">
+  <div class="track">
+    {%- for i in (1..6) -%}
+      <span>{{ section.settings.message }}</span><span class="dot">◆</span>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "NPCF Ticker",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "message",
+      "label": "Message",
+      "default": "2% of every purchase → The National Pediatric Cancer Foundation"
+    }
+  ],
+  "presets": [{ "name": "NPCF Ticker" }]
+}
+{% endschema %}

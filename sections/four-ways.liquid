@@ -1,0 +1,126 @@
+<section class="four">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">— {{ section.settings.eyebrow }}</span>
+      <h2>{{ section.settings.heading_line1 }}<br/><span class="it">{{ section.settings.heading_line2 }}</span></h2>
+      <p>{{ section.settings.subtext }}</p>
+    </div>
+
+    <div class="stage">
+      <div class="q tl">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>{{ section.settings.q1_title_plain }} <span class="it">{{ section.settings.q1_title_it }}</span></h4>
+        <p>{{ section.settings.q1_body }}</p>
+      </div>
+
+      <div class="q tr">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>{{ section.settings.q2_title_plain }} <span class="it">{{ section.settings.q2_title_it }}</span></h4>
+        <p>{{ section.settings.q2_body }}</p>
+      </div>
+
+      <div class="center">
+        {%- if section.settings.product != blank -%}
+          {%- assign center_product = all_products[section.settings.product] -%}
+          {%- if center_product.featured_image -%}
+            <img
+              src="{{ center_product.featured_image | image_url: width: 900 }}"
+              alt="{{ center_product.title | escape }}"
+              width="700"
+              height="700"
+              loading="lazy">
+          {%- endif -%}
+        {%- elsif section.settings.center_image != blank -%}
+          <img
+            src="{{ section.settings.center_image | image_url: width: 900 }}"
+            alt="{{ section.settings.center_image.alt | escape }}"
+            width="700"
+            height="700"
+            loading="lazy">
+        {%- else -%}
+          <img src="{{ 'helios-product.webp' | asset_url }}" alt="Helios Commercial" width="700" height="700" loading="lazy">
+        {%- endif -%}
+      </div>
+
+      <div class="q bl">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 21c0-3 1.85-5.36 5.08-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>{{ section.settings.q3_title_plain }} <span class="it">{{ section.settings.q3_title_it }}</span></h4>
+        <p>{{ section.settings.q3_body }}</p>
+      </div>
+
+      <div class="q br">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke-linecap="round"/></svg>
+        </div>
+        <h4>{{ section.settings.q4_title_plain }} <span class="it">{{ section.settings.q4_title_it }}</span></h4>
+        <p>{{ section.settings.q4_body }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Four Ways",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Built around a daily ritual"
+    },
+    {
+      "type": "text",
+      "id": "heading_line1",
+      "label": "Heading line 1",
+      "default": "One device,"
+    },
+    {
+      "type": "text",
+      "id": "heading_line2",
+      "label": "Heading line 2 (italic serif)",
+      "default": "four ways to feel better."
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Helios is engineered around the four outcomes that compound over months — not the dozens of claims that don't."
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Center product"
+    },
+    {
+      "type": "image_picker",
+      "id": "center_image",
+      "label": "Center image (fallback)"
+    },
+    { "type": "header", "content": "Top Left Quadrant" },
+    { "type": "text", "id": "q1_title_plain", "label": "Title", "default": "Deeper" },
+    { "type": "text", "id": "q1_title_it", "label": "Title (italic)", "default": "sleep." },
+    { "type": "textarea", "id": "q1_body", "label": "Body", "default": "Up to 94% improvement in sleep quality at 8 weeks of consistent practice." },
+    { "type": "header", "content": "Top Right Quadrant" },
+    { "type": "text", "id": "q2_title_plain", "label": "Title", "default": "Faster" },
+    { "type": "text", "id": "q2_title_it", "label": "Title (italic)", "default": "recovery." },
+    { "type": "textarea", "id": "q2_body", "label": "Body", "default": "41% faster muscle recovery from DOMS post-workout. Train more, hurt less." },
+    { "type": "header", "content": "Bottom Left Quadrant" },
+    { "type": "text", "id": "q3_title_plain", "label": "Title", "default": "Brighter" },
+    { "type": "text", "id": "q3_title_it", "label": "Title (italic)", "default": "skin." },
+    { "type": "textarea", "id": "q3_body", "label": "Body", "default": "3.1× collagen density vs. control. Reduced fine lines. Skin you can feel." },
+    { "type": "header", "content": "Bottom Right Quadrant" },
+    { "type": "text", "id": "q4_title_plain", "label": "Title", "default": "Higher" },
+    { "type": "text", "id": "q4_title_it", "label": "Title (italic)", "default": "energy." },
+    { "type": "textarea", "id": "q4_body", "label": "Body", "default": "Mitochondrial support drives daytime energy without the caffeine crash." }
+  ],
+  "presets": [{ "name": "Four Ways" }]
+}
+{% endschema %}

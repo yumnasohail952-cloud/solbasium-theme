@@ -1,0 +1,85 @@
+<section class="trio">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow" style="margin-bottom:16px">— {{ section.settings.eyebrow }}</div>
+        <h3>{{ section.settings.heading_line1 }} <span class="it">{{ section.settings.heading_line2 }}</span></h3>
+      </div>
+      <div class="right">{{ section.settings.description }}</div>
+    </div>
+
+    <div class="cards">
+      {%- for block in section.blocks -%}
+        {%- assign featured_product = all_products[block.settings.product] -%}
+
+        {%- comment -%}Resolve image: block image picker > product image > hardcoded CDN fallback{%- endcomment -%}
+        {%- if block.settings.image != blank -%}
+          {%- assign card_img = block.settings.image | image_url: width: 1200 -%}
+          {%- assign card_img_alt = block.settings.image.alt | default: block.settings.name_plain -%}
+        {%- elsif featured_product.featured_image -%}
+          {%- assign card_img = featured_product.featured_image | image_url: width: 1200 -%}
+          {%- assign card_img_alt = featured_product.title -%}
+        {%- else -%}
+          {%- assign card_img = block.settings.fallback_url -%}
+          {%- assign card_img_alt = block.settings.name_plain -%}
+        {%- endif -%}
+
+        <a class="card" href="{{ featured_product.url | default: block.settings.url | default: '#' }}" {{ block.shopify_attributes }}>
+          <div class="scene">
+            {%- if card_img != blank and card_img != '' -%}
+              <img src="{{ card_img }}" alt="{{ card_img_alt | escape }}" width="1200" height="1200" loading="lazy">
+            {%- endif -%}
+          </div>
+          <div class="top">
+            <span class="pill {%- if block.settings.pill_style == 'live' %} live{%- endif -%}">{{ block.settings.pill }}</span>
+            <span class="num">{{ forloop.index | prepend: '0' }} / {{ section.blocks.size | prepend: '0' }}</span>
+          </div>
+          <div class="bottom">
+            <div class="name">{{ block.settings.name_plain }} <span class="it">{{ block.settings.name_it }}</span></div>
+            <div class="meta">
+              <div class="price">
+                {%- if featured_product != blank -%}
+                  {{ featured_product.price_min | money }}
+                {%- else -%}
+                  {{ block.settings.price_fallback }}
+                {%- endif -%}
+              </div>
+              <div class="arr">→</div>
+            </div>
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection Trio",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Collection" },
+    { "type": "text", "id": "heading_line1", "label": "Heading line 1", "default": "Three families." },
+    { "type": "text", "id": "heading_line2", "label": "Heading line 2 (italic serif)", "default": "One mission." },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Full body, targeted, hand-held. Every Solbasium device is engineered for the same standard — medical-grade light, dosed properly, built to last." }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Collection Card",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product (optional)" },
+        { "type": "image_picker", "id": "image", "label": "Image (overrides product image)" },
+        { "type": "text", "id": "fallback_url", "label": "Image URL fallback", "default": "" },
+        { "type": "url", "id": "url", "label": "Link (if no product selected)" },
+        { "type": "text", "id": "pill", "label": "Pill label", "default": "Flagship" },
+        { "type": "select", "id": "pill_style", "label": "Pill style", "options": [{ "value": "default", "label": "Default" }, { "value": "live", "label": "Live (with dot)" }], "default": "default" },
+        { "type": "text", "id": "name_plain", "label": "Product name", "default": "Helios" },
+        { "type": "text", "id": "name_it", "label": "Product name (italic)", "default": "Commercial." },
+        { "type": "text", "id": "price_fallback", "label": "Price fallback", "default": "From $24,990" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Collection Trio" }]
+}
+{% endschema %}

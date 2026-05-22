@@ -1,0 +1,106 @@
+{%- assign current_collection = collections[section.settings.collection] -%}
+{%- assign has_products = false -%}
+{%- if current_collection != blank and current_collection.products_count > 0 -%}
+  {%- assign has_products = true -%}
+{%- endif -%}
+
+<section class="shop">
+  <div class="wrap">
+    <div class="head">
+      <div class="l">
+        <div class="eyebrow">
+          — All objects ·
+          {%- if has_products -%}{{ current_collection.products_count }}{%- else -%}{{ section.blocks | where: 'type', 'product_item' | size }}{%- endif -%}
+        </div>
+        <h3>{{ section.settings.heading_line1 }} <span class="it">{{ section.settings.heading_line2 }}</span></h3>
+      </div>
+      <div class="filters">
+        <button class="chip on" data-filter="all">Everything</button>
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'filter' -%}
+            <button class="chip" data-filter="{{ block.settings.label | handleize }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</button>
+          {%- endif -%}
+        {%- endfor -%}
+        <span class="sort" style="margin-left:24px">Sort: Featured</span>
+      </div>
+    </div>
+
+    <div class="pgrid">
+      {%- if has_products -%}
+        {%- for product in current_collection.products -%}
+          {%- render 'product-card', product: product -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'product_item' -%}
+            <a class="pcard" href="{{ block.settings.url | default: '#' }}" {{ block.shopify_attributes }}>
+              <div class="img">
+                {%- if block.settings.image != blank -%}
+                  <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.name | escape }}" width="800" height="1000" loading="lazy">
+                {%- elsif block.settings.image_url != blank -%}
+                  <img src="{{ block.settings.image_url }}" alt="{{ block.settings.name | escape }}" width="800" height="1000" loading="lazy">
+                {%- endif -%}
+                {%- if block.settings.badge != blank -%}
+                  <span class="badge {{ block.settings.badge_class }}">{{ block.settings.badge }}</span>
+                {%- endif -%}
+                <span class="quick">Quick view →</span>
+              </div>
+              <div class="meta">
+                <div>
+                  <div class="name">{{ block.settings.name }}</div>
+                  {%- if block.settings.tags != blank -%}
+                    <div class="tags">
+                      {%- assign tag_list = block.settings.tags | split: ',' -%}
+                      {%- for t in tag_list -%}<span>{{ t | strip }}</span>{%- endfor -%}
+                    </div>
+                  {%- endif -%}
+                </div>
+                <div class="price">{{ block.settings.price }}</div>
+              </div>
+              {%- if block.settings.description != blank -%}
+                <p class="desc">{{ block.settings.description }}</p>
+              {%- endif -%}
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shop Collection",
+  "tag": "section",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Collection (when set, overrides hardcoded items below)" },
+    { "type": "text", "id": "heading_line1", "label": "Heading line 1", "default": "Shop the" },
+    { "type": "text", "id": "heading_line2", "label": "Heading line 2 (italic serif)", "default": "collection." }
+  ],
+  "blocks": [
+    {
+      "type": "filter",
+      "name": "Filter chip",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Beds" }
+      ]
+    },
+    {
+      "type": "product_item",
+      "name": "Product (manual)",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image (upload)" },
+        { "type": "text", "id": "image_url", "label": "Image URL", "default": "" },
+        { "type": "text", "id": "name", "label": "Product name", "default": "Helios Commercial™" },
+        { "type": "text", "id": "price", "label": "Price", "default": "$24,990" },
+        { "type": "text", "id": "description", "label": "Short description", "default": "" },
+        { "type": "text", "id": "badge", "label": "Badge text", "default": "" },
+        { "type": "text", "id": "badge_class", "label": "Badge class (sale / purple / alt)", "default": "" },
+        { "type": "text", "id": "tags", "label": "Tags (comma-separated)", "default": "660 nm, 850 nm, Full Body" },
+        { "type": "url", "id": "url", "label": "Product link" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Shop Collection" }]
+}
+{% endschema %}

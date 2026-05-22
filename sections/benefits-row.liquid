@@ -1,0 +1,57 @@
+<section class="benefits">
+  <div class="row">
+    {%- for block in section.blocks -%}
+      <div class="cell" {{ block.shopify_attributes }}>
+        <span class="k">— {{ block.settings.number }}</span>
+        <span class="v">{{ block.settings.title }}</span>
+        <span class="d">{{ block.settings.description }}</span>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Benefits Row",
+  "tag": "section",
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Sleep"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Deeper, faster onset within 8 weeks."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Benefits Row",
+      "blocks": [
+        { "type": "benefit", "settings": { "number": "01", "title": "Sleep", "description": "Deeper, faster onset within 8 weeks." } },
+        { "type": "benefit", "settings": { "number": "02", "title": "Recovery", "description": "41% faster DOMS recovery, post-workout." } },
+        { "type": "benefit", "settings": { "number": "03", "title": "Skin", "description": "3.1× collagen density vs. control." } },
+        { "type": "benefit", "settings": { "number": "04", "title": "Energy", "description": "Mitochondrial support, ATP production." } },
+        { "type": "benefit", "settings": { "number": "05", "title": "Mood", "description": "Circadian alignment, stress regulation." } },
+        { "type": "benefit", "settings": { "number": "06", "title": "Performance", "description": "The choice of elite trainers + Olympians." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

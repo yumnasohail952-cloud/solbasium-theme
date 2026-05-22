@@ -1,0 +1,248 @@
+{
+  "sections": {
+    "main-hero": {
+      "type": "main-hero",
+      "blocks": {
+        "stat-sleep":    { "type": "stat", "settings": { "label": "Sleep",    "value": "Deeper"  } },
+        "stat-recovery": { "type": "stat", "settings": { "label": "Recovery", "value": "Faster"  } },
+        "stat-skin":     { "type": "stat", "settings": { "label": "Skin",     "value": "Brighter"} },
+        "stat-energy":   { "type": "stat", "settings": { "label": "Energy",   "value": "Higher"  } }
+      },
+      "block_order": ["stat-sleep", "stat-recovery", "stat-skin", "stat-energy"],
+      "settings": {
+        "eyebrow": "Photobiomodulation",
+        "badge_left": "Engineered in the USA",
+        "badge_right": "Patent-Pending",
+        "heading_line1": "The future of",
+        "heading_line2": "wellness.",
+        "lede": "is the pinnacle choice for those wanting the most effective red light, PEMF and recovery devices on the market — engineered by world-class scientists, on a mission to relentlessly innovate health.",
+        "cta_primary_label": "Shop Helios",
+        "cta_secondary_label": "Talk to an expert",
+        "cta_secondary_url": "#contact"
+      }
+    },
+    "benefits-row": {
+      "type": "benefits-row",
+      "blocks": {
+        "b1": { "type": "benefit", "settings": { "number": "01", "title": "Sleep",       "description": "Deeper, faster onset within 8 weeks." } },
+        "b2": { "type": "benefit", "settings": { "number": "02", "title": "Recovery",    "description": "41% faster DOMS recovery, post-workout." } },
+        "b3": { "type": "benefit", "settings": { "number": "03", "title": "Skin",        "description": "3.1× collagen density vs. control." } },
+        "b4": { "type": "benefit", "settings": { "number": "04", "title": "Energy",      "description": "Mitochondrial support, ATP production." } },
+        "b5": { "type": "benefit", "settings": { "number": "05", "title": "Mood",        "description": "Circadian alignment, stress regulation." } },
+        "b6": { "type": "benefit", "settings": { "number": "06", "title": "Performance", "description": "The choice of elite trainers + Olympians." } }
+      },
+      "block_order": ["b1","b2","b3","b4","b5","b6"],
+      "settings": {}
+    },
+    "press-mentions": {
+      "type": "press-mentions",
+      "blocks": {
+        "p1": { "type": "mention", "settings": { "publication_name": "Vogue",       "logo_style": "",           "quote": "A genuinely calibrated device — the bed that finally takes red light seriously.", "accolade": "Wellness Awards · 2025" } },
+        "p2": { "type": "mention", "settings": { "publication_name": "Robb Report", "logo_style": "sans",       "quote": "Object of the year for serious athletes and serious investors.", "accolade": "Best of 2025" } },
+        "p3": { "type": "mention", "settings": { "publication_name": "GOOP",        "logo_style": "sans",       "quote": "Engineering this rare in wellness is genuinely worth paying attention to.", "accolade": "Wellness Essential" } },
+        "p4": { "type": "mention", "settings": { "publication_name": "Men's Health","logo_style": "compressed", "quote": "Best in recovery, full stop — from a brand built by actual engineers.", "accolade": "Best in Recovery · 2024" } },
+        "p5": { "type": "mention", "settings": { "publication_name": "AD°",         "logo_style": "",           "quote": "A wellness instrument designed like a piece of furniture you'd actually keep.", "accolade": "Design Honoree · 2024" } }
+      },
+      "block_order": ["p1","p2","p3","p4","p5"],
+      "settings": { "year_range": "2024 / 2025" }
+    },
+    "how-it-works": {
+      "type": "how-it-works",
+      "blocks": {
+        "s1": { "type": "step", "settings": { "number": "01", "title": "Light enters",  "description": "Diodes emit at precisely 660 nm + 850 nm. Photons travel through skin, reaching dermis and muscle.", "wavelength": "660 nm" } },
+        "s2": { "type": "step", "settings": { "number": "02", "title": "Cells absorb",  "description": "Photons reach cytochrome c oxidase in your mitochondria — the engines that power every cell.", "wavelength": "850 nm" } },
+        "s3": { "type": "step", "settings": { "number": "03", "title": "ATP increases", "description": "Mitochondria produce more ATP. Cellular energy spikes. Inflammation drops. Tissue starts to repair.", "wavelength": "+ ATP" } },
+        "s4": { "type": "step", "settings": { "number": "04", "title": "You recover",   "description": "Deeper sleep, faster muscle recovery, brighter skin, and more usable energy across the day.", "wavelength": "∞" } }
+      },
+      "block_order": ["s1","s2","s3","s4"],
+      "settings": {
+        "eyebrow": "How red light heals",
+        "heading_line1": "Light is medicine,",
+        "heading_line2": "dosed properly.",
+        "lede": "Red and near-infrared light penetrate skin, energize mitochondria, and trigger your body's own repair systems. Calibrated at 660 nm and 850 nm — the same wavelengths cited in the peer-reviewed literature."
+      }
+    },
+    "four-ways": {
+      "type": "four-ways",
+      "settings": {
+        "eyebrow": "Built around a daily ritual",
+        "heading_line1": "One device,",
+        "heading_line2": "four ways to feel better.",
+        "subtext": "Helios is engineered around the four outcomes that compound over months — not the dozens of claims that don't.",
+        "q1_title_plain": "Deeper",  "q1_title_it": "sleep.",    "q1_body": "Up to 94% improvement in sleep quality at 8 weeks of consistent practice.",
+        "q2_title_plain": "Faster",  "q2_title_it": "recovery.", "q2_body": "41% faster muscle recovery from DOMS post-workout. Train more, hurt less.",
+        "q3_title_plain": "Brighter","q3_title_it": "skin.",     "q3_body": "3.1× collagen density vs. control. Reduced fine lines. Skin you can feel.",
+        "q4_title_plain": "Higher",  "q4_title_it": "energy.",   "q4_body": "Mitochondrial support drives daytime energy without the caffeine crash."
+      }
+    },
+    "featured-product-cinematic": {
+      "type": "featured-product-cinematic",
+      "settings": {
+        "chapter": "Chapter 01 · Full Body",
+        "badge": "Patent-pending · Engineered in the USA",
+        "heading_line1": "Helios",
+        "heading_line2": "Commercial.",
+        "tagline": "The full-body instrument. Built to outlast every category around it.",
+        "cta_primary_label": "Shop Helios",
+        "cta_secondary_label": "Talk to an expert",
+        "cta_secondary_url": "#contact"
+      }
+    },
+    "scrolling-ticker": {
+      "type": "scrolling-ticker",
+      "settings": { "word1": "Relentless", "word2": "Innovation." }
+    },
+    "collection-trio": {
+      "type": "collection-trio",
+      "blocks": {
+        "c1": { "type": "card", "settings": { "fallback_url": "https://solbasium.com/cdn/shop/files/JCM-11020.jpg?v=1771155677&width=1200",        "url": "/products/helios-commercial",           "pill": "Flagship",          "pill_style": "live",    "name_plain": "Helios",   "name_it": "Commercial.",  "price_fallback": "From $24,990" } },
+        "c2": { "type": "card", "settings": { "fallback_url": "https://solbasium.com/cdn/shop/files/Roller_Mainimage.png?v=1730281464&width=1080",  "url": "/products/quantum-roller",              "pill": "Preorder · 33% off","pill_style": "default", "name_plain": "Quantum",  "name_it": "Roller.",      "price_fallback": "$399.99" } },
+        "c3": { "type": "card", "settings": { "fallback_url": "https://solbasium.com/cdn/shop/files/s2redlight.png?v=1764146806&width=1080",         "url": "/products/s2-massage-gun",              "pill": "New",               "pill_style": "default", "name_plain": "S2",       "name_it": "Massage Gun.", "price_fallback": "$299.99" } }
+      },
+      "block_order": ["c1","c2","c3"],
+      "settings": {
+        "eyebrow": "The Collection",
+        "heading_line1": "Three families.",
+        "heading_line2": "One mission.",
+        "description": "Full body, targeted, hand-held. Every Solbasium device is engineered for the same standard — medical-grade light, dosed properly, built to last."
+      }
+    },
+    "science-split": {
+      "type": "science-split",
+      "blocks": {
+        "st1": { "type": "stat", "settings": { "value": "94",  "unit": "%", "label": "Sleep quality improvement at 8 weeks" } },
+        "st2": { "type": "stat", "settings": { "value": "3.1", "unit": "×", "label": "Collagen density vs. control" } },
+        "st3": { "type": "stat", "settings": { "value": "41",  "unit": "%", "label": "Faster muscle recovery, DOMS protocol" } },
+        "st4": { "type": "stat", "settings": { "value": "2",   "unit": "%", "label": "Of every purchase → NPCF" } }
+      },
+      "block_order": ["st1","st2","st3","st4"],
+      "settings": {
+        "lab_label": "Spectrometer-validated · USA",
+        "eyebrow": "Patent-pending innovations",
+        "heading_line1": "Built by",
+        "heading_line2": "engineers.",
+        "lede": "Solbasium is engineered by world-class scientists on a mission to relentlessly innovate health and wellness. Spectrometer-validated. Industry-leading warranty. A portion of every purchase supports the National Pediatric Cancer Foundation.",
+        "citation": "Cohort n=312 · 8-week double-blind · internal validation",
+        "cta_label": "Read the white paper"
+      }
+    },
+    "editorial-quote": {
+      "type": "editorial-quote",
+      "settings": {
+        "eyebrow": "Shaping what's next",
+        "quote_prefix": "We've joined forces with Solbasium to bring",
+        "quote_highlight": "professional-grade recovery",
+        "quote_suffix": "into the spaces real training happens.",
+        "attribution": "Gunnar Peterson · Strength Coach"
+      }
+    },
+    "experts-grid": {
+      "type": "experts-grid",
+      "blocks": {
+        "e1": { "type": "expert", "settings": { "role": "Strength coach",      "name_plain": "Gunnar",      "name_it": "Peterson.",  "quote": "We've joined forces with Solbasium to bring professional-grade recovery into real training environments." } },
+        "e2": { "type": "expert", "settings": { "role": "Peak Performance Gym","name_plain": "A noticeable","name_it": "difference.","quote": "We've seen a noticeable difference in client satisfaction since introducing the Helios bed." } },
+        "e3": { "type": "expert", "settings": { "role": "Vitality Wellness Hub","name_plain": "Stress-free","name_it": "setup.",     "quote": "The results speak for themselves — and the Solbasium team made the entire setup process stress-free." } },
+        "e4": { "type": "expert", "settings": { "role": "Recovery client",     "name_plain": "Your path to","name_it": "recovery.",  "quote": "Discover the transformative power of Solbasium's wellness solutions — for personal and professional needs." } }
+      },
+      "block_order": ["e1","e2","e3","e4"],
+      "settings": {
+        "eyebrow": "From our partners",
+        "heading_line1": "The choice of",
+        "heading_line2": "people who know."
+      }
+    },
+    "contact-expert": {
+      "type": "contact-expert",
+      "settings": {
+        "eyebrow": "Concierge",
+        "heading_line1": "Talk to an",
+        "heading_line2": "expert.",
+        "body": "Choosing a Solbasium device is a long decision. Our team — engineers, coaches, and clinicians — answers the questions a product page can't.",
+        "phone": "(866) 640-0835",
+        "phone_hours": "Mon – Fri · 8a – 8p PT",
+        "email": "support@solbasium.com",
+        "email_hours": "Reply within 4 hours",
+        "financing": "From $416 / mo"
+      }
+    },
+    "shop-collection": {
+      "type": "shop-collection",
+      "blocks": {
+        "f1": { "type": "filter", "settings": { "label": "Beds" } },
+        "f2": { "type": "filter", "settings": { "label": "Targeted" } },
+        "f3": { "type": "filter", "settings": { "label": "Wearables" } },
+        "f4": { "type": "filter", "settings": { "label": "Recovery" } },
+        "f5": { "type": "filter", "settings": { "label": "New" } },
+        "pr1":  { "type": "product_item", "settings": { "image_url": "https://solbasium.com/cdn/shop/files/JCM-11076.jpg?v=1771155695&width=1934",        "name": "Helios Commercial™",   "price": "$24,990",   "badge": "Flagship",      "badge_class": "",        "tags": "660 nm, 850 nm, Full Body",   "description": "The flagship. Built for commercial studios and serious athletes." } },
+        "pr2":  { "type": "product_item", "settings": { "image_url": "https://solbasium.com/cdn/shop/files/Nova_Real.png?v=1770903161&width=1525",          "name": "Nova Bed",             "price": "$19,990",   "badge": "Pre-order",     "badge_class": "purple",  "tags": "660 nm, Home",                "description": "The home instrument. Streamlined chassis, the same diode array." } },
+        "pr3":  { "type": "product_item", "settings": { "image_url": "https://solbasium.com/cdn/shop/files/IMG_1483.jpg?v=1774593653&width=3140",            "name": "Flex Bed",             "price": "$24,990",   "badge": "Available",     "badge_class": "alt",     "tags": "Convertible, Full Body",      "description": "Convertible chassis. The same medical-grade performance, fewer feet of floor." } },
+        "pr4":  { "type": "product_item", "settings": { "image_url": "https://solbasium.com/cdn/shop/files/Roller_Mainimage.png?v=1730281464&width=1080",    "name": "Quantum Roller",       "price": "$399.99",   "badge": "−33%",          "badge_class": "sale",    "tags": "Vibration, Cordless",         "description": "Vibration + red light, palm-sized. Preorder — limited release." } },
+        "pr5":  { "type": "product_item", "settings": { "image_url": "https://solbasium.com/cdn/shop/files/s2redlight.png?v=1764146806&width=1080",           "name": "S2 Massage Gun",       "price": "$299.99",   "badge": "New",           "badge_class": "",        "tags": "World's First, Red Light",    "description": "The world's first red-light massage gun. Deep relief, in minutes." } },
+        "pr6":  { "type": "product_item", "settings": { "image_url": "https://solbasium.com/cdn/shop/files/PEMF_mat_unfolded.jpg?v=1725596641&width=2000",    "name": "Clear PEMF Mat",       "price": "$5,999.99", "badge": "Patent Pending","badge_class": "purple",  "tags": "PEMF, Full Body",             "description": "Pulsed electromagnetic field therapy at home. Patent-pending." } },
+        "pr7":  { "type": "product_item", "settings": { "image_url": "https://solbasium.com/cdn/shop/files/BACKBACK.png?v=1730614908&width=1080",             "name": "Optix Back Pad",       "price": "$299.99",   "badge": "Wearable",      "badge_class": "alt",     "tags": "Targeted, 660 + 850",         "description": "Targeted red + infrared for back relief. The largest pad in the line." } },
+        "pr8":  { "type": "product_item", "settings": { "image_url": "https://solbasium.com/cdn/shop/files/6_e3e2e15c-0a2a-4ff2-a9a4-85bc4023c43c.png?v=1714297941&width=1080", "name": "Optix Knee Pad", "price": "$199.99", "badge": "Wearable", "badge_class": "alt", "tags": "Targeted, Knee", "description": "Wrap-around recovery for knees — strap and go." } },
+        "pr9":  { "type": "product_item", "settings": { "image_url": "https://solbasium.com/cdn/shop/files/anklepad_3daf6e10-b1c1-4560-b4ce-61bfba63f084.png?v=1714994001&width=1080", "name": "Optix Ankle Pad", "price": "$199.99", "badge": "Wearable", "badge_class": "alt", "tags": "Targeted, Ankle", "description": "Recovery for ankles, achilles, wrists. Cordless and quick." } },
+        "pr10": { "type": "product_item", "settings": { "image_url": "https://solbasium.com/cdn/shop/files/universalimage.png?v=1715592118&width=1080",        "name": "Optix Universal Pad", "price": "$199.99",   "badge": "Wearable",      "badge_class": "alt",     "tags": "Targeted, Anywhere",          "description": "For thighs, shoulders, lower back — the take-anywhere pad." } },
+        "pr11": { "type": "product_item", "settings": { "image_url": "https://solbasium.com/cdn/shop/products/5.jpg?v=1678445876&width=1000",                  "name": "Solbasium Bright",     "price": "$400",      "badge": "Hand-held",     "badge_class": "alt",     "tags": "Hand-held, Travel",           "description": "The hand-held panel. For spot work, faces, and travel." } },
+        "pr12": { "type": "product_item", "settings": { "image_url": "https://solbasium.com/cdn/shop/files/Untitled_design_6c9d0878-de8c-43b9-95e7-6a2762a710d1.png?crop=center&height=1200&v=1725171053&width=1200", "name": "Cryothrive Elite", "price": "Inquire", "badge": "New · Recovery", "badge_class": "", "tags": "Cold, Cryotherapy", "description": "Electric cryotherapy for the home or studio. Pair with Helios for full-spectrum recovery." } }
+      },
+      "block_order": ["f1","f2","f3","f4","f5","pr1","pr2","pr3","pr4","pr5","pr6","pr7","pr8","pr9","pr10","pr11","pr12"],
+      "settings": {
+        "heading_line1": "Shop the",
+        "heading_line2": "collection."
+      }
+    },
+    "journal-articles": {
+      "type": "journal-articles",
+      "blocks": {
+        "a1": { "type": "article", "settings": { "tag": "Guide · 8 min",    "title_plain": "How to buy",      "title_it": "a red light bed.",      "excerpt": "What to ask, what to ignore, and the specs that actually move the needle." } },
+        "a2": { "type": "article", "settings": { "tag": "Profile · 12 min", "title_plain": "A morning with", "title_it": "Gunnar Peterson.",       "excerpt": "The strength coach behind a generation of athletes on the rituals that survive." } },
+        "a3": { "type": "article", "settings": { "tag": "Manual · 6 min",   "title_plain": "Red light for",  "title_it": "muscle recovery.",       "excerpt": "The dose, the protocol, and what the literature actually says about photobiomodulation." } }
+      },
+      "block_order": ["a1","a2","a3"],
+      "settings": {
+        "eyebrow": "Learn",
+        "heading_line1": "Read, before you",
+        "heading_line2": "buy."
+      }
+    },
+    "newsletter-signup": {
+      "type": "newsletter-signup",
+      "settings": {
+        "eyebrow": "The Dispatch · Monthly",
+        "heading_line1": "New drops",
+        "heading_line2": "in your inbox.",
+        "subtext": "Sign up for exclusive offers and new product drops. No marketing detritus — just the work.",
+        "placeholder": "your@address.com",
+        "button_label": "Subscribe"
+      }
+    },
+    "mega-wordmark": {
+      "type": "mega-wordmark",
+      "settings": { "word": "Solbasium", "punctuation": ".", "tagline": "Relentless Innovation · Engineered in the USA" }
+    },
+    "npcf-ticker": {
+      "type": "npcf-ticker",
+      "settings": { "message": "2% of every purchase → The National Pediatric Cancer Foundation" }
+    }
+  },
+  "order": [
+    "main-hero",
+    "benefits-row",
+    "press-mentions",
+    "how-it-works",
+    "four-ways",
+    "featured-product-cinematic",
+    "scrolling-ticker",
+    "collection-trio",
+    "science-split",
+    "editorial-quote",
+    "experts-grid",
+    "contact-expert",
+    "shop-collection",
+    "journal-articles",
+    "newsletter-signup",
+    "mega-wordmark",
+    "npcf-ticker"
+  ]
+}

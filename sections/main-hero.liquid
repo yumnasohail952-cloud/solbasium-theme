@@ -1,0 +1,175 @@
+<section class="hero">
+  <div class="photo">
+    {%- if section.settings.image != blank -%}
+      <img
+        src="{{ section.settings.image | image_url: width: 2400 }}"
+        srcset="{{ section.settings.image | image_url: width: 800 }} 800w,
+                {{ section.settings.image | image_url: width: 1400 }} 1400w,
+                {{ section.settings.image | image_url: width: 2400 }} 2400w"
+        sizes="100vw"
+        alt="{{ section.settings.image.alt | default: shop.name | escape }}"
+        width="2400"
+        height="1350"
+        loading="eager"
+        fetchpriority="high">
+    {%- else -%}
+      <img src="{{ 'hero-purple.webp' | asset_url }}" alt="{{ shop.name }} hero" width="2400" height="1350" loading="eager" fetchpriority="high">
+    {%- endif -%}
+    <div class="scrim"></div>
+    <div class="grain"></div>
+  </div>
+
+  <div class="overlay">
+    <div class="toprow">
+      <div class="crumb">
+        <span class="dot"></span>
+        <span class="eyebrow">— {{ section.settings.eyebrow }}</span>
+      </div>
+      <div class="right">
+        <span>{{ section.settings.badge_left }}</span>
+        <span>·</span>
+        <span>{{ section.settings.badge_right }}</span>
+      </div>
+    </div>
+
+    <div class="botrow">
+      <div class="meta">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'stat' -%}
+            <div class="col" {{ block.shopify_attributes }}>
+              <span>{{ block.settings.label }}</span>
+              <b>{{ block.settings.value }}</b>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div class="scrolltip"><span>Scroll</span><div class="line"></div></div>
+      <div class="controls">
+        <div class="arr">‹</div>
+        <div class="pip on"></div>
+        <div class="pip"></div>
+        <div class="pip"></div>
+        <div class="arr">›</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="midblock">
+    <h1>{{ section.settings.heading_line1 }} <span class="it">{{ section.settings.heading_line2 }}</span></h1>
+    <p class="lede">
+      <strong>{{ shop.name }}</strong> {{ section.settings.lede }}
+    </p>
+    <div class="actions">
+      <a href="{{ section.settings.cta_primary_url }}" class="btn primary">
+        {{ section.settings.cta_primary_label }} <span class="arrow"></span>
+      </a>
+      <a href="{{ section.settings.cta_secondary_url }}" class="btn glass">
+        {{ section.settings.cta_secondary_label }}
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "section",
+  "class": "section-hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Photobiomodulation"
+    },
+    {
+      "type": "text",
+      "id": "badge_left",
+      "label": "Badge left",
+      "default": "Engineered in the USA"
+    },
+    {
+      "type": "text",
+      "id": "badge_right",
+      "label": "Badge right",
+      "default": "Patent-Pending"
+    },
+    {
+      "type": "text",
+      "id": "heading_line1",
+      "label": "Heading line 1",
+      "default": "The future of"
+    },
+    {
+      "type": "text",
+      "id": "heading_line2",
+      "label": "Heading line 2 (italic serif)",
+      "default": "wellness."
+    },
+    {
+      "type": "textarea",
+      "id": "lede",
+      "label": "Body text",
+      "default": "is the pinnacle choice for those wanting the most effective red light, PEMF and recovery devices on the market — engineered by world-class scientists, on a mission to relentlessly innovate health."
+    },
+    {
+      "type": "text",
+      "id": "cta_primary_label",
+      "label": "Primary CTA label",
+      "default": "Shop Helios"
+    },
+    {
+      "type": "url",
+      "id": "cta_primary_url",
+      "label": "Primary CTA link"
+    },
+    {
+      "type": "text",
+      "id": "cta_secondary_label",
+      "label": "Secondary CTA label",
+      "default": "Talk to an expert"
+    },
+    {
+      "type": "url",
+      "id": "cta_secondary_url",
+      "label": "Secondary CTA link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Sleep"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value (italic serif)",
+          "default": "Deeper"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero",
+      "blocks": [
+        { "type": "stat", "settings": { "label": "Sleep", "value": "Deeper" } },
+        { "type": "stat", "settings": { "label": "Recovery", "value": "Faster" } },
+        { "type": "stat", "settings": { "label": "Skin", "value": "Brighter" } },
+        { "type": "stat", "settings": { "label": "Energy", "value": "Higher" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

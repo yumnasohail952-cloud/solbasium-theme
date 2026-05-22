@@ -1,0 +1,110 @@
+<section class="feature">
+  {%- if section.settings.image != blank -%}
+    <img
+      class="full"
+      src="{{ section.settings.image | image_url: width: 2400 }}"
+      srcset="{{ section.settings.image | image_url: width: 800 }} 800w,
+              {{ section.settings.image | image_url: width: 1600 }} 1600w,
+              {{ section.settings.image | image_url: width: 2400 }} 2400w"
+      sizes="100vw"
+      alt="{{ section.settings.image.alt | default: section.settings.heading_line1 | escape }}"
+      width="2400"
+      height="1350"
+      loading="lazy">
+  {%- else -%}
+    <img class="full" src="{{ 'hero-red-bed.webp' | asset_url }}" alt="Helios Commercial" width="2400" height="1350" loading="lazy">
+  {%- endif -%}
+
+  <div class="vignette"></div>
+  <div class="grain"></div>
+
+  <div class="overlay">
+    <div class="toprow">
+      <div class="crumb">
+        <span class="dot"></span>
+        <span>— {{ section.settings.chapter }}</span>
+      </div>
+      <span>— {{ section.settings.badge }}</span>
+    </div>
+
+    <div class="midblock">
+      <h2>{{ section.settings.heading_line1 }}<br/><span class="it">{{ section.settings.heading_line2 }}</span></h2>
+      <p class="tag">{{ section.settings.tagline }}</p>
+      <div class="actions">
+        <a href="{{ section.settings.cta_primary_url }}" class="btn primary">
+          {{ section.settings.cta_primary_label }} <span class="arrow"></span>
+        </a>
+        <a href="{{ section.settings.cta_secondary_url }}" class="btn glass">
+          {{ section.settings.cta_secondary_label }}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Product (Cinematic)",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "chapter",
+      "label": "Chapter label",
+      "default": "Chapter 01 · Full Body"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge text",
+      "default": "Patent-pending · Engineered in the USA"
+    },
+    {
+      "type": "text",
+      "id": "heading_line1",
+      "label": "Heading line 1",
+      "default": "Helios"
+    },
+    {
+      "type": "text",
+      "id": "heading_line2",
+      "label": "Heading line 2 (italic serif)",
+      "default": "Commercial."
+    },
+    {
+      "type": "textarea",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "The full-body instrument. Built to outlast every category around it."
+    },
+    {
+      "type": "text",
+      "id": "cta_primary_label",
+      "label": "Primary CTA label",
+      "default": "Shop Helios"
+    },
+    {
+      "type": "url",
+      "id": "cta_primary_url",
+      "label": "Primary CTA link"
+    },
+    {
+      "type": "text",
+      "id": "cta_secondary_label",
+      "label": "Secondary CTA label",
+      "default": "Talk to an expert"
+    },
+    {
+      "type": "url",
+      "id": "cta_secondary_url",
+      "label": "Secondary CTA link"
+    }
+  ],
+  "presets": [{ "name": "Featured Product (Cinematic)" }]
+}
+{% endschema %}

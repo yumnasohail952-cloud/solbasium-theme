@@ -1,0 +1,72 @@
+{%- comment -%}Default portrait images from the design (used when no image_picker is set){%- endcomment -%}
+{%- assign default_portraits = 'https://solbasium.com/cdn/shop/files/Gunnar-Photo.png?v=1764412019&width=1080,https://solbasium.com/cdn/shop/files/Snapinsta.app_427588680_309753268775231_2269416400002560760_n_1080.jpg?v=1708654758&width=1080,https://solbasium.com/cdn/shop/files/Snapinsta.app_422003449_2084556015212469_1074310822819935461_n_1080.jpg?v=1708825149&width=1080,https://solbasium.com/cdn/shop/files/Website_Banner_Girl_Attachment.png?v=1765188715&width=1387' | split: ',' -%}
+
+<section class="loved">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px">— {{ section.settings.eyebrow }}</div>
+        <h3>{{ section.settings.heading_line1 }} <span class="it">{{ section.settings.heading_line2 }}</span></h3>
+      </div>
+      <div class="nav">
+        <div class="arr">‹</div>
+        <div class="arr">›</div>
+      </div>
+    </div>
+
+    <div class="grid">
+      {%- for block in section.blocks -%}
+        {%- assign default_img = default_portraits[forloop.index0] -%}
+        <div class="exp" {{ block.shopify_attributes }}>
+          <div class="portrait">
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.name_plain | escape }}" width="600" height="750" loading="lazy">
+            {%- else -%}
+              <img src="{{ default_img }}" alt="{{ block.settings.name_plain | escape }}" width="600" height="750" loading="lazy">
+            {%- endif -%}
+            <span class="quote-mark">"</span>
+          </div>
+          <div class="role">— {{ block.settings.role }}</div>
+          <div class="name">{{ block.settings.name_plain }} <span class="it">{{ block.settings.name_it }}</span></div>
+          <p class="q">{{ block.settings.quote }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Experts Grid",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "From our partners" },
+    { "type": "text", "id": "heading_line1", "label": "Heading line 1", "default": "The choice of" },
+    { "type": "text", "id": "heading_line2", "label": "Heading line 2 (italic serif)", "default": "people who know." }
+  ],
+  "blocks": [
+    {
+      "type": "expert",
+      "name": "Expert",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Portrait (upload to override default)" },
+        { "type": "text", "id": "role", "label": "Role", "default": "Strength coach" },
+        { "type": "text", "id": "name_plain", "label": "Name", "default": "Gunnar" },
+        { "type": "text", "id": "name_it", "label": "Name (italic)", "default": "Peterson." },
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "We've joined forces with Solbasium to bring professional-grade recovery into real training environments." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Experts Grid",
+      "blocks": [
+        { "type": "expert", "settings": { "role": "Strength coach", "name_plain": "Gunnar", "name_it": "Peterson.", "quote": "We've joined forces with Solbasium to bring professional-grade recovery into real training environments." } },
+        { "type": "expert", "settings": { "role": "Peak Performance Gym", "name_plain": "A noticeable", "name_it": "difference.", "quote": "We've seen a noticeable difference in client satisfaction since introducing the Helios bed." } },
+        { "type": "expert", "settings": { "role": "Vitality Wellness Hub", "name_plain": "Stress-free", "name_it": "setup.", "quote": "The results speak for themselves — and the Solbasium team made the entire setup process stress-free." } },
+        { "type": "expert", "settings": { "role": "Recovery client", "name_plain": "Your path to", "name_it": "recovery.", "quote": "Discover the transformative power of Solbasium's wellness solutions — for personal and professional needs." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,138 @@
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="grid">
+      <div class="lhs">
+        <div class="eyebrow">— {{ section.settings.eyebrow }}</div>
+        <h3>{{ section.settings.heading_line1 }} <span class="it">{{ section.settings.heading_line2 }}</span></h3>
+        <p>{{ section.settings.body }}</p>
+        <div class="channels">
+          <div class="ch">
+            <span class="lbl">— By phone</span>
+            <span class="val">{{ section.settings.phone }}</span>
+            <a href="tel:{{ section.settings.phone | replace: ' ', '' | replace: '(', '' | replace: ')', '' | replace: '-', '' | prepend: '+1' }}">{{ section.settings.phone_hours }} →</a>
+          </div>
+          <div class="ch">
+            <span class="lbl">— By email</span>
+            <span class="val serif">{{ section.settings.email }}</span>
+            <a href="mailto:{{ section.settings.email }}">{{ section.settings.email_hours }} →</a>
+          </div>
+          <div class="ch">
+            <span class="lbl">— Financing</span>
+            <span class="val">{{ section.settings.financing }}</span>
+            <a href="{{ section.settings.financing_url }}">Buy now, pay later →</a>
+          </div>
+          <div class="ch">
+            <span class="lbl">— For business</span>
+            <span class="val">Wholesale &amp; Clinics</span>
+            <a href="{{ section.settings.wholesale_url }}">Apply for trade pricing →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="rhs">
+        <div class="eyebrow">— Schedule a private call</div>
+        <h4>Twenty minutes, <span class="it">no pressure.</span></h4>
+        {%- form 'contact', id: 'ContactForm' -%}
+          <div class="row2">
+            <label>First name<input type="text" name="contact[first_name]" placeholder="Naomi" required /></label>
+            <label>Last name<input type="text" name="contact[last_name]" placeholder="Chen" required /></label>
+          </div>
+          <label>Email<input type="email" name="contact[email]" value="{{ customer.email }}" placeholder="naomi@studio.com" required /></label>
+          <label>Phone<input type="tel" name="contact[phone]" placeholder="(866) 640-0835" /></label>
+          <label>Interested in
+            <select name="contact[interested_in]">
+              <option>Helios Commercial™ — Flagship</option>
+              <option>Nova Bed — Home</option>
+              <option>Flex Bed — Convertible</option>
+              <option>Quantum Roller</option>
+              <option>S2 Massage Gun</option>
+              <option>Optix Pads — Targeted</option>
+              <option>Clear PEMF Mat</option>
+              <option>Wholesale / Clinics</option>
+              <option>Not sure — please advise</option>
+            </select>
+          </label>
+          <label>Tell us a little<textarea name="contact[body]" rows="3" placeholder="What you're hoping to solve, what room it'll live in, any timing…"></textarea></label>
+          <div class="submit">
+            <span class="fine">We reply within 4 business hours. Your details stay with us.</span>
+            <button type="submit" class="btn primary">Request a call <span class="arrow"></span></button>
+          </div>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact Expert",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Concierge"
+    },
+    {
+      "type": "text",
+      "id": "heading_line1",
+      "label": "Heading line 1",
+      "default": "Talk to an"
+    },
+    {
+      "type": "text",
+      "id": "heading_line2",
+      "label": "Heading line 2 (italic serif)",
+      "default": "expert."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Choosing a Solbasium device is a long decision. Our team — engineers, coaches, and clinicians — answers the questions a product page can't."
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone number",
+      "default": "(866) 640-0835"
+    },
+    {
+      "type": "text",
+      "id": "phone_hours",
+      "label": "Phone hours",
+      "default": "Mon – Fri · 8a – 8p PT"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email address",
+      "default": "support@solbasium.com"
+    },
+    {
+      "type": "text",
+      "id": "email_hours",
+      "label": "Email response time",
+      "default": "Reply within 4 hours"
+    },
+    {
+      "type": "text",
+      "id": "financing",
+      "label": "Financing text",
+      "default": "From $416 / mo"
+    },
+    {
+      "type": "url",
+      "id": "financing_url",
+      "label": "Financing link"
+    },
+    {
+      "type": "url",
+      "id": "wholesale_url",
+      "label": "Wholesale link"
+    }
+  ],
+  "presets": [{ "name": "Contact Expert" }]
+}
+{% endschema %}

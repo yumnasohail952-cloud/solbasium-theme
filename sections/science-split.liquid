@@ -1,0 +1,81 @@
+<section class="science">
+  <div class="wrap">
+    <div class="grid">
+      <div class="lab">
+        {%- if section.settings.lab_image != blank -%}
+          <img src="{{ section.settings.lab_image | image_url: width: 1400 }}" alt="{{ section.settings.lab_image.alt | escape }}" width="1000" height="1250" loading="lazy">
+        {%- elsif section.settings.lab_image_url != blank -%}
+          <img src="{{ section.settings.lab_image_url }}" alt="Solbasium lab" width="1000" height="1250" loading="lazy">
+        {%- else -%}
+          <img src="https://solbasium.com/cdn/shop/files/Website_Banner_Background.png?v=1708823899&width=1700" alt="Solbasium red light therapy bed in studio" width="1000" height="1250" loading="lazy">
+        {%- endif -%}
+        <div class="glow"></div>
+        <div class="cyl"></div>
+        <div class="corner">REF · 0042 / LAB&nbsp;A</div>
+        <div class="label"><span class="ln"></span>{{ section.settings.lab_label }}</div>
+      </div>
+
+      <div>
+        <div class="eyebrow">— {{ section.settings.eyebrow }}</div>
+        <h3>{{ section.settings.heading_line1 }} <span class="it">{{ section.settings.heading_line2 }}</span></h3>
+        <p class="lede">{{ section.settings.lede }}</p>
+
+        <div class="stats">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'stat' -%}
+              <div class="stat" {{ block.shopify_attributes }}>
+                <div class="v">
+                  {{ block.settings.value }}
+                  {%- if block.settings.unit == '×' -%}
+                    <span class="it">×</span>
+                  {%- elsif block.settings.unit != blank -%}
+                    <sup>{{ block.settings.unit }}</sup>
+                  {%- endif -%}
+                </div>
+                <div class="k">{{ block.settings.label }}</div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        <div class="cite">{{ section.settings.citation }}</div>
+        <div class="actions" style="margin-top:32px">
+          <a href="{{ section.settings.cta_url | default: '#' }}" class="btn primary">
+            {{ section.settings.cta_label }} <span class="arrow"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Science Split",
+  "tag": "section",
+  "settings": [
+    { "type": "image_picker", "id": "lab_image", "label": "Lab image (upload to override)" },
+    { "type": "text", "id": "lab_image_url", "label": "Lab image URL (fallback)", "default": "" },
+    { "type": "text", "id": "lab_label", "label": "Lab label", "default": "Spectrometer-validated · USA" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Patent-pending innovations" },
+    { "type": "text", "id": "heading_line1", "label": "Heading line 1", "default": "Built by" },
+    { "type": "text", "id": "heading_line2", "label": "Heading line 2 (italic serif)", "default": "engineers." },
+    { "type": "textarea", "id": "lede", "label": "Body text", "default": "Solbasium is engineered by world-class scientists on a mission to relentlessly innovate health and wellness. Spectrometer-validated. Industry-leading warranty. A portion of every purchase supports the National Pediatric Cancer Foundation." },
+    { "type": "text", "id": "citation", "label": "Citation", "default": "Cohort n=312 · 8-week double-blind · internal validation" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Read the white paper" },
+    { "type": "url", "id": "cta_url", "label": "CTA link" }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "94" },
+        { "type": "text", "id": "unit", "label": "Unit (% or ×)", "default": "%" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Sleep quality improvement at 8 weeks" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Science Split" }]
+}
+{% endschema %}

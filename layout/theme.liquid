@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#363533">
+
+  <title>
+    {%- if request.page_type == 'index' -%}
+      {{ shop.name }} — Relentless Innovation
+    {%- else -%}
+      {{ page_title }} — {{ shop.name }}
+    {%- endif -%}
+  </title>
+
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+
+  {{ content_for_header }}
+
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700,800&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+</head>
+<body>
+
+<!-- SVG filters for grain + glow -->
+<svg width="0" height="0" style="position:absolute;pointer-events:none">
+  <defs>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 1  0 0 0 0 0.95  0 0 0 0 0.85  0 0 0 0.18 0"/>
+      <feComposite in2="SourceGraphic" operator="in"/>
+    </filter>
+    <filter id="grain-dark" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.22 0"/>
+      <feComposite in2="SourceGraphic" operator="in"/>
+    </filter>
+  </defs>
+</svg>
+
+<!-- Announcement bar -->
+<div class="announce">
+  <div class="marq">
+    <div class="marq-track">
+      <span>Relentless Innovation</span><span class="dot">◆</span>
+      <span>2% of every purchase → The National Pediatric Cancer Foundation</span><span class="dot">◆</span>
+      <span>Buy now, pay later · financing from $416 / mo</span><span class="dot">◆</span>
+      <span>Industry-leading warranty · white-glove delivery</span><span class="dot">◆</span>
+      <span>New: S2 Red Light Massage Gun — world's first</span><span class="dot">◆</span>
+      <span>Relentless Innovation</span><span class="dot">◆</span>
+      <span>2% of every purchase → The National Pediatric Cancer Foundation</span><span class="dot">◆</span>
+      <span>Buy now, pay later · financing from $416 / mo</span><span class="dot">◆</span>
+      <span>Industry-leading warranty · white-glove delivery</span><span class="dot">◆</span>
+      <span>New: S2 Red Light Massage Gun — world's first</span><span class="dot">◆</span>
+    </div>
+  </div>
+  <div class="right"><span>EN · USD $</span><span>⌄</span></div>
+</div>
+
+<!-- Navigation -->
+<nav class="top">
+  <div class="row">
+    <div class="links">
+      <a href="/collections" class="has-caret shop-trigger">Shop</a>
+      <a href="/pages/recovery">Recovery</a>
+      <a href="/blogs/learn">Learn</a>
+      <a href="#contact" class="talk">
+        <span class="livedot"></span>Talk to an Expert
+      </a>
+    </div>
+
+    <a href="/" class="logo">
+      <span class="mark"></span>
+      <span>{{ shop.name }}</span>
+    </a>
+
+    <div class="right">
+      <a href="/search" class="icon-btn">Search</a>
+      <a href="/account" class="icon-btn">Account</a>
+      <a href="/cart" class="icon-btn">
+        Bag
+        <span class="cart-badge">{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Mega Menu -->
+  <div class="mega" id="mega-shop">
+    <div class="mega-inner">
+      <div class="col-lists">
+        <div>
+          <h6 class="mega-h">— Targeted Red Light</h6>
+          <ul>
+            <li><a href="/products/quantum-roller">Quantum Roller</a></li>
+            <li><a href="/products/s2-massage-gun">S2 Massage Gun</a></li>
+            <li><a href="/collections/optix-pads">Optix Body Pads</a></li>
+            <li><a href="/products/solbasium-bright">Bright</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6 class="mega-h">— Full Body Solutions</h6>
+          <ul>
+            <li><a href="/products/nova-red-light-therapy-bed">Nova Red Light Therapy Bed</a></li>
+            <li><a href="/products/flex-red-light-therapy-bed">Flex Red Light Therapy Bed</a></li>
+            <li><a href="/products/helios-commercial">Helios Red Light Therapy Bed</a></li>
+            <li><a href="/products/clear-pemf-mat">Clear PEMF Mat</a></li>
+            <li><a href="/products/cryothrive-elite">Cryothrive Elite</a></li>
+          </ul>
+        </div>
+      </div>
+
+      {%- assign mega_helios = all_products['helios-commercial'] -%}
+      {%- assign mega_s2 = all_products['s2-massage-gun'] -%}
+
+      <a class="feat" href="/products/helios-commercial">
+        <div class="feat-img">
+          {%- if mega_helios.featured_image -%}
+            <img
+              src="{{ mega_helios.featured_image | image_url: width: 600 }}"
+              alt="{{ mega_helios.title | escape }}"
+              width="600"
+              height="600"
+              loading="lazy">
+          {%- else -%}
+            <img src="{{ 'hero-red-bed.webp' | asset_url }}" alt="Helios Red Light Bed" width="600" height="600" loading="lazy">
+          {%- endif -%}
+        </div>
+        <div class="feat-name">Helios Red Light Bed</div>
+      </a>
+
+      <a class="feat" href="/products/s2-massage-gun">
+        <div class="feat-img">
+          {%- if mega_s2.featured_image -%}
+            <img
+              src="{{ mega_s2.featured_image | image_url: width: 600 }}"
+              alt="{{ mega_s2.title | escape }}"
+              width="600"
+              height="600"
+              loading="lazy">
+          {%- else -%}
+            <img src="{{ 'helios-product.webp' | asset_url }}" alt="S2 Massage Gun" width="600" height="600" loading="lazy">
+          {%- endif -%}
+        </div>
+        <div class="feat-name">S2 Massage Gun</div>
+      </a>
+    </div>
+  </div>
+</nav>
+
+{{ content_for_layout }}
+
+<!-- Footer -->
+<footer>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <div class="logo">
+          <span class="mark"></span>
+          <span>{{ shop.name }}</span>
+        </div>
+        <p class="tag">Relentless Innovation. Engineered for the people who refuse to settle.</p>
+      </div>
+      <div class="col">
+        <h5>Shop</h5>
+        <ul>
+          <li><a href="/products/helios-commercial">Helios Commercial™</a></li>
+          <li><a href="/products/nova-red-light-therapy-bed">Nova Bed</a></li>
+          <li><a href="/products/flex-red-light-therapy-bed">Flex Bed</a></li>
+          <li><a href="/products/quantum-roller">Quantum Roller</a></li>
+          <li><a href="/products/s2-massage-gun">S2 Massage Gun</a></li>
+          <li><a href="/collections/optix-pads">Optix Pads</a></li>
+          <li><a href="/products/clear-pemf-mat">Clear PEMF Mat</a></li>
+          <li><a href="/products/solbasium-bright">Solbasium Bright</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h5>Customer Care</h5>
+        <ul>
+          <li><a href="/pages/financing">Financing Calculator</a></li>
+          <li><a href="/pages/faq">FAQs</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+          <li><a href="/policies/shipping-policy">Shipping &amp; Returns</a></li>
+          <li><a href="/policies/refund-policy">Warranty Policy</a></li>
+          <li><a href="/pages/npcf">NPCF Donations</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h5>Work With Us</h5>
+        <ul>
+          <li><a href="/pages/partnerships">Partnerships</a></li>
+          <li><a href="/pages/wholesale">Wholesale</a></li>
+          <li><a href="/pages/innovators-program">Innovators Program</a></li>
+          <li><a href="/pages/about">About Us</a></li>
+          <li><a href="/pages/press">Press</a></li>
+          <li><a href="/pages/careers">Careers</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom">
+      <span>© {{ shop.name }} {{ 'now' | date: '%Y' }} · (866) 640-0835 · Engineered in the USA</span>
+      <span>
+        <a href="/policies/privacy-policy">Privacy</a> ·
+        <a href="/policies/terms-of-service">Terms</a> ·
+        <a href="/pages/warranty">Warranty</a> ·
+        <a href="/pages/accessibility">Accessibility</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+{{ 'theme.js' | asset_url | script_tag }}
+
+</body>
+</html>

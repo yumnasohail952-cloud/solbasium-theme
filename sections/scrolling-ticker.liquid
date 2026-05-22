@@ -1,0 +1,29 @@
+<div class="ticker">
+  <div class="track">
+    {%- for i in (1..5) -%}
+      <span>{{ section.settings.word1 }}</span><span class="it">{{ section.settings.word2 }}</span><span class="star"></span>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Scrolling Ticker",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "word1",
+      "label": "Word 1 (sans)",
+      "default": "Relentless"
+    },
+    {
+      "type": "text",
+      "id": "word2",
+      "label": "Word 2 (italic serif)",
+      "default": "Innovation."
+    }
+  ],
+  "presets": [{ "name": "Scrolling Ticker" }]
+}
+{% endschema %}

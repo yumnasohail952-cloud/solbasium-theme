@@ -1,0 +1,85 @@
+<div class="wrap">
+  <section class="press">
+    <div class="head">
+      <div>
+        <span class="label" style="display:block;margin-bottom:14px">— In the spotlight</span>
+        <h3>As seen <span class="it">in.</span></h3>
+      </div>
+      <span class="label">{{ section.settings.year_range }}</span>
+    </div>
+    <div class="marks">
+      {%- for block in section.blocks -%}
+        <div class="quote" {{ block.shopify_attributes }}>
+          <div class="logo {{ block.settings.logo_style }}">
+            {{ block.settings.publication_name }}
+          </div>
+          <p class="q">{{ block.settings.quote }}</p>
+          <span class="accolade">{{ block.settings.accolade }}</span>
+        </div>
+      {%- endfor -%}
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Press Mentions",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "year_range",
+      "label": "Year range",
+      "default": "2024 / 2025"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "mention",
+      "name": "Press Mention",
+      "settings": [
+        {
+          "type": "text",
+          "id": "publication_name",
+          "label": "Publication name",
+          "default": "Vogue"
+        },
+        {
+          "type": "select",
+          "id": "logo_style",
+          "label": "Logo style",
+          "options": [
+            { "value": "", "label": "Serif (default)" },
+            { "value": "sans", "label": "Sans-serif" },
+            { "value": "compressed", "label": "Compressed" }
+          ],
+          "default": ""
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "A genuinely calibrated device — the bed that finally takes red light seriously."
+        },
+        {
+          "type": "text",
+          "id": "accolade",
+          "label": "Accolade / award",
+          "default": "Wellness Awards · 2025"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Press Mentions",
+      "blocks": [
+        { "type": "mention", "settings": { "publication_name": "Vogue", "logo_style": "", "quote": "A genuinely calibrated device — the bed that finally takes red light seriously.", "accolade": "Wellness Awards · 2025" } },
+        { "type": "mention", "settings": { "publication_name": "Robb Report", "logo_style": "sans", "quote": "Object of the year for serious athletes and serious investors.", "accolade": "Best of 2025" } },
+        { "type": "mention", "settings": { "publication_name": "GOOP", "logo_style": "sans", "quote": "Engineering this rare in wellness is genuinely worth paying attention to.", "accolade": "Wellness Essential" } },
+        { "type": "mention", "settings": { "publication_name": "Men's Health", "logo_style": "compressed", "quote": "Best in recovery, full stop — from a brand built by actual engineers.", "accolade": "Best in Recovery · 2024" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

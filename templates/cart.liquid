@@ -1,0 +1,46 @@
+<div class="wrap" style="padding:80px 40px">
+  <div class="eyebrow" style="margin-bottom:24px">— Your bag</div>
+  <h1 style="font-size:clamp(40px,5vw,72px);margin-bottom:48px">Your <span class="it">cart.</span></h1>
+
+  {%- if cart.item_count == 0 -%}
+    <p style="color:var(--ink-2);font-size:17px">Your bag is empty.</p>
+    <a href="/collections" class="btn primary" style="margin-top:32px;display:inline-flex">Shop now <span class="arrow"></span></a>
+  {%- else -%}
+    {%- form 'cart', cart -%}
+      <div style="display:grid;grid-template-columns:1fr 360px;gap:64px;align-items:start">
+        <div>
+          {%- for item in cart.items -%}
+            <div style="display:grid;grid-template-columns:100px 1fr auto;gap:24px;align-items:start;padding:24px 0;border-bottom:1px solid var(--line-2)">
+              <a href="{{ item.url }}">
+                <img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.title | escape }}" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:2px">
+              </a>
+              <div>
+                <div style="font-weight:700;font-size:16px;text-transform:uppercase;letter-spacing:-.005em">{{ item.product.title }}</div>
+                {%- unless item.variant.title == 'Default Title' -%}
+                  <div style="color:var(--ink-3);font-size:13px;margin-top:4px">{{ item.variant.title }}</div>
+                {%- endunless -%}
+                <div style="margin-top:12px;display:flex;align-items:center;gap:12px">
+                  <input type="number" name="updates[]" value="{{ item.quantity }}" min="0"
+                    style="width:60px;border:1px solid var(--line-2);padding:6px 10px;font-family:var(--mono);font-size:13px;background:transparent;text-align:center">
+                </div>
+              </div>
+              <div style="font-weight:600;font-size:15px">{{ item.final_line_price | money }}</div>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <div style="background:var(--gray);padding:40px;border-radius:2px;position:sticky;top:100px">
+          <div class="eyebrow" style="margin-bottom:24px">— Order summary</div>
+          <div style="display:flex;justify-content:space-between;font-size:15px;margin-bottom:12px">
+            <span>Subtotal</span><span style="font-weight:600">{{ cart.total_price | money }}</span>
+          </div>
+          <p style="font-size:12px;color:var(--ink-3);letter-spacing:.05em;text-transform:uppercase;margin-bottom:24px">Shipping + taxes calculated at checkout</p>
+          <button type="submit" name="checkout" class="btn primary" style="width:100%;justify-content:center">
+            Checkout <span class="arrow"></span>
+          </button>
+          <a href="/collections" style="display:block;text-align:center;margin-top:16px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)">Continue shopping</a>
+        </div>
+      </div>
+    {%- endform -%}
+  {%- endif -%}
+</div>

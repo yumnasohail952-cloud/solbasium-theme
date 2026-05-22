@@ -1,0 +1,22 @@
+<div class="wrap" style="padding:80px 40px">
+  <div class="eyebrow" style="margin-bottom:16px">— {{ blog.title }}</div>
+  <h1 style="font-size:clamp(48px,6vw,92px);margin-bottom:48px">Read, before you <span class="it">buy.</span></h1>
+  <div class="journal"><div class="grid">
+    {%- for article in blog.articles -%}
+      <a class="article" href="{{ article.url }}">
+        <div class="img">
+          {%- if article.image -%}
+            <img src="{{ article.image | image_url: width: 900 }}" alt="{{ article.image.alt | default: article.title | escape }}" width="900" height="720" loading="lazy">
+          {%- endif -%}
+          <span class="tag">{{ article.tags.first | default: 'Article' }}</span>
+          <span class="read">Read →</span>
+        </div>
+        <h4>{{ article.title }}</h4>
+        <p>{{ article.excerpt | default: article.content | strip_html | truncate: 120 }}</p>
+      </a>
+    {%- endfor -%}
+  </div></div>
+  {%- if paginate.pages > 1 -%}
+    <div style="margin-top:64px;text-align:center">{{ paginate | default_pagination }}</div>
+  {%- endif -%}
+</div>

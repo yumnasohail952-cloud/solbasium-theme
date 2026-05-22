@@ -1,0 +1,92 @@
+{%- assign journal_blog = blogs[section.settings.blog] -%}
+{%- comment -%}Default article images from the design{%- endcomment -%}
+{%- assign default_imgs = 'https://solbasium.com/cdn/shop/files/Website_Banner_Background.png?v=1708823899&width=1700,https://solbasium.com/cdn/shop/files/Gunnar-Photo.png?v=1764412019&width=1080,https://solbasium.com/cdn/shop/files/BACKBACK.png?v=1730614908&width=1080' | split: ',' -%}
+
+<section class="journal">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px">— {{ section.settings.eyebrow }}</div>
+        <h3>{{ section.settings.heading_line1 }} <span class="it">{{ section.settings.heading_line2 }}</span></h3>
+      </div>
+      <a href="{{ section.settings.all_articles_url | default: '/blogs/learn' }}" class="btn ghost">All essays <span class="arrow"></span></a>
+    </div>
+
+    <div class="grid">
+      {%- if journal_blog != blank -%}
+        {%- for article in journal_blog.articles limit: 3 -%}
+          <a class="article" href="{{ article.url }}">
+            <div class="img">
+              {%- if article.image -%}
+                <img src="{{ article.image | image_url: width: 900 }}" alt="{{ article.image.alt | default: article.title | escape }}" width="900" height="720" loading="lazy">
+              {%- else -%}
+                <img src="{{ default_imgs[forloop.index0] }}" alt="{{ article.title | escape }}" width="900" height="720" loading="lazy">
+              {%- endif -%}
+              <span class="tag">{{ article.tags.first | default: 'Article' }} · {{ article.content | strip_html | size | divided_by: 1000 | plus: 1 }} min</span>
+              <span class="read">Read →</span>
+            </div>
+            <h4>{{ article.title }}</h4>
+            <p>{{ article.excerpt | default: article.content | strip_html | truncate: 120 }}</p>
+          </a>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'article' -%}
+            {%- assign fallback_img = default_imgs[forloop.index0] -%}
+            <a class="article" href="{{ block.settings.url | default: '#' }}" {{ block.shopify_attributes }}>
+              <div class="img">
+                {%- if block.settings.image != blank -%}
+                  <img src="{{ block.settings.image | image_url: width: 900 }}" alt="{{ block.settings.title_plain | escape }}" width="900" height="720" loading="lazy">
+                {%- else -%}
+                  <img src="{{ fallback_img }}" alt="{{ block.settings.title_plain | escape }}" width="900" height="720" loading="lazy">
+                {%- endif -%}
+                <span class="tag">{{ block.settings.tag }}</span>
+                <span class="read">Read →</span>
+              </div>
+              <h4>{{ block.settings.title_plain }} <span class="it">{{ block.settings.title_it }}</span></h4>
+              <p>{{ block.settings.excerpt }}</p>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Journal Articles",
+  "tag": "section",
+  "settings": [
+    { "type": "blog", "id": "blog", "label": "Blog (auto-pulls articles when set)" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Learn" },
+    { "type": "text", "id": "heading_line1", "label": "Heading line 1", "default": "Read, before you" },
+    { "type": "text", "id": "heading_line2", "label": "Heading line 2 (italic serif)", "default": "buy." },
+    { "type": "url", "id": "all_articles_url", "label": "All articles URL" }
+  ],
+  "blocks": [
+    {
+      "type": "article",
+      "name": "Article",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image (upload to override default)" },
+        { "type": "text", "id": "tag", "label": "Tag", "default": "Guide · 8 min" },
+        { "type": "text", "id": "title_plain", "label": "Title", "default": "How to buy" },
+        { "type": "text", "id": "title_it", "label": "Title (italic serif)", "default": "a red light bed." },
+        { "type": "textarea", "id": "excerpt", "label": "Excerpt", "default": "What to ask, what to ignore, and the specs that actually move the needle." },
+        { "type": "url", "id": "url", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Journal Articles",
+      "blocks": [
+        { "type": "article", "settings": { "tag": "Guide · 8 min", "title_plain": "How to buy", "title_it": "a red light bed.", "excerpt": "What to ask, what to ignore, and the specs that actually move the needle." } },
+        { "type": "article", "settings": { "tag": "Profile · 12 min", "title_plain": "A morning with", "title_it": "Gunnar Peterson.", "excerpt": "The strength coach behind a generation of athletes on the rituals that survive." } },
+        { "type": "article", "settings": { "tag": "Manual · 6 min", "title_plain": "Red light for", "title_it": "muscle recovery.", "excerpt": "The dose, the protocol, and what the literature actually says about photobiomodulation." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
